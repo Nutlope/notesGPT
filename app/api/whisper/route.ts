@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 import * as fal from '@fal-ai/serverless-client';
 
-export async function GET(request: Request) {
-  // const body = await request.json();
+export async function POST(request: Request) {
+  const { fileUrl } = await request.json();
 
   const result = await fal.subscribe('110602490-whisper', {
     input: {
-      url: 'https://cdn.freesound.org/previews/324/324783_5589643-lq.mp3',
+      url: fileUrl,
     },
     logs: true,
     onQueueUpdate: (update: any) => {
@@ -18,5 +18,6 @@ export async function GET(request: Request) {
 
   console.log({ result });
 
-  return NextResponse.json(result);
+  // @ts-ignore
+  return NextResponse.json({ text: result.result || 'nothing' });
 }

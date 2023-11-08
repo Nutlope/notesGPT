@@ -7,8 +7,8 @@ Your AI journal to vent or take notes with your voice and track your days.
 ## v1
 
 - [x] Add whisper v3 endpoint through Fal
-- [ ] Figure out how to stream whisper results to the frontend
-- [ ] Figure out how to record mp3 from frontend to send it to Fal
+- [x] Figure out how to get whisper results to the frontend
+- [x] Figure out how to record mp3 from frontend to send it to Fal
 - [ ] Add GPT-4 Turbo call to format notes in paragraphs or bullet points + add action items
 - [ ] Add DALLE-3 api call to generate a visualization of the summary
 - [ ] Add a GPT-3.5 Turbo call to classify an emotion for the entry to add it
