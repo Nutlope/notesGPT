@@ -29,5 +29,6 @@ Your AI journal take notes on the go with your voice and translate them into act
 
 ## v2 (stretch)
 
-- [ ] Email reminders through Resend powered by Convex scheduled functions
+- [ ] Email reminders through Resend powered by Convex cron jobs
+- [ ] Convex scheduled functions to send initial email to user that says "welcome"
 - [ ] Add a mind map visualization?
