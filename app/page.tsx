@@ -4,16 +4,21 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
-import * as Bytescale from '@bytescale/sdk';
+import { useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
+// import * as Bytescale from '@bytescale/sdk';
 
-const uploadManager = new Bytescale.UploadManager({
-  apiKey: process.env.NEXT_PUBLIC_BYTESCALE_API_KEY!,
-});
+// const uploadManager = new Bytescale.UploadManager({
+//   apiKey: process.env.NEXT_PUBLIC_BYTESCALE_API_KEY!,
+// });
 
 export default function AudioRecorder() {
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [audioURL, setAudioURL] = useState('');
   const [transcript, setTranscript] = useState('');
+
+  const generateUploadUrl = useMutation(api.notes.generateUploadUrl);
+  const createNote = useMutation(api.notes.createNote);
 
   async function startRecording() {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -30,9 +35,21 @@ export default function AudioRecorder() {
       setAudioURL(audioUrl);
 
       // saveAs(audioBlob, 'recording.mp3');
-      const { fileUrl } = await uploadManager.upload({
-        data: audioBlob,
+
+      const postUrl = await generateUploadUrl();
+      const result = await fetch(postUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'audio/mp3' },
+        body: audioBlob,
       });
+      const { storageId } = await result.json();
+      let fileUrl = await createNote({
+        storageId,
+      });
+
+      // const { fileUrl } = await uploadManager.upload({
+      //   data: audioBlob,
+      // });
       let res = await fetch('/api/whisper', {
         method: 'POST',
         headers: {
