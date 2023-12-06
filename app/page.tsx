@@ -6,11 +6,18 @@ import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
-// import * as Bytescale from '@bytescale/sdk';
 
-// const uploadManager = new Bytescale.UploadManager({
-//   apiKey: process.env.NEXT_PUBLIC_BYTESCALE_API_KEY!,
-// });
+let audioBlob = new Blob();
+
+import * as Bytescale from '@bytescale/sdk';
+
+const uploadManager = new Bytescale.UploadManager({
+  apiKey: process.env.NEXT_PUBLIC_BYTESCALE_API_KEY!,
+});
+
+const { fileUrl } = await uploadManager.upload({
+  data: audioBlob,
+});
 
 export default function AudioRecorder() {
   const [mediaRecorder, setMediaRecorder] = useState(null);
