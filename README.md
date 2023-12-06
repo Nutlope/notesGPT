@@ -17,20 +17,21 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Implement frontend: dashboard
 - [x] Implement frontend: todo list
 - [x] Implement frontend: Main recording page
-- [ ] Implement frontend: landing page
+- [x] Implement frontend: Landing Page
 
 ## v1 - backend + polish
 
-- [ ] Display the transcript in the frontend
+- [x] Display the transcript in the frontend
+- [x] Switch to Replicate for whisper endpoint (https://replicate.com/vaibhavs10/incredibly-fast-whisper)
 - [ ] Add GPT-4 Turbo call to format notes into bullet points + add action items
 - [ ] Add auth with Clerk through Convex
-- [ ] Add Convex DB to store recording info of users
-- [ ] Switch to Replicate for whisper endpoint (https://replicate.com/vaibhavs10/incredibly-fast-whisper)
-- [ ] Make sure the transcript gets streamed into the frontend
+- [ ] Add Convex DB to store transcripts + user action items
+- [ ] Integrate frontend + backend
 - [ ] Add Convex vector search for searching
 
 ## v2 (stretch)
 
+- [ ] Make sure the transcript gets streamed into the frontend
 - [ ] Email reminders through Resend powered by Convex cron jobs
 - [ ] Convex scheduled functions to send initial email to user that says "welcome"
 - [ ] Add a mind map visualization?

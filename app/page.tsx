@@ -7,18 +7,6 @@ import { useState } from 'react';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 
-let audioBlob = new Blob();
-
-import * as Bytescale from '@bytescale/sdk';
-
-const uploadManager = new Bytescale.UploadManager({
-  apiKey: process.env.NEXT_PUBLIC_BYTESCALE_API_KEY!,
-});
-
-const { fileUrl } = await uploadManager.upload({
-  data: audioBlob,
-});
-
 export default function AudioRecorder() {
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [audioURL, setAudioURL] = useState('');
@@ -41,8 +29,6 @@ export default function AudioRecorder() {
       const audioUrl = URL.createObjectURL(audioBlob);
       setAudioURL(audioUrl);
 
-      // saveAs(audioBlob, 'recording.mp3');
-
       const postUrl = await generateUploadUrl();
       const result = await fetch(postUrl, {
         method: 'POST',
@@ -54,9 +40,6 @@ export default function AudioRecorder() {
         storageId,
       });
 
-      // const { fileUrl } = await uploadManager.upload({
-      //   data: audioBlob,
-      // });
       let res = await fetch('/api/whisper', {
         method: 'POST',
         headers: {
