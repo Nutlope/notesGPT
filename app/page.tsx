@@ -6,11 +6,14 @@ import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import { getCurrentFormattedDate } from '@/lib/utils';
 
 export default function AudioRecorder() {
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [audioURL, setAudioURL] = useState('');
   const [transcript, setTranscript] = useState('');
+  const [summary, setSummary] = useState('');
+  const [actionItems, setActionItems] = useState([]);
 
   const generateUploadUrl = useMutation(api.notes.generateUploadUrl);
   const createNote = useMutation(api.notes.createNote);
@@ -40,6 +43,8 @@ export default function AudioRecorder() {
         storageId,
       });
 
+      console.log({ fileUrl });
+
       let res = await fetch('/api/whisper', {
         method: 'POST',
         headers: {
@@ -52,9 +57,23 @@ export default function AudioRecorder() {
 
       let data = await res.json();
       setTranscript(data.text);
-      console.log({ fileUrl });
-    };
 
+      let res2 = await fetch('/api/openai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          transcript: data.text,
+        }),
+      });
+
+      let openaiRes = await res2.json();
+      const parsedOutput = JSON.parse(openaiRes.output);
+      console.log({ parsedOutput });
+      setSummary(parsedOutput.summary);
+      setActionItems(parsedOutput.actionItems);
+    };
     setMediaRecorder(recorder as any);
     recorder.start();
   }
@@ -63,6 +82,8 @@ export default function AudioRecorder() {
     // @ts-ignore
     mediaRecorder.stop();
   }
+
+  const formattedDate = getCurrentFormattedDate();
 
   return (
     <div className="flex flex-col h-screen">
@@ -84,19 +105,7 @@ export default function AudioRecorder() {
             <line x1="4" x2="4" y1="22" y2="15" />
           </svg>
         </div>
-        <Button className="rounded-full" size="icon" variant="ghost">
-          {/* <img
-            alt="Avatar"
-            className="rounded-full"
-            height="32"
-            src="/placeholder.svg"
-            style={{
-              aspectRatio: '32/32',
-              objectFit: 'cover',
-            }}
-            width="32"
-          /> */}
-        </Button>
+        <Button className="rounded-full" size="icon" variant="ghost"></Button>
       </header>
       <main className="flex flex-col items-center justify-center flex-grow p-4 space-y-8">
         <div className="flex flex-col items-center space-y-4">
@@ -136,7 +145,8 @@ export default function AudioRecorder() {
           <Input placeholder="Search recordings..." type="search" />
           <div className="border rounded-lg p-4 space-y-2">
             <div className="flex justify-between items-center">
-              <p className="font-medium">November 8, 2023 - 10:30 AM</p>
+              {/* <p className="font-medium">November 8, 2023 - 10:30 AM</p> */}
+              <p className="font-medium">{formattedDate}</p>
               <Button size="icon" variant="ghost">
                 <svg
                   className=" h-5 w-5"
@@ -154,9 +164,32 @@ export default function AudioRecorder() {
                 </svg>
               </Button>
             </div>
-            {transcript && (
-              <p className="text-sm text-gray-500">{transcript}</p>
-            )}
+            <div className="space-y-4 mt-5">
+              {transcript && (
+                <>
+                  <h1 className="text-xl">Transcript</h1>
+                  <p className="text-sm text-gray-500">{transcript}</p>
+                </>
+              )}
+              {summary && (
+                <>
+                  <h1 className="text-xl">Summary</h1>
+                  <p className="text-sm text-gray-500">{summary}</p>
+                </>
+              )}
+              {actionItems.length > 0 && (
+                <>
+                  <h1 className="text-xl">Action Items</h1>
+                  <ul className="list-disc">
+                    {actionItems.map((item, idx) => (
+                      <li className="text-sm text-gray-500 ml-5" key={idx}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </main>
