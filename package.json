@@ -20,7 +20,7 @@
     "convex": "^1.6.2",
     "file-saver": "^2.0.5",
     "lucide-react": "^0.292.0",
-    "next": "14.0.1",
+    "next": "^14.0.4",
     "openai": "^4.20.1",
     "react": "^18",
     "react-dom": "^18",
