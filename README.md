@@ -1,4 +1,4 @@
-# JournalGPT
+# NotesGPT
 
 Your AI journal take notes on the go with your voice and translate them into action items.
 
@@ -24,10 +24,11 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Display the transcript in the frontend
 - [x] Switch to Replicate for whisper endpoint (https://replicate.com/vaibhavs10/incredibly-fast-whisper)
 - [x] Add GPT-4 Turbo call to format notes into bullet points + add action items
-- [ ] Add auth with Clerk through Convex
+- [x] Add auth with Clerk through Convex
 - [ ] Move the OpenAI and Replicate call to Convex actions
 - [ ] Add Convex DB to store transcripts + user action items
 - [ ] Integrate frontend + backend
+- [ ] Add header where folks can sign in and sign out. Also make sure landing page isn't protected
 - [ ] Add Convex vector search for searching
 
 ## v2 (stretch)
