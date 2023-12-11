@@ -18,6 +18,9 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Implement frontend: todo list
 - [x] Implement frontend: Main recording page
 - [x] Implement frontend: Landing Page
+- [ ] Add full profile from roomGPT to header
+- [ ] Add how it works section to landing page and decrease font for everything
+- [ ] Clean up code
 
 ## v1 - backend + polish
 
@@ -33,7 +36,6 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [ ] Add Convex vector search for searching
 - [ ] Add appropriate loading and error states
 - [ ] Make sure it works well on mobile + desktop
-- [ ] Add how it works section
 
 ## v2 (stretch)
 
