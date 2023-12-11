@@ -1,6 +1,6 @@
 {
-  "name": "journal-gpt",
-  "version": "0.1.0",
+  "name": "notes-gpt",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "npm-run-all --parallel dev:server dev:client",

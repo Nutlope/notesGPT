@@ -6,7 +6,7 @@ import ConvexClientProvider from './ConvexClientProvider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'JournalGPT',
+  title: 'notesGPT',
   description: 'Your personal AI journal',
 };
 

@@ -1,4 +1,3 @@
-import CustomNav from '@/components/global/CustomNav';
 import Image from 'next/image';
 import React from 'react';
 
@@ -26,8 +25,6 @@ const actionItems: any = [
 const ActionItemsPage = () => {
   return (
     <div className="w-full bg-light md:bg-transparent h-full min-h-[100vh]">
-      {/* navbar */}
-      <CustomNav title="Action Items" />
       {/* search bar visible only mobile devices */}
       <div
         className="w-[90%] mx-auto md:w-[623px] mt-4 mb-4 md:mb-[42px] bg-white rounded h-fit px-[11px] sm:px-[15px] md:px-[40px] py-[10px] md:py-[13px] flex items-center gap-[17px] md:hidden"

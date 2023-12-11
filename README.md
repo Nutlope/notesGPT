@@ -18,9 +18,7 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Implement frontend: todo list
 - [x] Implement frontend: Main recording page
 - [x] Implement frontend: Landing Page
-- [ ] Add full profile from roomGPT to header
-- [ ] Add how it works section to landing page and decrease font for everything
-- [ ] Clean up code
+- [x] Clean up code
 
 ## v1 - backend + polish
 
@@ -29,16 +27,24 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Add GPT-4 Turbo call to format notes into bullet points + add action items
 - [x] Add auth with Clerk through Convex
 - [x] Troubleshoot auth not working
-- [ ] Integrate frontend + backend
+- [x] Integrate frontend + backend
+- [x] Edit styles on the dashboard page to make sense
+
+## v1.5 - the convex way + cleanup
+
 - [ ] Move the OpenAI and Replicate call to Convex actions
 - [ ] Add Convex DB to store transcripts + user action items
-- [ ] Add header where folks can sign in and sign out. Also make sure landing page isn't protected
-- [ ] Add Convex vector search for searching
+- [ ] Finalize the quick-check page while fetching from the DB
+- [ ] Finalize the action items page while fetching from DB
+- [ ] Add dropdown to profile header where folks can sign in and sign out.
 - [ ] Add appropriate loading and error states
+- [ ] Implement the dashboard deleting notes
 - [ ] Make sure it works well on mobile + desktop
+- [ ] Add how it works section to landing page and decrease font for everything
 
 ## v2 (stretch)
 
+- [ ] Add Convex vector search for searching
 - [ ] Make sure the transcript gets streamed into the frontend
 - [ ] Email reminders through Resend powered by Convex cron jobs
 - [ ] Convex scheduled functions to send initial email to user that says "welcome"

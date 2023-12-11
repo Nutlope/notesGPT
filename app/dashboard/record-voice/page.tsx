@@ -115,20 +115,22 @@ const RecordVoicePage = () => {
     } else if (title === 'Recording...') {
       setTitle('Processing...');
       stopRecording();
-      // TODO: Do a router.push here when it's done processing
+      // TODO: Do a router.push here when it's done processing OR just combine this page with quick-check
     }
   };
 
   return (
-    <div className="h-[calc(100vh-60px)] md:h-[calc(100vh-85px)] bg-light flex flex-col justify-between items-center">
-      <h1 className="text-xl pt-[25px] md:pt-[47px] md:text-[35px] font-medium text-dark text-center mb-0 pb-0">
+    <div className="bg-light flex flex-col justify-between items-center">
+      <h1 className="text-xl pt-[25px] md:pt-[47px] md:text-[35px] font-medium text-dark text-center">
         {title}
       </h1>
-      <p className="text-gray-400 mb-5">{formattedDate}</p>
+      <p className="text-gray-400 mb-5 mt-2">{formattedDate}</p>
       <div className="w-[316px] h-[316px] mx-auto relative flex items-center justify-center">
         <div
-          className={`w-full h-full recording-box rounded-[50%] p-[12%] pt-[17%] absolute  ${
-            title !== 'Start' ? 'record-animation' : ''
+          className={`w-full h-full recording-box rounded-[50%] p-[12%] pt-[17%] absolute ${
+            title !== 'Record your voice note' && title !== 'Processing...'
+              ? 'record-animation'
+              : ''
           }`}
         >
           <div
@@ -160,7 +162,7 @@ const RecordVoicePage = () => {
           />
         </button>
       </div>
-      {audioURL && <audio src={audioURL} controls />}
+      {/* {audioURL && <audio src={audioURL} controls />} */}
       <div className="space-y-4 mt-5">
         {transcript && (
           <>

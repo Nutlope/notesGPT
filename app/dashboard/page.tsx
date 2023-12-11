@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 
 const DashboardHomePage = () => {
-  const [recordedData, setRecordedData] = useState<Number[]>([]);
+  const [recordedData, setRecordedData] = useState<Number[]>([1, 2, 3]);
 
   return (
     <div className="w-full bg-light min-h-[100vh]">
