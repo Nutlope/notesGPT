@@ -30,21 +30,25 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Integrate frontend + backend
 - [x] Edit styles on the dashboard page to make sense
 
-## v1.5 - the convex way + cleanup
+## v1.5 - the convex way
 
-- [ ] Move the OpenAI and Replicate call to Convex actions
-- [ ] Add Convex DB to store transcripts + user action items
+- [x] Move the OpenAI and Replicate call to Convex actions
+- [x] Add Convex DB to store transcripts + user action items
+- [ ] Change frontend to use the Convex functions and state and not the API endpoints
 - [ ] Finalize the quick-check page while fetching from the DB
 - [ ] Finalize the action items page while fetching from DB
 - [ ] Add dropdown to profile header where folks can sign in and sign out.
-- [ ] Add appropriate loading and error states
 - [ ] Implement the dashboard deleting notes
-- [ ] Make sure it works well on mobile + desktop
+
+## v1.7 - cleanup
+
 - [ ] Add how it works section to landing page and decrease font for everything
+- [ ] Add appropriate loading and error states
+- [ ] Make sure it works well on mobile + desktop
+- [ ] Add Convex vector search for searching
 
 ## v2 (stretch)
 
-- [ ] Add Convex vector search for searching
 - [ ] Make sure the transcript gets streamed into the frontend
 - [ ] Email reminders through Resend powered by Convex cron jobs
 - [ ] Convex scheduled functions to send initial email to user that says "welcome"
