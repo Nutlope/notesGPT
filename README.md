@@ -26,13 +26,14 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Add GPT-4 Turbo call to format notes into bullet points + add action items
 - [x] Add auth with Clerk through Convex
 - [x] Troubleshoot auth not working
+- [ ] Integrate frontend + backend
 - [ ] Move the OpenAI and Replicate call to Convex actions
 - [ ] Add Convex DB to store transcripts + user action items
-- [ ] Integrate frontend + backend
 - [ ] Add header where folks can sign in and sign out. Also make sure landing page isn't protected
 - [ ] Add Convex vector search for searching
 - [ ] Add appropriate loading and error states
 - [ ] Make sure it works well on mobile + desktop
+- [ ] Add how it works section
 
 ## v2 (stretch)
 
