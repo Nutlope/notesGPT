@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useMutation } from 'convex/react';
+import { useMutation, useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { getCurrentFormattedDate } from '@/lib/utils';
+import { useUser } from '@clerk/clerk-react';
 import Image from 'next/image';
 
 const RecordVoicePage = () => {
@@ -11,15 +12,23 @@ const RecordVoicePage = () => {
 
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [audioURL, setAudioURL] = useState('');
-  const [transcript, setTranscript] = useState('');
-  const [summary, setSummary] = useState('');
-  const [actionItems, setActionItems] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
+  const [audioFileId, setAudioFileId] = useState<any>();
+
+  console.log({ audioFileId });
+
+  const { user } = useUser();
+  console.log({ user });
 
   const generateUploadUrl = useMutation(api.notes.generateUploadUrl);
   const createNote = useMutation(api.notes.createNote);
+  const currentNote = useQuery(api.notes.getNote, {
+    id: audioFileId,
+  });
+
+  console.log({ currentNote });
 
   async function startRecording() {
     setIsRunning(true);
@@ -43,40 +52,13 @@ const RecordVoicePage = () => {
         body: audioBlob,
       });
       const { storageId } = await result.json();
-      let fileUrl = await createNote({
+
+      let noteId = await createNote({
+        userId: user!.id,
         storageId,
       });
 
-      console.log({ fileUrl });
-
-      let res = await fetch('/api/whisper', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fileUrl,
-        }),
-      });
-
-      let data = await res.json();
-      setTranscript(data.text);
-
-      let res2 = await fetch('/api/openai', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          transcript: data.text,
-        }),
-      });
-
-      let openaiRes = await res2.json();
-      const parsedOutput = JSON.parse(openaiRes.output);
-      console.log({ parsedOutput });
-      setSummary(parsedOutput.summary);
-      setActionItems(parsedOutput.actionItems);
+      setAudioFileId(noteId);
     };
     setMediaRecorder(recorder as any);
     recorder.start();
@@ -164,28 +146,28 @@ const RecordVoicePage = () => {
       </div>
       {/* {audioURL && <audio src={audioURL} controls />} */}
       <div className="space-y-4 mt-5">
-        {transcript && (
+        {currentNote && !isRunning && (
           <>
-            <h1 className="text-xl">Transcript</h1>
-            <p className="text-sm text-gray-500">{transcript}</p>
-          </>
-        )}
-        {summary && (
-          <>
-            <h1 className="text-xl">Summary</h1>
-            <p className="text-sm text-gray-500">{summary}</p>
-          </>
-        )}
-        {actionItems.length > 0 && (
-          <>
-            <h1 className="text-xl">Action Items</h1>
-            <ul className="list-disc">
-              {actionItems.map((item, idx) => (
-                <li className="text-sm text-gray-500 ml-5" key={idx}>
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <>
+              <h1 className="text-xl">Transcript</h1>
+              <p className="text-sm text-gray-500">
+                {currentNote.transcription}
+              </p>
+            </>
+            <>
+              <h1 className="text-xl">Summary</h1>
+              <p className="text-sm text-gray-500">{currentNote.summary}</p>
+            </>
+            <>
+              <h1 className="text-xl">Action Items</h1>
+              <ul className="list-disc">
+                {currentNote.actionItems!.map((item, idx) => (
+                  <li className="text-sm text-gray-500 ml-5" key={idx}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </>
           </>
         )}
       </div>

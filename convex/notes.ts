@@ -1,4 +1,4 @@
-import { mutation } from './_generated/server';
+import { mutation, query } from './_generated/server';
 import { v } from 'convex/values';
 import { api } from '../convex/_generated/api';
 
@@ -6,6 +6,7 @@ export const generateUploadUrl = mutation(async (ctx) => {
   return await ctx.storage.generateUploadUrl();
 });
 
+// Stores audio file in Convex file storage, invokes whisper Convex action, and invokes OpenAI Convex action to get the transcript, summary, and action items
 export const createNote = mutation(
   async (ctx, { storageId, userId }: { storageId: string; userId: string }) => {
     let fileUrl = (await ctx.storage.getUrl(storageId)) as string;
@@ -16,32 +17,24 @@ export const createNote = mutation(
       audioFileUrl: fileUrl,
     });
 
-    const transcript = await ctx.scheduler.runAfter(0, api.whisper.chat, {
+    await ctx.scheduler.runAfter(0, api.whisper.chat, {
       fileUrl,
-    });
-
-    await ctx.scheduler.runAfter(0, api.openai.chat, {
-      transcript: transcript,
       id: noteId,
     });
 
-    return await ctx.storage.getUrl(storageId);
+    return noteId;
   }
 );
 
-export const addToNote = mutation({
+export const getNote = query({
   args: {
-    id: v.id('notes'),
-    transcript: v.string(),
-    summary: v.string(),
-    actionItems: v.array(v.string()),
+    id: v.optional(v.id('notes')),
   },
   handler: async (ctx, args) => {
-    const { id, transcript, summary, actionItems } = args;
-    await ctx.db.patch(id, {
-      actionItems: actionItems,
-      summary: summary,
-      transcription: transcript,
-    });
+    const { id } = args;
+    if (!id) return null;
+    const note = await ctx.db.get(id);
+
+    return note;
   },
 });

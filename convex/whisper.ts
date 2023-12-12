@@ -1,8 +1,9 @@
 ('use node');
 
-import { action } from './_generated/server';
+import { action, internalMutation } from './_generated/server';
 import { v } from 'convex/values';
 import Replicate from 'replicate';
+import { api, internal } from './_generated/api';
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_KEY,
@@ -18,6 +19,7 @@ interface whisperOutput {
 export const chat = action({
   args: {
     fileUrl: v.string(),
+    id: v.id('notes'),
   },
   handler: async (ctx, args) => {
     const replicateOutput = (await replicate.run(
@@ -39,6 +41,29 @@ export const chat = action({
       }
     )) as whisperOutput;
 
-    return replicateOutput.transcription || 'error';
+    const transcript = replicateOutput.transcription || 'error';
+
+    await ctx.runMutation(internal.whisper.saveTranscript, {
+      id: args.id,
+      transcript,
+    });
+  },
+});
+
+export const saveTranscript = internalMutation({
+  args: {
+    id: v.id('notes'),
+    transcript: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const { id, transcript } = args;
+
+    await ctx.db.patch(id, {
+      transcription: transcript,
+    });
+
+    await ctx.scheduler.runAfter(0, api.openai.chat, {
+      id: args.id,
+    });
   },
 });

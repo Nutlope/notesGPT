@@ -34,9 +34,10 @@ Your AI journal take notes on the go with your voice and translate them into act
 
 - [x] Move the OpenAI and Replicate call to Convex actions
 - [x] Add Convex DB to store transcripts + user action items
-- [ ] Change frontend to use the Convex functions and state and not the API endpoints
+- [x] Change frontend to use the Convex functions and state and not the API endpoints
 - [ ] Finalize the quick-check page while fetching from the DB
 - [ ] Finalize the action items page while fetching from DB
+- [ ] Navigate to new route with the note ID when it's created
 - [ ] Add dropdown to profile header where folks can sign in and sign out.
 - [ ] Implement the dashboard deleting notes
 
