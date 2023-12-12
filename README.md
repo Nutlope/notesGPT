@@ -35,14 +35,18 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Move the OpenAI and Replicate call to Convex actions
 - [x] Add Convex DB to store transcripts + user action items
 - [x] Change frontend to use the Convex functions and state and not the API endpoints
-- [ ] Finalize the quick-check page while fetching from the DB
+- [x] Navigate to new route with the note ID when it's created
+- [x] Finalize the quick-check page while fetching from the DB
 - [ ] Finalize the action items page while fetching from DB
-- [ ] Navigate to new route with the note ID when it's created
+- [ ] Keep going over dyanmic route starting line 134 to cleanup then move mobile and desktop into seseparate components
+- [ ] Make action items work when you click them they should be deleted and animate out
+  - [ ] Also move action items to their own table in the schema
 - [ ] Add dropdown to profile header where folks can sign in and sign out.
 - [ ] Implement the dashboard deleting notes
 
 ## v1.7 - cleanup
 
+- [ ] Add architecture diagram to the README
 - [ ] Add how it works section to landing page and decrease font for everything
 - [ ] Add appropriate loading and error states
 - [ ] Make sure it works well on mobile + desktop
@@ -50,6 +54,7 @@ Your AI journal take notes on the go with your voice and translate them into act
 
 ## v2 (stretch)
 
+- [ ] Make the due date on the tasks editable
 - [ ] Make sure the transcript gets streamed into the frontend
 - [ ] Email reminders through Resend powered by Convex cron jobs
 - [ ] Convex scheduled functions to send initial email to user that says "welcome"

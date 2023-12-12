@@ -62,7 +62,7 @@ const DashboardHomePage = () => {
           <Link
             className="text-[17px] md:text-2xl tracking-[-0.75px] leading-[79%] text-light px-[37px] py-[15px] bg-dark rounded-[7px]"
             style={{ boxShadow: ' 0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }}
-            href="/dashboard/record-voice"
+            href="/record"
           >
             Record a New Voice Note
           </Link>
