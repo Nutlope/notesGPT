@@ -39,8 +39,8 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Finalize the quick-check page while fetching from the DB
 - [x] Keep going over dyanmic route starting line 134 to cleanup then move mobile and desktop into separate components
 - [x] Move action items to their own table in the schema
-- [ ] Finalize the action items page while fetching from DB
-- [ ] Make action items work when you click them they should be deleted and animate out
+- [x] Finalize the action items page while fetching from DB
+- [x] Make action items work when you click them they should be deleted
 - [ ] Implement the dashboard fetching all notes + ability to delete notes
 
 ## v1.7 - cleanup
@@ -50,12 +50,13 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [ ] Add how it works section to landing page and decrease font for everything
 - [ ] Add appropriate loading and error states
 - [ ] Make sure it works well on mobile + desktop
+  - [ ] Fix mobile action items
 - [ ] Add Convex vector search for searching
 
 ## v2 (stretch)
 
 - [ ] Prompt engineer the summary more
-
+- [ ] Action items: Make them animate out + make checkbox rounded + add a little check icon on hover
 - [ ] Make the due date on the tasks editable
 - [ ] Make sure the transcript gets streamed into the frontend
 - [ ] Email reminders through Resend powered by Convex cron jobs

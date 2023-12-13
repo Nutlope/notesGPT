@@ -1,32 +1,22 @@
+'use client';
+
 import { api } from '@/convex/_generated/api';
-import { useQuery } from 'convex/react';
+import { useUser } from '@clerk/clerk-react';
+import { useMutation, useQuery } from 'convex/react';
 import Image from 'next/image';
-import React from 'react';
-
-const actionItems: any = [
-  {
-    title: 'Finalize the project proposal with a looming deadline.',
-    date: '11/02/2023',
-    from: 'Workout Plans Note',
-  },
-  {
-    title: 'Finalize the project proposal with a looming deadline.',
-    date: '11/02/2023',
-  },
-  {
-    title: 'Finalize the project proposal with a looming deadline.',
-    date: '11/02/2023',
-    from: 'Workout Plans Note',
-  },
-  {
-    title: 'Finalize the project proposal with a looming deadline.',
-    date: '11/02/2023',
-  },
-];
-
-// const currentNote = useQuery(api.notes.getNote, { id });
 
 const ActionItemsPage = () => {
+  const { user } = useUser();
+  const id = user?.id;
+
+  const mutateActionItems = useMutation(api.notes.removeActionItem);
+
+  function removeActionItem(actionId: any) {
+    // Trigger a mutation to remove the item from the list
+    mutateActionItems({ id: actionId });
+  }
+
+  const actionItems = useQuery(api.notes.getActionItems, { userId: id });
   return (
     <div className="w-full bg-light md:bg-transparent h-full min-h-[100vh]">
       {/* search bar visible only mobile devices */}
@@ -47,10 +37,9 @@ const ActionItemsPage = () => {
           className="w-full outline-none bg-transparent font-normal text-[17px] md:text-xl lg:text-2xl"
         />
       </div>
-      {/* action items */}
-      <div className="hidden md:flex items-center justify-center">
+      <div className="hidden md:flex items-center justify-center flex-col">
         <h1
-          className="text-xl md:text-[35px] lg:text-[43px] font-medium text-dark text-center mt-[21px] "
+          className="text-xl md:text-[35px] lg:text-[43px] font-medium text-dark text-center mt-[21px]"
           style={{
             lineHeight: '114.3%',
             letterSpacing: '-1.075px',
@@ -58,73 +47,43 @@ const ActionItemsPage = () => {
         >
           Action Items
         </h1>
+        <h3 className="mt-3 text-gray-600 text-xl">
+          {actionItems?.length} tasks
+        </h3>
       </div>
+
       <div className="w-full max-w-[900px] px-5 mx-auto mt-[27px] md:mt-[45px]">
-        {actionItems?.map((item: any, index: number) => (
-          <div
-            className="md:border-t-[1px] border-[#00000033] py-2"
-            key={index}
-          >
-            <div className="w-full flex gap-[21px] items-center">
-              <input
-                type="checkbox"
-                name=""
-                id=""
-                className="w-5 h-5 md:mt-[12px] bg-transparent"
-              />
-              <div className="w-full">
-                <p className="text-[17px] md:text-xl lg:text-2xl text-dark font-[300]">
-                  {item?.title}
-                </p>
-                <p className="opacity-60 text-dark font-[300] hidden md:inline-block text-[17px] md:text-xl lg:text-2xl tracking-[-0.6px] leading-[249%]">
-                  {item?.date}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-end justify-end">
-              {item?.from ? (
-                <p className="opacity-60 text-dark font-[300] hidden md:inline-block text-[17px] md:text-xl lg:text-2xl tracking-[-0.6px] leading-[249%]">
-                  From: {item?.from}
-                </p>
-              ) : (
-                <p className="md:pt-6"></p>
-              )}
+        {actionItems?.map((item, idx) => (
+          <div className="md:border-t-[1px] border-[#00000033] py-2" key={idx}>
+            <div className="w-full flex justify-center">
+              <label
+                className={`group text-[17px] md:text-xl lg:text-2xl text-dark font-[300] w-full cursor-pointer select-none items-center rounded p-2 text-sm transition-colors duration-300 checked:text-gray-300 hover:bg-gray-200`}
+              >
+                <div>
+                  <input
+                    onChange={() => removeActionItem(item._id)}
+                    type="checkbox"
+                    checked={false}
+                    className="mr-4 h-5 w-5 rounded-sm border-2 border-gray-300 text-sky-600 transition-colors duration-300 focus:ring-0 focus:ring-offset-0 focus-visible:ring-2 focus-visible:ring-sky-600/50 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 group-active:border-sky-600 group-active:checked:text-sky-600/25"
+                  />
+                  {item?.task}
+                </div>
+                <div className="flex justify-between">
+                  <p className="ml-9 opacity-60 text-dark font-[300] hidden md:inline-block text-[17px] md:text-xl lg:text-xl tracking-[-0.6px] leading-[249%]">
+                    {new Date(item?._creationTime).toDateString()}
+                  </p>
+                  <p className="opacity-60 text-dark font-[300] hidden md:inline-block text-[15px] md:text-xl lg:text-xl tracking-[-0.6px] leading-[249%]">
+                    From: {item?.title}
+                  </p>
+                </div>
+              </label>
             </div>
           </div>
         ))}
-        <div className="md:border-t-[1px] border-[#00000033] py-2 md:flex items-center gap-5 cursor-pointer hidden ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="21"
-            height="21"
-            viewBox="0 0 21 21"
-            fill="none"
-          >
-            <g opacity="0.6">
-              <line
-                x1="10.5449"
-                x2="10.5449"
-                y2="21"
-                stroke="#2D2D2D"
-                stroke-width="2"
-              />
-              <line
-                x1="21"
-                y1="10.5455"
-                y2="10.5455"
-                stroke="#2D2D2D"
-                stroke-width="2"
-              />
-            </g>
-          </svg>
-          <p className="text-xl lg:text-2xl text-dark opacity-60 ">
-            Add a task
-          </p>
-        </div>
       </div>
       <div className="md:hidden w-full flex items-center justify-center">
         <button className="mt-[55px]">
-          <Image
+          <img
             src={'/icons/mic_plus.svg'}
             alt="mic plus"
             width={88}

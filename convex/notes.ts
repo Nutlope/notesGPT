@@ -49,17 +49,28 @@ export const getNote = query({
 
 export const getActionItems = query({
   args: {
-    userId: v.string(),
+    userId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const { userId } = args;
+    if (!userId) return null;
 
     const actionItems = await ctx.db
       .query('actionItems')
       .filter((q) => q.eq(q.field('userId'), userId))
       .collect();
 
-    return actionItems;
+    let fullActionItems = [];
+
+    for (let item of actionItems) {
+      const note = await ctx.db.get(item.noteId);
+      fullActionItems.push({
+        ...item,
+        title: note!.title,
+      });
+    }
+
+    return fullActionItems;
   },
 });
 
@@ -76,5 +87,15 @@ export const getNotes = query({
       .collect();
 
     return notes;
+  },
+});
+
+export const removeActionItem = mutation({
+  args: {
+    id: v.id('actionItems'),
+  },
+  handler: async (ctx, args) => {
+    const { id } = args;
+    await ctx.db.delete(id);
   },
 });
