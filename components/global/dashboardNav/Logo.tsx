@@ -4,7 +4,7 @@ import React from 'react';
 
 const Logo = () => {
   return (
-    <Link className="flex items-center gap-[2px] w-fit" href="/">
+    <Link className="flex items-center gap-[2px] w-fit" href="/dashboard">
       <Image
         src="/logo.svg"
         width={50}

@@ -49,17 +49,15 @@ Your AI journal take notes on the go with your voice and translate them into act
 ## v2 - polish & UX
 
 - [ ] Add OG image and any neccesary OG data
-- [ ] Ask Clerk about what domain they're using and that they can switch Clerk to prod with that
-- [ ] Make sure the main dashboard also corrects for the profile pic thing as well
-- [ ] Add dropdown to profile header where folks can sign in and sign out.
-- [ ] Add architecture diagram to the README
-- [ ] Make sure you can cross out action items from the recording screen
-- [ ] Add how it works section to landing page and decrease font for everything
-- [ ] Add appropriate loading and error states
-- [ ] Make sure it works well on mobile + desktop
-  - [ ] Fix mobile action items to look proper
+- [ ] Add dropdown to profile header where folks can sign in and sign out like roomGPT
+- [ ] Add appropriate loading and error states everywhere
+- [ ] Go through all of the code and do a cleanup, make font smaller and make sure each screen looks good
+- [ ] Make sure mobile works well + fix mobile action items to look well
 - [ ] Add Convex vector search for searching through transcripts
 - [ ] Action items: Make it so that folks can only mark tasks done through the checkbox + add a toast to make it more obvious that a task has been marked done
+- [ ] Make sure you can cross out action items from the recording screen as well
+- [ ] Make full README with tech + architecture diagram
+- [ ] Add "how it works" section to landing page
 
 ## Future tasks
 
