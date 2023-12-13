@@ -46,8 +46,9 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Add the right links to homepage
 - [x] Implement the dashboard fetching all notes + ability to delete notes
 
-## v1.7 - cleanup
+## v2 - polish & UX
 
+- [ ] Add OG image and any neccesary OG data
 - [ ] Ask Clerk about what domain they're using and that they can switch Clerk to prod with that
 - [ ] Make sure the main dashboard also corrects for the profile pic thing as well
 - [ ] Add dropdown to profile header where folks can sign in and sign out.
@@ -58,13 +59,12 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [ ] Make sure it works well on mobile + desktop
   - [ ] Fix mobile action items to look proper
 - [ ] Add Convex vector search for searching through transcripts
+- [ ] Action items: Make it so that folks can only mark tasks done through the checkbox + add a toast to make it more obvious that a task has been marked done
 
-## v2 (stretch)
+## Future tasks
 
-- [ ] Prompt engineer the summary more
-- [ ] Action items: Make them animate out + make checkbox rounded + add a little check icon on hover
-- [ ] Make the due date on the tasks editable
-- [ ] Make sure the transcript gets streamed into the frontend
-- [ ] Email reminders through Resend powered by Convex cron jobs
+- [ ] Prompt engineer the summary a little more to return something better than what it does
+- [ ] Make action items animate out + make checkbox rounded + add a little check icon on hover
+- [ ] Add a due date for the action items + make this editable
+- [ ] Make sure the transcript gets streamed into the frontend?
 - [ ] Convex scheduled functions to send initial email to user that says "welcome"
-- [ ] Add a mind map visualization?
