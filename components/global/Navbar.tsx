@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -8,7 +7,7 @@ const Navbar = () => {
       <div className="max-width flex items-center justify-between">
         {/* logo */}
         <div className="flex items-center gap-[2px] w-fit">
-          <Image
+          <img
             src="/logo.svg"
             width={50}
             height={50}
@@ -21,12 +20,14 @@ const Navbar = () => {
         </div>
         {/* buttons */}
         <div className="w-fit flex items-center gap-[22px]">
-          <button
-            className="text-lg lg:text-xl w-[107px] h-[46px] text-center rounded-lg hidden md:inline-block"
-            style={{ border: '1px solid var(--White, #2D2D2D)' }}
-          >
-            Sign in
-          </button>
+          <Link href="/dashboard">
+            <button
+              className="text-lg lg:text-xl w-[107px] h-[46px] text-center rounded-lg hidden md:inline-block"
+              style={{ border: '1px solid var(--White, #2D2D2D)' }}
+            >
+              Sign in
+            </button>
+          </Link>
           <Link href="/dashboard">
             <button className="text-sm md:text-lg lg:text-xl w-[109px] md:w-[140px] h-[32px] lg:w-[163px] md:h-[46px] text-center rounded-lg primary-gradient primary-shadow text-light">
               Get Started
@@ -40,7 +41,7 @@ const Navbar = () => {
           background:
             'linear-gradient(to right, #161616, #0D0C0C42, #0000003D, #00000082',
         }}
-      ></div>
+      />
     </div>
   );
 };

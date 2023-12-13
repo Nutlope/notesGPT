@@ -1,11 +1,16 @@
 'use client';
-import RecordedfileItemCard from '@/components/RecordedfileItemCard';
+import RecordedfileItemCard from '@/components/pages/dashboard/RecordedfileItemCard';
+import { api } from '@/convex/_generated/api';
+import { useUser } from '@clerk/clerk-react';
+import { useQuery } from 'convex/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
 
 const DashboardHomePage = () => {
-  const [recordedData, setRecordedData] = useState<Number[]>([1, 2, 3]);
+  const { user } = useUser();
+  const id = user?.id;
+
+  const allNotes = useQuery(api.notes.getNotes, { userId: id });
 
   return (
     <div className="w-full bg-light min-h-[100vh]">
@@ -13,13 +18,7 @@ const DashboardHomePage = () => {
         className="w-full py-[23px] md:py-4 lg:py-[25px] hidden md:inline-block"
         style={{ borderBottom: ' 0.3px solid rgba(158, 158, 158, 0.40)' }}
       >
-        <h1
-          className="text-xl md:text-[35px] lg:text-[43px] font-medium text-dark text-center"
-          style={{
-            lineHeight: '114.3%',
-            letterSpacing: '-1.075px',
-          }}
-        >
+        <h1 className="text-xl md:text-[35px] lg:text-[43px] font-medium text-dark text-center">
           Your Voice Notes
         </h1>
       </div>
@@ -44,11 +43,11 @@ const DashboardHomePage = () => {
       {/* recorded items */}
       <div className="w-full max-w-[1360px] h-fit md:px-5 xl:mx-auto">
         {/* file item */}
-        {recordedData.length > 0 &&
-          recordedData.map((item, index) => (
-            <RecordedfileItemCard key={index} />
+        {allNotes &&
+          allNotes.map((item, index) => (
+            <RecordedfileItemCard {...item} key={index} />
           ))}
-        {recordedData.length === 0 && (
+        {!allNotes && (
           <div className="w-full flex items-center justify-center h-[50vh]">
             <p className="text-2xl text-dark text-center">
               You currently have no <br /> recordings.

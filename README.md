@@ -41,17 +41,21 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Move action items to their own table in the schema
 - [x] Finalize the action items page while fetching from DB
 - [x] Make action items work when you click them they should be deleted
-- [ ] Implement the dashboard fetching all notes + ability to delete notes
+- [x] Deploy to Vercel and make sure it works well
+- [x] Add profile picture to the top right
+- [x] Add the right links to homepage
+- [x] Implement the dashboard fetching all notes + ability to delete notes
 
 ## v1.7 - cleanup
 
 - [ ] Add dropdown to profile header where folks can sign in and sign out.
 - [ ] Add architecture diagram to the README
+- [ ] Make sure you can cross out action items from the recording screen
 - [ ] Add how it works section to landing page and decrease font for everything
 - [ ] Add appropriate loading and error states
 - [ ] Make sure it works well on mobile + desktop
-  - [ ] Fix mobile action items
-- [ ] Add Convex vector search for searching
+  - [ ] Fix mobile action items to look proper
+- [ ] Add Convex vector search for searching through transcripts
 
 ## v2 (stretch)
 

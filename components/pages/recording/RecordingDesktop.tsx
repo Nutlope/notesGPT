@@ -103,12 +103,6 @@ export default function RecordingDesktop({
               </div>
             </div>
           ))}
-          <div className="md:border-t-[1px] border-[#00000033] py-2 md:flex items-center gap-5 cursor-pointer hidden ">
-            <img src="/icons/plus_btn.svg" />
-            <p className="text-xl lg:text-2xl text-dark opacity-60 ">
-              Add a task
-            </p>
-          </div>
           <div className="flex items-center justify-center absolute bottom-5 left-1/2 -translate-x-1/2">
             <button
               className="text-[17px] md:text-xl tracking-[-0.75px] leading-[79%] text-light px-5 lg:px-[37px] py-[15px] bg-dark rounded-[7px]"

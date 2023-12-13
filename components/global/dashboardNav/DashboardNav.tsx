@@ -4,9 +4,13 @@ import React, { useState } from 'react';
 import Profile from './Profile';
 import MenuItems from './MenuItems';
 import Logo from './Logo';
+import { useUser } from '@clerk/clerk-react';
 
 const DashboardNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+  const { user } = useUser();
+
   return (
     <div
       className="w-full py-4 relative m-0 border-b-[1px] border-[#BCBCBC]"
@@ -29,7 +33,7 @@ const DashboardNav = () => {
         <Logo />
         <div className="flex space-x-8">
           <MenuItems isMenuOpen={isMenuOpen} />
-          <Profile />
+          <Profile imageUrl={user?.imageUrl} />
         </div>
       </div>
     </div>
