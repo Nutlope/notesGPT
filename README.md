@@ -37,8 +37,8 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Change frontend to use the Convex functions and state and not the API endpoints
 - [x] Navigate to new route with the note ID when it's created
 - [x] Finalize the quick-check page while fetching from the DB
+- [x] Keep going over dyanmic route starting line 134 to cleanup then move mobile and desktop into separate components
 - [ ] Finalize the action items page while fetching from DB
-- [ ] Keep going over dyanmic route starting line 134 to cleanup then move mobile and desktop into seseparate components
 - [ ] Make action items work when you click them they should be deleted and animate out
   - [ ] Also move action items to their own table in the schema
 - [ ] Add dropdown to profile header where folks can sign in and sign out.

@@ -33,7 +33,7 @@ const RecordedfileItemCard = () => {
           1 page
         </h3>
         <div className="w-fit flex items-center gap-5">
-          <button className="p-2 bg-transparent flex items-center justify-center h-fit w-fit hidden md:inline-block">
+          <button className="p-2 bg-transparent flex items-center justify-center h-fit w-fit md:inline-block">
             <Image
               src={'/icons/delete.svg'}
               alt="delete"
