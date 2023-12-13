@@ -6,8 +6,13 @@ export default defineSchema({
     userId: v.string(),
     audioFileId: v.string(),
     audioFileUrl: v.string(),
+    title: v.optional(v.string()),
     transcription: v.optional(v.string()),
     summary: v.optional(v.string()),
-    actionItems: v.optional(v.array(v.string())),
+  }),
+  actionItems: defineTable({
+    noteId: v.id('notes'),
+    userId: v.string(),
+    task: v.string(),
   }),
 });

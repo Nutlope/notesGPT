@@ -6,10 +6,12 @@ export default function RecordingDesktop({
   actionItems,
   summary,
   transcription,
+  title,
 }: {
   actionItems?: string[];
   summary?: string;
   transcription?: string;
+  title?: string;
 }) {
   const [originalIsOpen, setOriginalIsOpen] = useState<boolean>(true);
 
@@ -18,7 +20,7 @@ export default function RecordingDesktop({
       <div className="flex items-center justify-between max-width mt-5">
         <div />
         <h1 className="text-xl md:text-[35px] lg:text-[43px] font-medium text-dark text-center leading tracking-[-0.75px] leading-[114.3%]">
-          Quick Check-in
+          {title ?? 'Untitled Note'}
         </h1>
         <div className="flex justify-center items-center">
           <p className="opacity-80 text-lg">{getCurrentFormattedDate()}</p>

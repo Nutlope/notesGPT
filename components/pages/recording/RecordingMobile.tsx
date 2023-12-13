@@ -1,21 +1,28 @@
-import { getCurrentDate } from '@/lib/utils';
+import { getCurrentDate, getCurrentFormattedDate } from '@/lib/utils';
 import { useState } from 'react';
 
 export default function RecordingMobile({
   actionItems,
   summary,
   transcription,
+  title,
 }: {
   actionItems?: string[];
   summary?: string;
   transcription?: string;
+  title?: string;
 }) {
   const [transcriptOpen, setTranscriptOpen] = useState<boolean>(true);
   const [summaryOpen, setSummaryOpen] = useState<boolean>(false);
   const [actionItemOpen, setActionItemOpen] = useState<boolean>(false);
   return (
-    <>
-      <div className="w-full grid grid-cols-3 md:hidden">
+    <div className="md:hidden">
+      <div className="flex items-center justify-center max-width my-5">
+        <h1 className="text-xl md:text-[35px] lg:text-[43px] font-medium text-dark text-center leading tracking-[-0.75px] leading-[114.3%]">
+          {title ?? 'Untitled Note'}
+        </h1>
+      </div>
+      <div className="w-full grid grid-cols-3 ">
         <button
           onClick={() => (
             setTranscriptOpen(!transcriptOpen),
@@ -53,7 +60,7 @@ export default function RecordingMobile({
           Action Items
         </button>
       </div>
-      <div className="w-full md:hidden">
+      <div className="w-full">
         {transcriptOpen && (
           <div className="py-3 px-4 w-full text-justify text-base font-[300] tracking-[-0.425px] leading-[114.3%] min-h-[70vh] relative">
             <div className="">{transcription}</div>
@@ -126,6 +133,6 @@ export default function RecordingMobile({
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }

@@ -35,6 +35,46 @@ export const getNote = query({
     if (!id) return null;
     const note = await ctx.db.get(id);
 
-    return note;
+    const actionItems = await ctx.db
+      .query('actionItems')
+      .filter((q) => q.eq(q.field('noteId'), id))
+      .collect();
+
+    return {
+      ...note,
+      actionItems: actionItems.map((actionItem) => actionItem.task),
+    };
+  },
+});
+
+export const getActionItems = query({
+  args: {
+    userId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const { userId } = args;
+
+    const actionItems = await ctx.db
+      .query('actionItems')
+      .filter((q) => q.eq(q.field('userId'), userId))
+      .collect();
+
+    return actionItems;
+  },
+});
+
+export const getNotes = query({
+  args: {
+    userId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const { userId } = args;
+
+    const notes = await ctx.db
+      .query('notes')
+      .filter((q) => q.eq(q.field('userId'), userId))
+      .collect();
+
+    return notes;
   },
 });

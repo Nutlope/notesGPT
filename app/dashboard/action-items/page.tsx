@@ -1,3 +1,5 @@
+import { api } from '@/convex/_generated/api';
+import { useQuery } from 'convex/react';
 import Image from 'next/image';
 import React from 'react';
 
@@ -21,6 +23,8 @@ const actionItems: any = [
     date: '11/02/2023',
   },
 ];
+
+// const currentNote = useQuery(api.notes.getNote, { id });
 
 const ActionItemsPage = () => {
   return (

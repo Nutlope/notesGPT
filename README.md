@@ -38,14 +38,14 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Navigate to new route with the note ID when it's created
 - [x] Finalize the quick-check page while fetching from the DB
 - [x] Keep going over dyanmic route starting line 134 to cleanup then move mobile and desktop into separate components
+- [x] Move action items to their own table in the schema
 - [ ] Finalize the action items page while fetching from DB
 - [ ] Make action items work when you click them they should be deleted and animate out
-  - [ ] Also move action items to their own table in the schema
-- [ ] Add dropdown to profile header where folks can sign in and sign out.
-- [ ] Implement the dashboard deleting notes
+- [ ] Implement the dashboard fetching all notes + ability to delete notes
 
 ## v1.7 - cleanup
 
+- [ ] Add dropdown to profile header where folks can sign in and sign out.
 - [ ] Add architecture diagram to the README
 - [ ] Add how it works section to landing page and decrease font for everything
 - [ ] Add appropriate loading and error states
@@ -53,6 +53,8 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [ ] Add Convex vector search for searching
 
 ## v2 (stretch)
+
+- [ ] Prompt engineer the summary more
 
 - [ ] Make the due date on the tasks editable
 - [ ] Make sure the transcript gets streamed into the frontend
