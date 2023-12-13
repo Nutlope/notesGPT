@@ -104,12 +104,13 @@ export default function RecordingDesktop({
             </div>
           ))}
           <div className="flex items-center justify-center absolute bottom-5 left-1/2 -translate-x-1/2">
-            <button
+            <Link
               className="text-[17px] md:text-xl tracking-[-0.75px] leading-[79%] text-light px-5 lg:px-[37px] py-[15px] bg-dark rounded-[7px]"
               style={{ boxShadow: ' 0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }}
+              href="/dashboard/action-items"
             >
               View Action Items
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -48,6 +48,8 @@ Your AI journal take notes on the go with your voice and translate them into act
 
 ## v1.7 - cleanup
 
+- [ ] Ask Clerk about what domain they're using and that they can switch Clerk to prod with that
+- [ ] Make sure the main dashboard also corrects for the profile pic thing as well
 - [ ] Add dropdown to profile header where folks can sign in and sign out.
 - [ ] Add architecture diagram to the README
 - [ ] Make sure you can cross out action items from the recording screen
