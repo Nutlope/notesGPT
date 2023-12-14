@@ -48,7 +48,7 @@ Your AI journal take notes on the go with your voice and translate them into act
 
 ## v2 - polish & UX
 
-- [ ] Add OG image and any neccesary OG data
+- [x] Add OG image and any neccesary OG data
 - [ ] Add dropdown to profile header where folks can sign in and sign out like roomGPT
 - [ ] Add appropriate loading and error states everywhere
 - [ ] Go through all of the code and do a cleanup, make font smaller and make sure each screen looks good
@@ -57,6 +57,8 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [ ] Action items: Make it so that folks can only mark tasks done through the checkbox + add a toast to make it more obvious that a task has been marked done
 - [ ] Make sure you can cross out action items from the recording screen as well
 - [ ] Make full README with tech + architecture diagram
+- [ ] Add technologies used in the footer
+- [ ] Write up "the convex way
 - [ ] Add "how it works" section to landing page
 
 ## Future tasks

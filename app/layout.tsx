@@ -5,9 +5,34 @@ import ConvexClientProvider from './ConvexClientProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
+let title = 'notesGPT - Take notes with your voice';
+let description = 'Generate action items from your notes in seconds';
+let url = 'https://www.notesgpt.vercel.app';
+let ogimage = 'https://www.notesgpt.vercel.app/images/og-image.png';
+let sitename = 'notesgpt.vercel.app';
+
 export const metadata: Metadata = {
-  title: 'notesGPT',
-  description: 'Your personal AI journal',
+  metadataBase: new URL(url),
+  title,
+  description,
+  icons: {
+    icon: '/favicon.ico',
+  },
+  openGraph: {
+    images: [ogimage],
+    title,
+    description,
+    url: url,
+    siteName: sitename,
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [ogimage],
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({
