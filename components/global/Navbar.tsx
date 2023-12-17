@@ -8,7 +8,7 @@ const Navbar = () => {
   const { user } = useUser();
 
   return (
-    <div className="relative m-0 mx-auto max-w-7xl py-10 md:px-10">
+    <div className="container relative m-0 mx-auto py-10 md:px-10">
       <div className="max-width flex items-center justify-between">
         {/* logo */}
         <div className="flex w-fit items-center gap-[2px]">

@@ -51,15 +51,18 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Add OG image and any neccesary OG data
 - [x] Add dropdown to profile header where folks can sign in and sign out
 - [x] Add technologies used in the footer
-- [ ] Go through all of the code and do a cleanup, make font smaller and make sure each screen looks good
-- [ ] Make sure mobile works well + fix mobile action items to look well
-- [ ] Add appropriate loading and error states everywhere
+- [ ] Cleanup code, double check each screen, verify it looks good on desktop + mobile
+  - [x] Homepage
+  - [ ] Record
+  - [ ] Recording
+  - [ ] Dashboard
+- [ ] Fix mobile action items to look well
 - [ ] Add Convex vector search for searching through transcripts
 - [ ] Action items: Make it so that folks can only mark tasks done through the checkbox + add a toast to make it more obvious that a task has been marked done
 - [ ] Make sure you can cross out action items from the recording screen as well
 - [ ] Make full README with tech + architecture diagram
+- [ ] Add "how it works" section to landing page, similar to roomGPT
 - [ ] Write up "the convex way"
-- [ ] Add "how it works" section to landing page
 
 ## Future tasks
 
