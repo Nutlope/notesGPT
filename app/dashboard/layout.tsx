@@ -1,5 +1,5 @@
 'use client';
-import DashboardNav from '@/components/global/dashboardNav/DashboardNav';
+import Header from '@/components/global/Header';
 
 type DashboardLayoutProps = {
   children: React.ReactNode;
@@ -7,8 +7,8 @@ type DashboardLayoutProps = {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
-    <div className="min-h-screen">
-      <DashboardNav />
+    <div>
+      <Header />
       {children}
     </div>
   );

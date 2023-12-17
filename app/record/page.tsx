@@ -7,7 +7,7 @@ import { getCurrentFormattedDate } from '@/lib/utils';
 import { useUser } from '@clerk/clerk-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import DashboardNav from '@/components/global/dashboardNav/DashboardNav';
+import Header from '@/components/global/Header';
 
 const RecordVoicePage = () => {
   const [title, setTitle] = useState('Record your voice note');
@@ -98,7 +98,7 @@ const RecordVoicePage = () => {
 
   return (
     <div className="min-h-screen bg-light">
-      <DashboardNav />
+      <Header />
       <div className=" flex flex-col items-center justify-between">
         <h1 className="pt-[25px] text-center text-xl font-medium text-dark md:pt-[47px] md:text-[35px]">
           {title}

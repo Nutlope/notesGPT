@@ -1,6 +1,6 @@
 'use client';
 
-import DashboardNav from '@/components/global/dashboardNav/DashboardNav';
+import Header from '@/components/global/Header';
 import RecordingDesktop from '@/components/pages/recording/RecordingDesktop';
 import RecordingMobile from '@/components/pages/recording/RecordingMobile';
 import { api } from '@/convex/_generated/api';
@@ -13,7 +13,7 @@ const QuickCheckPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="min-h-screen bg-light">
-      <DashboardNav />
+      <Header />
       <div className="mx-auto max-w-[1500px]">
         <RecordingDesktop {...currentNote} />
         <RecordingMobile {...currentNote} />

@@ -19,7 +19,7 @@ const RecordedfileItemCard = ({
   return (
     <Link
       href={`/recording/${_id}`}
-      className="flex w-full items-center justify-between border-[0.5px] border-[#00000050] bg-white px-[23px] py-[17px] transition hover:bg-gray-100"
+      className="mx-2 flex items-center justify-between border-[0.5px] border-[#00000050] bg-white px-[23px] py-[17px] transition hover:bg-gray-100 md:w-full"
     >
       <div className="flex w-fit items-center gap-[23px]">
         <div className="hidden items-center justify-center rounded-[50%] bg-dark p-2.5 md:flex ">

@@ -13,36 +13,29 @@ const DashboardHomePage = () => {
   const allNotes = useQuery(api.notes.getNotes, { userId: id });
 
   return (
-    <div className="min-h-[100vh] w-full bg-light">
-      <div
-        className="hidden w-full py-[23px] md:inline-block md:py-4 lg:py-[25px]"
-        style={{ borderBottom: ' 0.3px solid rgba(158, 158, 158, 0.40)' }}
-      >
-        <h1 className="text-center text-xl font-medium text-dark md:text-[35px] lg:text-[43px]">
+    <div className="mt-5 min-h-[100vh] w-full">
+      <div className=" w-full py-[23px] md:py-4 lg:py-[25px]">
+        <h1 className="text-center text-2xl font-medium text-dark md:text-4xl">
           Your Voice Notes
         </h1>
       </div>
       {/* search bar */}
-      <div
-        className="mx-auto mb-4 mt-4 flex h-fit w-[90%] items-center gap-[17px] rounded bg-white px-[11px] py-[10px] sm:px-[15px] md:mb-[42px] md:w-[623px] md:px-[40px] md:py-[13px]"
-        style={{ border: ' 1px solid rgba(0, 0, 0, 0.40)' }}
-      >
+      <div className="mx-auto mb-10 mt-4 flex h-fit w-[90%] items-center gap-[17px] rounded border border-black bg-white px-[11px] py-[10px] sm:px-[15px] md:mb-[42px] md:w-[623px] md:px-[40px] md:py-[10px]">
         <Image
           src="/icons/search.svg"
           width={27}
           height={26}
           alt="search"
-          className="h-5 w-5 md:h-[26px] md:w-[27px]"
+          className="h-5 w-5 md:h-6 md:w-6"
         />
         <input
           type="text"
           placeholder="Search"
-          className="w-full bg-transparent text-[17px] font-normal outline-none md:text-xl lg:text-2xl"
+          className="w-full text-[16px] outline-none md:text-xl"
         />
       </div>
       {/* recorded items */}
       <div className="h-fit w-full max-w-[1360px] md:px-5 xl:mx-auto">
-        {/* file item */}
         {allNotes &&
           allNotes.map((item, index) => (
             <RecordedfileItemCard {...item} key={index} />
@@ -56,8 +49,8 @@ const DashboardHomePage = () => {
         )}
       </div>
       {/* actions button container */}
-      <div className="mx-auto mt-[40px] flex h-fit w-full flex-col items-center border px-5 pb-10 md:mt-[50px] lg:pb-5">
-        <div className="mt-10 flex space-x-6">
+      <div className="mx-auto mt-[40px] flex h-fit w-full flex-col items-center px-5 pb-10 md:mt-[50px] lg:pb-5">
+        <div className="mt-10 flex flex-col gap-6 md:flex-row">
           <Link
             className="rounded-[7px] bg-dark px-[37px] py-[15px] text-[17px] leading-[79%] tracking-[-0.75px] text-light md:text-2xl"
             style={{ boxShadow: ' 0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }}
@@ -76,7 +69,6 @@ const DashboardHomePage = () => {
           )}
         </div>
       </div>
-      )
     </div>
   );
 };

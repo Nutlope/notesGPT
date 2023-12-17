@@ -53,9 +53,10 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Add technologies used in the footer
 - [ ] Cleanup code, double check each screen, verify it looks good on desktop + mobile
   - [x] Homepage
+  - [x] Dashboard
+  - [ ] Action Items
   - [ ] Record
   - [ ] Recording
-  - [ ] Dashboard
 - [ ] Fix mobile action items to look well
 - [ ] Add Convex vector search for searching through transcripts
 - [ ] Action items: Make it so that folks can only mark tasks done through the checkbox + add a toast to make it more obvious that a task has been marked done
@@ -67,6 +68,7 @@ Your AI journal take notes on the go with your voice and translate them into act
 ## Future tasks
 
 - [ ] Prompt engineer the summary a little more to return something better than what it does
+- [ ] Layout shift on the dashboard page when refreshing – show a loading state?
 - [ ] Make action items animate out + make checkbox rounded + add a little check icon on hover
 - [ ] Add a due date for the action items + make this editable
 - [ ] Make sure the transcript gets streamed into the frontend?
