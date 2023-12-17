@@ -17,7 +17,7 @@
 }
 
 .max-width {
-  @apply max-w-[1536px] mx-auto px-5 md:px-6 lg:px-8 xl:px-10 2xl:px-0;
+  @apply mx-auto max-w-[1536px] px-5 md:px-6 lg:px-8 xl:px-10 2xl:px-0;
 }
 
 .primary-gradient {
@@ -54,7 +54,8 @@
 .action-btn-active {
   border: 0.3px solid rgba(158, 158, 158, 0.4);
   background: #ebecef;
-  box-shadow: 1px 1px 5px 1px rgba(24, 24, 24, 0.68) inset,
+  box-shadow:
+    1px 1px 5px 1px rgba(24, 24, 24, 0.68) inset,
     0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 

@@ -14,7 +14,7 @@ const QuickCheckPage = ({ params }: { params: { id: string } }) => {
   return (
     <div className="min-h-screen bg-light">
       <DashboardNav />
-      <div className="max-w-[1500px] mx-auto">
+      <div className="mx-auto max-w-[1500px]">
         <RecordingDesktop {...currentNote} />
         <RecordingMobile {...currentNote} />
       </div>

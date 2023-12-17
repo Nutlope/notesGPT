@@ -19,20 +19,20 @@ const RecordedfileItemCard = ({
   return (
     <Link
       href={`/recording/${_id}`}
-      className="hover:bg-gray-100 transition w-full px-[23px] py-[17px] flex items-center justify-between bg-white border-[0.5px] border-[#00000050]"
+      className="flex w-full items-center justify-between border-[0.5px] border-[#00000050] bg-white px-[23px] py-[17px] transition hover:bg-gray-100"
     >
-      <div className="w-fit flex items-center gap-[23px]">
-        <div className="p-2.5 rounded-[50%] bg-dark md:flex items-center justify-center hidden ">
+      <div className="flex w-fit items-center gap-[23px]">
+        <div className="hidden items-center justify-center rounded-[50%] bg-dark p-2.5 md:flex ">
           <img
             src="/icons/file_symbol.svg"
             width={20}
             height={20}
             alt="file"
-            className="w-5 h-5 md:w-[20px] md:h-[20px]"
+            className="h-5 w-5 md:h-[20px] md:w-[20px]"
           />
         </div>
         <h1
-          className="text-[17px] md:text-xl lg:text-2xl text-dark font-light"
+          className="text-[17px] font-light text-dark md:text-xl lg:text-2xl"
           style={{
             lineHeight: '114.3%',
             letterSpacing: '-0.6px',
@@ -41,11 +41,11 @@ const RecordedfileItemCard = ({
           {title}
         </h1>
       </div>
-      <div className="w-fit flex items-center gap-x-[40px] 2xl:gap-x-[56px]">
-        <h3 className="font-[200] text-xl leading-[114.3%] tracking-[-0.5px] hidden md:inline-block">
+      <div className="flex w-fit items-center gap-x-[40px] 2xl:gap-x-[56px]">
+        <h3 className="hidden text-xl font-[200] leading-[114.3%] tracking-[-0.5px] md:inline-block">
           {new Date(_creationTime).toDateString()}
         </h3>
-        <h3 className="font-[200] text-xl leading-[114.3%] tracking-[-0.5px] hidden md:inline-block">
+        <h3 className="hidden text-xl font-[200] leading-[114.3%] tracking-[-0.5px] md:inline-block">
           {actionItemLength} tasks
         </h3>
         <Link href={`/dashboard`}>
@@ -53,7 +53,7 @@ const RecordedfileItemCard = ({
             onClick={() => {
               deleteNote({ id: _id });
             }}
-            className="gap-5 hover:scale-125 transition p-2 bg-transparent flex items-center justify-center h-fit w-fit md:inline-block"
+            className="flex h-fit w-fit items-center justify-center gap-5 bg-transparent p-2 transition hover:scale-125 md:inline-block"
           >
             <img
               src={'/icons/delete.svg'}

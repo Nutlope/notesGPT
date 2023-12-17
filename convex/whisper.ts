@@ -38,7 +38,7 @@ export const chat = action({
           compression_ratio_threshold: 2.4,
           temperature_increment_on_fallback: 0.2,
         },
-      }
+      },
     )) as whisperOutput;
 
     const transcript = replicateOutput.transcription || 'error';

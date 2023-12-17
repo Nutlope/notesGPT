@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useUser } from "@clerk/clerk-react";
-import Link from "next/link";
-import { UserNav } from "../ui/UserNav";
+import { useUser } from '@clerk/clerk-react';
+import Link from 'next/link';
+import { UserNav } from '../ui/UserNav';
 
 const Navbar = () => {
   const { user } = useUser();

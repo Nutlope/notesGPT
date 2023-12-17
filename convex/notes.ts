@@ -23,7 +23,7 @@ export const createNote = mutation(
     });
 
     return noteId;
-  }
+  },
 );
 
 export const getNote = query({

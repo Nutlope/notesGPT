@@ -1,5 +1,5 @@
-"use client";
-import DashboardNav from "@/components/global/dashboardNav/DashboardNav";
+'use client';
+import DashboardNav from '@/components/global/dashboardNav/DashboardNav';
 
 type DashboardLayoutProps = {
   children: React.ReactNode;

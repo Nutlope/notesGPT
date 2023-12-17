@@ -17,20 +17,20 @@ export default function RecordingDesktop({
 
   return (
     <div className="hidden md:block">
-      <div className="flex items-center justify-between max-width mt-5">
+      <div className="max-width mt-5 flex items-center justify-between">
         <div />
-        <h1 className="text-xl md:text-[35px] lg:text-[43px] font-medium text-dark text-center leading tracking-[-0.75px] leading-[114.3%]">
+        <h1 className="leading text-center text-xl font-medium leading-[114.3%] tracking-[-0.75px] text-dark md:text-[35px] lg:text-[43px]">
           {title ?? 'Untitled Note'}
         </h1>
-        <div className="flex justify-center items-center">
-          <p className="opacity-80 text-lg">{getCurrentFormattedDate()}</p>
+        <div className="flex items-center justify-center">
+          <p className="text-lg opacity-80">{getCurrentFormattedDate()}</p>
         </div>
       </div>
-      <div className="w-full h-fit grid grid-cols-2 px-[30px] lg:px-[45px] border mt-[18px] py-[19px]">
-        <div className="w-full flex items-center gap-[50px] lg:gap-[70px] border-r  justify-center">
+      <div className="mt-[18px] grid h-fit w-full grid-cols-2 border px-[30px] py-[19px] lg:px-[45px]">
+        <div className="flex w-full items-center justify-center gap-[50px] border-r  lg:gap-[70px]">
           <div className="flex items-center gap-4">
             <button
-              className={`text-xl lg:text-2xl text-dark tracking-[-0.6px] leading-[114.3%] ${
+              className={`text-xl leading-[114.3%] tracking-[-0.6px] text-dark lg:text-2xl ${
                 originalIsOpen ? 'opacity-100' : 'opacity-40'
               } transition-all duration-300`}
             >
@@ -38,16 +38,16 @@ export default function RecordingDesktop({
             </button>
             <div
               onClick={() => setOriginalIsOpen(!originalIsOpen)}
-              className="w-[36px] h-[20px] rounded-full bg-dark flex items-center px-[1px] cursor-pointer"
+              className="flex h-[20px] w-[36px] cursor-pointer items-center rounded-full bg-dark px-[1px]"
             >
               <div
-                className={`w-4 h-[18px] bg-light rounded-[50%] ${
+                className={`h-[18px] w-4 rounded-[50%] bg-light ${
                   originalIsOpen ? 'translate-x-0' : 'translate-x-[18px]'
                 } transition-all duration-300`}
               ></div>
             </div>
             <button
-              className={`text-xl lg:text-2xl text-dark tracking-[-0.6px] leading-[114.3%] ${
+              className={`text-xl leading-[114.3%] tracking-[-0.6px] text-dark lg:text-2xl ${
                 !originalIsOpen ? 'opacity-100' : 'opacity-40'
               } transition-all duration-300`}
             >
@@ -56,56 +56,56 @@ export default function RecordingDesktop({
           </div>
         </div>
         <div className="text-center">
-          <h1 className="text-xl lg:text-2xl xl:text-[30px] text-dark tracking-[-0.75px] leading-[114.3%]">
+          <h1 className="text-xl leading-[114.3%] tracking-[-0.75px] text-dark lg:text-2xl xl:text-[30px]">
             Action Items
           </h1>
         </div>
       </div>
-      <div className="w-full h-full grid grid-cols-2 px-[30px] lg:px-[45px]">
-        <div className="py-3 px-5 w-full text-justify text-xl lg:text-2xl font-[300] tracking-[-0.6px] leading-[114.3%] border-r min-h-[70vh] relative">
+      <div className="grid h-full w-full grid-cols-2 px-[30px] lg:px-[45px]">
+        <div className="relative min-h-[70vh] w-full border-r px-5 py-3 text-justify text-xl font-[300] leading-[114.3%] tracking-[-0.6px] lg:text-2xl">
           <div className="">{originalIsOpen ? transcription : summary}</div>
-          <div className="flex items-center justify-center absolute bottom-5 left-1/2 -translate-x-1/2">
+          <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center justify-center">
             <Link href="/record" className="mt-[55px]">
               <img
                 src={'/icons/mic_plus.svg'}
                 alt="mic plus"
                 width={88}
                 height={88}
-                className="w-[52px] h-[52px] md:h-[74px] md:w-[74px]"
+                className="h-[52px] w-[52px] md:h-[74px] md:w-[74px]"
               />
             </Link>
           </div>
         </div>
-        <div className="w-full max-w-[900px] px-5 mx-auto mt-[27px] md:mt-[45px] relative">
+        <div className="relative mx-auto mt-[27px] w-full max-w-[900px] px-5 md:mt-[45px]">
           {actionItems?.map((item: any, index: number) => (
             <div
-              className="md:border-t-[1px] border-[#00000033] py-2"
+              className="border-[#00000033] py-2 md:border-t-[1px]"
               key={index}
             >
-              <div className="w-full flex gap-[21px] items-center">
+              <div className="flex w-full items-center gap-[21px]">
                 <input
                   type="checkbox"
                   name="task"
                   id="task"
-                  className="w-5 h-5 bg-transparent"
+                  className="h-5 w-5 bg-transparent"
                 />
                 <div className="w-full">
-                  <p className="text-[17px] md:text-xl lg:text-2xl text-dark font-[300]">
+                  <p className="text-[17px] font-[300] text-dark md:text-xl lg:text-2xl">
                     {item}
                   </p>
                 </div>
               </div>
               <div className="flex items-end justify-end">
                 {' '}
-                <p className="opacity-60 text-dark font-[300] hidden md:inline-block text-[17px] md:text-xl lg:text-2xl tracking-[-0.6px] leading-[249%]">
+                <p className="hidden text-[17px] font-[300] leading-[249%] tracking-[-0.6px] text-dark opacity-60 md:inline-block md:text-xl lg:text-2xl">
                   {getCurrentDate()}
                 </p>
               </div>
             </div>
           ))}
-          <div className="flex items-center justify-center absolute bottom-5 left-1/2 -translate-x-1/2">
+          <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center justify-center">
             <Link
-              className="text-[17px] md:text-xl tracking-[-0.75px] leading-[79%] text-light px-5 lg:px-[37px] py-[15px] bg-dark rounded-[7px]"
+              className="rounded-[7px] bg-dark px-5 py-[15px] text-[17px] leading-[79%] tracking-[-0.75px] text-light md:text-xl lg:px-[37px]"
               style={{ boxShadow: ' 0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }}
               href="/dashboard/action-items"
             >

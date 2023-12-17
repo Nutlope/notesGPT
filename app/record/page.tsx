@@ -99,35 +99,35 @@ const RecordVoicePage = () => {
   return (
     <div className="min-h-screen bg-light">
       <DashboardNav />
-      <div className=" flex flex-col justify-between items-center">
-        <h1 className="text-xl pt-[25px] md:pt-[47px] md:text-[35px] font-medium text-dark text-center">
+      <div className=" flex flex-col items-center justify-between">
+        <h1 className="pt-[25px] text-center text-xl font-medium text-dark md:pt-[47px] md:text-[35px]">
           {title}
         </h1>
-        <p className="text-gray-400 mb-5 mt-2">{formattedDate}</p>
-        <div className="w-[316px] h-[316px] mx-auto relative flex items-center justify-center">
+        <p className="mb-5 mt-2 text-gray-400">{formattedDate}</p>
+        <div className="relative mx-auto flex h-[316px] w-[316px] items-center justify-center">
           <div
-            className={`w-full h-full recording-box rounded-[50%] p-[12%] pt-[17%] absolute ${
+            className={`recording-box absolute h-full w-full rounded-[50%] p-[12%] pt-[17%] ${
               title !== 'Record your voice note' && title !== 'Processing...'
                 ? 'record-animation'
                 : ''
             }`}
           >
             <div
-              className="w-full h-full rounded-[50%]"
+              className="h-full w-full rounded-[50%]"
               style={{ background: 'linear-gradient(#E31C1CD6, #003EB6CC)' }}
             />
           </div>
-          <div className="z-50 flex w-fit h-fit items-center justify-center flex-col">
-            <h1 className="text-light text-[60px] leading-[114.3%] tracking-[-1.5px]">
+          <div className="z-50 flex h-fit w-fit flex-col items-center justify-center">
+            <h1 className="text-[60px] leading-[114.3%] tracking-[-1.5px] text-light">
               {minutes < 10 ? `0${minutes}` : minutes}:
               {seconds < 10 ? `0${seconds}` : seconds}
             </h1>
           </div>
         </div>
-        <div className="w-fit flex items-center justify-center gap-[33px] md:gap-[77px] pb-7 ">
+        <div className="flex w-fit items-center justify-center gap-[33px] pb-7 md:gap-[77px] ">
           <button
             onClick={handleRecordClick}
-            className="border-[2px] rounded-[50%] w-fit h-fit mt-10"
+            className="mt-10 h-fit w-fit rounded-[50%] border-[2px]"
             style={{ boxShadow: '0px 0px 8px 5px rgba(0,0,0,0.3)' }}
           >
             <Image
@@ -135,7 +135,7 @@ const RecordVoicePage = () => {
               alt="recording mic"
               width={148}
               height={148}
-              className={`w-[110px] h-[110px] ${
+              className={`h-[110px] w-[110px] ${
                 isRunning && 'animate-pulse border-red-500'
               }`}
             />

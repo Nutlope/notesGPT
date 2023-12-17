@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const Banner = () => {
   return (
@@ -9,15 +9,15 @@ const Banner = () => {
           Note Taking
         </h1>
         <p className="mt-8 text-center text-xl font-light tracking-tight lg:text-3xl">
-          NotesGPT seamlessly converts your voice notes into{" "}
+          NotesGPT seamlessly converts your voice notes into{' '}
           <span className="font-bold">
             organized <br className="hidden lg:inline-block" />
             summaries
-          </span>{" "}
+          </span>{' '}
           and <span className="font-bold">clear action items</span> using AI.
         </p>
         <Link
-          href={"/dashboard"}
+          href={'/dashboard'}
           className="primary-gradient primary-shadow mx-auto mt-16 flex max-w-xl items-center justify-center gap-5 rounded-full px-4 py-2 text-center text-sm text-light md:px-12 md:py-4 md:text-2xl"
         >
           Get Started
@@ -43,10 +43,10 @@ function BackgroundGradient() {
     <div
       className="h-full w-full rounded-full"
       style={{
-        opacity: "0.4",
+        opacity: '0.4',
         background:
-          "radial-gradient(54.14% 54.14% at 50% 50%, #650293 0%, rgba(103, 2, 139, 0.02) 100%)",
-        filter: "blur(177px)",
+          'radial-gradient(54.14% 54.14% at 50% 50%, #650293 0%, rgba(103, 2, 139, 0.02) 100%)',
+        filter: 'blur(177px)',
       }}
     />
   );
