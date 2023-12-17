@@ -48,7 +48,7 @@ const ActionItemsPage = () => {
           Action Items
         </h1>
         <h3 className="mt-3 text-xl text-gray-600">
-          {actionItems?.length} tasks
+          {actionItems?.length ? actionItems?.length : 0} tasks
         </h3>
       </div>
 

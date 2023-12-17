@@ -54,8 +54,8 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [ ] Cleanup code, double check each screen, verify it looks good on desktop + mobile
   - [x] Homepage
   - [x] Dashboard
+  - [x] Record
   - [ ] Action Items
-  - [ ] Record
   - [ ] Recording
 - [ ] Fix mobile action items to look well
 - [ ] Add Convex vector search for searching through transcripts

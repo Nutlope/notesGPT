@@ -97,13 +97,13 @@ const RecordVoicePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-light">
+    <div>
       <Header />
       <div className=" flex flex-col items-center justify-between">
-        <h1 className="pt-[25px] text-center text-xl font-medium text-dark md:pt-[47px] md:text-[35px]">
+        <h1 className="pt-[25px] text-center text-xl font-medium text-dark md:pt-[47px] md:text-4xl">
           {title}
         </h1>
-        <p className="mb-5 mt-2 text-gray-400">{formattedDate}</p>
+        <p className="mb-20 mt-4 text-gray-400">{formattedDate}</p>
         <div className="relative mx-auto flex h-[316px] w-[316px] items-center justify-center">
           <div
             className={`recording-box absolute h-full w-full rounded-[50%] p-[12%] pt-[17%] ${
@@ -124,21 +124,29 @@ const RecordVoicePage = () => {
             </h1>
           </div>
         </div>
-        <div className="flex w-fit items-center justify-center gap-[33px] pb-7 md:gap-[77px] ">
+        <div className="mt-10 flex w-fit items-center justify-center gap-[33px] pb-7 md:gap-[77px] ">
           <button
             onClick={handleRecordClick}
             className="mt-10 h-fit w-fit rounded-[50%] border-[2px]"
             style={{ boxShadow: '0px 0px 8px 5px rgba(0,0,0,0.3)' }}
           >
-            <Image
-              src={'/icons/recording_mic.svg'}
-              alt="recording mic"
-              width={148}
-              height={148}
-              className={`h-[110px] w-[110px] ${
-                isRunning && 'animate-pulse border-red-500'
-              }`}
-            />
+            {!isRunning ? (
+              <Image
+                src={'/icons/nonrecording_mic.svg'}
+                alt="recording mic"
+                width={148}
+                height={148}
+                className="h-[70px] w-[70px] md:h-[100px] md:w-[100px]"
+              />
+            ) : (
+              <Image
+                src={'/icons/recording_mic_2.svg'}
+                alt="recording mic"
+                width={148}
+                height={148}
+                className="h-[70px] w-[70px] animate-pulse transition md:h-[100px] md:w-[100px]"
+              />
+            )}
           </button>
         </div>
       </div>
