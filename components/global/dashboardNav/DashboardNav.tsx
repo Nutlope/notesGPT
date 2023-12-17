@@ -1,14 +1,14 @@
 'use client';
+
 import Image from 'next/image';
 import React, { useState } from 'react';
-import Profile from './Profile';
 import MenuItems from './MenuItems';
 import Logo from './Logo';
 import { useUser } from '@clerk/clerk-react';
+import { UserNav } from '@/components/ui/UserNav';
 
 const DashboardNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-
   const { user } = useUser();
 
   return (
@@ -33,7 +33,11 @@ const DashboardNav = () => {
         <Logo />
         <div className="flex space-x-8">
           <MenuItems isMenuOpen={isMenuOpen} />
-          <Profile imageUrl={user?.imageUrl} />
+          <UserNav
+            image={user?.imageUrl!}
+            name={user?.fullName!}
+            email={user?.primaryEmailAddress?.emailAddress!}
+          />
         </div>
       </div>
     </div>

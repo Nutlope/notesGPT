@@ -1,9 +1,14 @@
+'use client';
+
+import { useUser } from '@clerk/clerk-react';
 import Link from 'next/link';
-import React from 'react';
+import { UserNav } from '../ui/UserNav';
 
 const Navbar = () => {
+  const { user } = useUser();
+
   return (
-    <div className="w-full py-4 px-10 relative m-0">
+    <div className="w-full py-4 md:px-10 relative m-0">
       <div className="max-width flex items-center justify-between">
         {/* logo */}
         <div className="flex items-center gap-[2px] w-fit">
@@ -12,27 +17,27 @@ const Navbar = () => {
             width={50}
             height={50}
             alt="logo"
-            className="w-[21px] h-[21px] md:w-[30px] md:h-[30px]"
+            className="w-5 h-5 md:w-7 md:h-7"
           />
-          <h1 className="text-[#25292F] text-xl md:text-[26px] lg:text-[33px] font-medium">
+          <h1 className="text-[#25292F] text-xl md:text-2xl font-medium">
             NotesGPT
           </h1>
         </div>
         {/* buttons */}
         <div className="w-fit flex items-center gap-[22px]">
-          <Link href="/dashboard">
-            <button
-              className="text-lg lg:text-xl w-[107px] h-[46px] text-center rounded-lg hidden md:inline-block"
-              style={{ border: '1px solid var(--White, #2D2D2D)' }}
-            >
-              Sign in
-            </button>
-          </Link>
-          <Link href="/dashboard">
-            <button className="text-sm md:text-lg lg:text-xl w-[109px] md:w-[140px] h-[32px] lg:w-[163px] md:h-[46px] text-center rounded-lg primary-gradient primary-shadow text-light">
-              Get Started
-            </button>
-          </Link>
+          {user ? (
+            <UserNav
+              image={user?.imageUrl}
+              name={user?.fullName!}
+              email={user?.primaryEmailAddress?.emailAddress!}
+            />
+          ) : (
+            <Link href="/dashboard">
+              <button className="text-md md:text-xl px-5 md:px-10 py-1 md:py-2 text-center rounded-lg primary-gradient primary-shadow text-light">
+                Sign in
+              </button>
+            </Link>
+          )}
         </div>
       </div>
       <div

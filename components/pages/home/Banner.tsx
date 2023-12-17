@@ -37,12 +37,13 @@ const Banner = () => {
               background:
                 'linear-gradient(to right, #00000082, #0D0C0C42, #0000003D, #161616',
             }}
-          ></div>
+          />
           <Link
             href={'/dashboard'}
-            className=" shrink-0 text-sm  md:text-lg lg:text-[30px] py-[10px] px-[15px] md:py-4 md:px-[50px] text-center rounded-lg primary-gradient primary-shadow text-light"
+            className="shrink-0 text-sm md:text-lg lg:text-[30px] py-[10px] px-[15px] md:py-4 md:px-[50px] text-center rounded-full primary-gradient primary-shadow text-light flex gap-5 items-center"
           >
             Get Started
+            <img src="/icons/logout-03.svg" alt="" />
           </Link>
           <div
             className="w-full h-[1.5px]"
