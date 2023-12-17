@@ -8,7 +8,7 @@ const Navbar = () => {
   const { user } = useUser();
 
   return (
-    <div className="w-full py-4 md:px-10 relative m-0">
+    <div className="max-w-7xl mx-auto py-10 md:px-10 relative m-0">
       <div className="max-width flex items-center justify-between">
         {/* logo */}
         <div className="flex items-center gap-[2px] w-fit">
@@ -17,9 +17,9 @@ const Navbar = () => {
             width={50}
             height={50}
             alt="logo"
-            className="w-5 h-5 md:w-7 md:h-7"
+            className="w-5 h-5 md:w-8 md:h-8"
           />
-          <h1 className="text-[#25292F] text-xl md:text-2xl font-medium">
+          <h1 className="text-[#25292F] text-xl md:text-3xl font-medium">
             NotesGPT
           </h1>
         </div>
@@ -40,13 +40,6 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      <div
-        className="absolute bottom-0 right-0 left-0 w-full h-[2px]"
-        style={{
-          background:
-            'linear-gradient(to right, #161616, #0D0C0C42, #0000003D, #00000082',
-        }}
-      />
     </div>
   );
 };
