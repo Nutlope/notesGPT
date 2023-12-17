@@ -42,6 +42,8 @@
     "eslint-config-next": "14.0.1",
     "npm-run-all": "^4.1.5",
     "postcss": "^8",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.9",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }

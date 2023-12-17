@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from "next/link";
 
 interface MenuItemsProps {
   isMenuOpen: boolean;
@@ -8,21 +7,21 @@ interface MenuItemsProps {
 const MenuItems = ({ isMenuOpen }: MenuItemsProps) => {
   return (
     <div
-      className={`flex lg:flex-row lg:items-center md:gap-5 lg:gap-8 ${
+      className={`flex md:gap-5 lg:flex-row lg:items-center lg:gap-8 ${
         isMenuOpen
-          ? 'fixed lg:relative h-screen lg:h-auto w-[260px] lg:w-auto left-0 top-0  border-r lg:border-none z-[999] flex-col px-7 py-10 gap-y-5 bg-light lg:bg-transparent'
-          : 'hidden lg:flex'
+          ? "fixed left-0 top-0 z-[999] h-screen w-[260px] flex-col gap-y-5  border-r bg-light px-7 py-10 lg:relative lg:h-auto lg:w-auto lg:border-none lg:bg-transparent"
+          : "hidden lg:flex"
       }`}
     >
       <Link
-        href={'/dashboard'}
-        className="text-lg lg:text-xl text-dark cursor-pointer"
+        href={"/dashboard"}
+        className="cursor-pointer text-lg text-dark lg:text-xl"
       >
         Recordings
       </Link>
       <Link
-        href={'/dashboard/action-items'}
-        className="text-lg lg:text-xl text-dark cursor-pointer"
+        href={"/dashboard/action-items"}
+        className="cursor-pointer text-lg text-dark lg:text-xl"
       >
         Action Items
       </Link>

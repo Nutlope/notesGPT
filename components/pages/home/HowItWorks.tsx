@@ -1,145 +1,144 @@
-import Image from 'next/image';
-import React from 'react';
+import Image from "next/image";
 
 const HowItWorks = () => {
   return (
-    <div className="w-full h-full pb-[150px]">
+    <div className="h-full w-full pb-[150px]">
       {/* section header */}
-      <div className="flex w-full md:h-[261px] justify-center items-center relative">
+      <div className="relative flex w-full items-center justify-center md:h-[261px]">
         <div
-          className="w-full h-[1.5px]"
+          className="h-[1.5px] w-full"
           style={{
             background:
-              'linear-gradient(to right, #00000082, #0D0C0C42, #0000003D, #161616',
+              "linear-gradient(to right, #00000082, #0D0C0C42, #0000003D, #161616",
           }}
         ></div>
         <h1
-          className="shrink-0 text-dark text-[30px] md:text-5xl lg:text-[63px] font-medium"
+          className="shrink-0 text-[30px] font-medium text-dark md:text-5xl lg:text-[63px]"
           style={{
-            lineHeight: '90.3%',
-            letterSpacing: '-1.575px',
+            lineHeight: "90.3%",
+            letterSpacing: "-1.575px",
           }}
         >
           How it Works
         </h1>
         <div
-          className="w-full h-[1.5px]"
+          className="h-[1.5px] w-full"
           style={{
             background:
-              'linear-gradient(to right, #00000082, #0D0C0C42, #0000003D, #161616',
+              "linear-gradient(to right, #00000082, #0D0C0C42, #0000003D, #161616",
           }}
         ></div>
         {/* gradient container */}
-        <div className="max-width  absolute top-0 right-0 bottom-0 left-0 w-full h-full md:grid grid-cols-3 hidden z-[-1]">
+        <div className="max-width  absolute bottom-0 left-0 right-0 top-0 z-[-1] hidden h-full w-full grid-cols-3 md:grid">
           <div
-            className="w-full h-full rounded-full"
+            className="h-full w-full rounded-full"
             style={{
-              opacity: '0.8',
+              opacity: "0.8",
               background:
-                'radial-gradient(54.14% 54.14% at 50% 50%, #40023A 0%, rgba(61, 0, 108, 0.02) 100%)',
-              filter: 'blur(177px)',
+                "radial-gradient(54.14% 54.14% at 50% 50%, #40023A 0%, rgba(61, 0, 108, 0.02) 100%)",
+              filter: "blur(177px)",
             }}
           ></div>
           <div
-            className="w-full h-full rounded-full"
+            className="h-full w-full rounded-full"
             style={{
-              opacity: '1',
+              opacity: "1",
               background:
-                'radial-gradient(54.14% 54.14% at 50% 50%, #40023A 0%, rgba(61, 0, 108, 0.02) 100%)',
-              filter: 'blur(177px)',
+                "radial-gradient(54.14% 54.14% at 50% 50%, #40023A 0%, rgba(61, 0, 108, 0.02) 100%)",
+              filter: "blur(177px)",
             }}
           ></div>
           <div
-            className="w-full h-full rounded-full"
+            className="h-full w-full rounded-full"
             style={{
-              opacity: '0.8',
+              opacity: "0.8",
               background:
-                'radial-gradient(54.14% 54.14% at 50% 50%, #40023A 0%, rgba(61, 0, 108, 0.02) 100%)',
-              filter: 'blur(177px)',
+                "radial-gradient(54.14% 54.14% at 50% 50%, #40023A 0%, rgba(61, 0, 108, 0.02) 100%)",
+              filter: "blur(177px)",
             }}
           ></div>
         </div>
       </div>
       {/* content body */}
-      <div className="mt-[55px] md:mt-[34px] lg:flex w-full max-width lg:gap-[75px]  h-fit items-stretch">
-        <div className="w-fit  flex gap-4">
-          <div className="flex shrink-0 flex-col justify-between gap-[74px] md:gap-[144px] relative my-[27.5px] md:my-[52.5px]">
-            <div className="w-[16px] h-[16px] md:w-[25px] md:h-[25px] lg:w-[32px] lg:h-[32px] border border-primary z-10 "></div>
-            <div className="w-[16px] h-[16px] md:w-[25px] md:h-[25px] lg:w-[32px] lg:h-[32px] border border-primary bg-primary z-10"></div>
-            <div className="w-[16px] h-[16px] md:w-[25px] md:h-[25px] lg:w-[32px] lg:h-[32px] border border-primary z-10"></div>
+      <div className="max-width mt-[55px] h-fit w-full items-stretch md:mt-[34px]  lg:flex lg:gap-[75px]">
+        <div className="flex  w-fit gap-4">
+          <div className="relative my-[27.5px] flex shrink-0 flex-col justify-between gap-[74px] md:my-[52.5px] md:gap-[144px]">
+            <div className="z-10 h-[16px] w-[16px] border border-primary md:h-[25px] md:w-[25px] lg:h-[32px] lg:w-[32px] "></div>
+            <div className="z-10 h-[16px] w-[16px] border border-primary bg-primary md:h-[25px] md:w-[25px] lg:h-[32px] lg:w-[32px]"></div>
+            <div className="z-10 h-[16px] w-[16px] border border-primary md:h-[25px] md:w-[25px] lg:h-[32px] lg:w-[32px]"></div>
             {/* progress */}
-            <div className="w-[1px]  progress-bar left-1/2 -translate-x-1/2 absolute top-4 bottom-4 md:top-[25px] md:bottom-[25px] lg:top-8 lg:bottom-8 z-[-1]"></div>
+            <div className="progress-bar  absolute bottom-4 left-1/2 top-4 z-[-1] w-[1px] -translate-x-1/2 md:bottom-[25px] md:top-[25px] lg:bottom-8 lg:top-8"></div>
           </div>
-          <div className="flex flex-col justify-between gap-[21px] md:gap-[41px] relative w-full">
+          <div className="relative flex w-full flex-col justify-between gap-[21px] md:gap-[41px]">
             <div
-              className="h-[71px] md:h-[135px] w-full lg:w-[590px] rounded-[2px] flex items-center gap-[21px] md:gap-[31px] px-[19px] py-[22px] md:px-[28px] md:py-[38px] shrink-0"
+              className="flex h-[71px] w-full shrink-0 items-center gap-[21px] rounded-[2px] px-[19px] py-[22px] md:h-[135px] md:gap-[31px] md:px-[28px] md:py-[38px] lg:w-[590px]"
               style={{
-                boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
               }}
             >
               <div
-                className="w-[26px] h-[26px] md:w-[60px] md:h-[60px] rounded-[50%] border border-black flex items-center justify-center text-[17px] md:text-[30px]"
+                className="flex h-[26px] w-[26px] items-center justify-center rounded-[50%] border border-black text-[17px] md:h-[60px] md:w-[60px] md:text-[30px]"
                 style={{
-                  lineHeight: '87%',
-                  letterSpacing: '-2.7px',
+                  lineHeight: "87%",
+                  letterSpacing: "-2.7px",
                 }}
               >
                 1
               </div>
               <h1
-                className="text-[17px] md:text-2xl lg:text-[30px] font-medium grow"
+                className="grow text-[17px] font-medium md:text-2xl lg:text-[30px]"
                 style={{
-                  lineHeight: '87%',
+                  lineHeight: "87%",
                 }}
               >
                 Sign up with ease
               </h1>
             </div>
             <div
-              className="h-[71px] md:h-[135px] grow w-full    lg:w-[590px] rounded-[2px] flex items-center gap-[21px] md:gap-[31px] px-[19px] py-[22px] md:px-[28px] md:py-[38px]"
+              className="flex h-[71px] w-full grow    items-center gap-[21px] rounded-[2px] px-[19px] py-[22px] md:h-[135px] md:gap-[31px] md:px-[28px] md:py-[38px] lg:w-[590px]"
               style={{
-                boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
                 background:
-                  'linear-gradient(89deg, #290248 -3.13%, rgba(63, 17, 100, 0.94) 47.81%, rgba(14, 14, 18, 0.82) 108.57%)',
+                  "linear-gradient(89deg, #290248 -3.13%, rgba(63, 17, 100, 0.94) 47.81%, rgba(14, 14, 18, 0.82) 108.57%)",
               }}
             >
               <div
-                className="w-[26px] h-[26px] md:w-[60px] md:h-[60px] rounded-[50%] flex items-center justify-center text-[17px] md:text-[30px] shrink-0 bg-white"
+                className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-[50%] bg-white text-[17px] md:h-[60px] md:w-[60px] md:text-[30px]"
                 style={{
-                  lineHeight: '87%',
-                  letterSpacing: '-2.7px',
+                  lineHeight: "87%",
+                  letterSpacing: "-2.7px",
                 }}
               >
                 2
               </div>
               <h1
-                className="text-[17px] md:text-2xl lg:text-[30px] font-medium grow text-light"
+                className="grow text-[17px] font-medium text-light md:text-2xl lg:text-[30px]"
                 style={{
-                  lineHeight: '87%',
+                  lineHeight: "87%",
                 }}
               >
                 Start recording instantly
               </h1>
             </div>
             <div
-              className="h-[71px] md:h-[135px] grow w-full   lg:w-[590px] rounded-[2px] flex items-center gap-[21px] md:gap-[31px] px-[19px] py-[22px] md:px-[28px] md:py-[38px]"
+              className="flex h-[71px] w-full grow   items-center gap-[21px] rounded-[2px] px-[19px] py-[22px] md:h-[135px] md:gap-[31px] md:px-[28px] md:py-[38px] lg:w-[590px]"
               style={{
-                boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
               }}
             >
               <div
-                className="w-[26px] h-[26px] md:w-[60px] md:h-[60px] rounded-[50%] border border-black flex items-center justify-center text-[17px] md:text-[30px] shrink-0"
+                className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-[50%] border border-black text-[17px] md:h-[60px] md:w-[60px] md:text-[30px]"
                 style={{
-                  lineHeight: '87%',
-                  letterSpacing: '-2.7px',
+                  lineHeight: "87%",
+                  letterSpacing: "-2.7px",
                 }}
               >
                 3
               </div>
               <h1
-                className="text-[17px] md:text-2xl lg:text-[30px] font-medium grow"
+                className="grow text-[17px] font-medium md:text-2xl lg:text-[30px]"
                 style={{
-                  lineHeight: '87%',
+                  lineHeight: "87%",
                 }}
               >
                 Check out the AI generated action items/summaries
@@ -147,7 +146,7 @@ const HowItWorks = () => {
             </div>
           </div>
         </div>
-        <div className="w-full h-full hidden lg:flex items-center border ">
+        <div className="hidden h-full w-full items-center border lg:flex ">
           <Image
             src="/images/dashboard1.png"
             width={1000}
