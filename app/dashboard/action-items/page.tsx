@@ -18,7 +18,7 @@ const ActionItemsPage = () => {
 
   const actionItems = useQuery(api.notes.getActionItems, { userId: id });
   return (
-    <div className="h-screen">
+    <div>
       <div className="flex-col items-center justify-center text-center md:flex">
         <div className="w-full pb-1 pt-4">
           <h1 className="text-center text-2xl font-medium text-dark md:text-4xl">

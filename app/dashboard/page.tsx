@@ -25,8 +25,8 @@ const DashboardHomePage = () => {
     console.log({ searchQuery });
 
     const results = await performMyAction({ searchQuery: searchQuery });
-    console.log({ results });
-    setRelevantNotes(results);
+    const filteredResults = results.filter((note) => note._score > 0.75);
+    setRelevantNotes(filteredResults);
   };
 
   const finalNotes = relevantNotes ?? allNotes;
