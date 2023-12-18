@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import ConvexClientProvider from './ConvexClientProvider';
 import Footer from '@/components/ui/Footer';
+import { Toaster } from 'react-hot-toast';
 
 let title = 'notesGPT - Take notes with your voice';
 let description = 'Generate action items from your notes in seconds';
@@ -43,7 +44,8 @@ export default function RootLayout({
       <body>
         <ConvexClientProvider>
           {children}
-          <Footer />{' '}
+          <Footer />
+          <Toaster position="bottom-left" reverseOrder={false} />
         </ConvexClientProvider>
       </body>
     </html>

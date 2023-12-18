@@ -3,7 +3,7 @@
 import { api } from '@/convex/_generated/api';
 import { useUser } from '@clerk/clerk-react';
 import { useMutation, useQuery } from 'convex/react';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const ActionItemsPage = () => {
   const { user } = useUser();
@@ -51,11 +51,11 @@ const ActionItemsPage = () => {
                   />
                   <label className="">{item?.task}</label>
                 </div>
-                <div className="flex justify-between md:mt-2">
+                <div className="flex justify-between gap-3 md:mt-2">
                   <p className="ml-9 text-[15px] font-[300] leading-[249%] tracking-[-0.6px] text-dark opacity-60 md:inline-block md:text-xl lg:text-xl">
                     {new Date(item?._creationTime).toLocaleDateString()}
                   </p>
-                  <p className=" text-[15px] font-[300] leading-[249%] tracking-[-0.6px] text-dark opacity-60 md:inline-block md:text-xl lg:text-xl">
+                  <p className="truncate text-[15px] font-[300] leading-[249%] tracking-[-0.6px] text-dark opacity-60 md:inline-block md:text-xl lg:text-xl">
                     From: {item?.title}
                   </p>
                 </div>
@@ -63,7 +63,6 @@ const ActionItemsPage = () => {
             </div>
           </div>
         ))}
-        <Toaster position="bottom-left" reverseOrder={false} />
       </div>
     </div>
   );

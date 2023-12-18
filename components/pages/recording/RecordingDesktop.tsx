@@ -3,7 +3,7 @@ import { formatTimestamp } from '@/lib/utils';
 import { useMutation } from 'convex/react';
 import Link from 'next/link';
 import { useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 export default function RecordingDesktop({
   actionItems,
@@ -131,7 +131,6 @@ export default function RecordingDesktop({
             </Link>
           </div>
         </div>
-        <Toaster position="bottom-left" reverseOrder={false} />
       </div>
     </div>
   );
