@@ -14,6 +14,9 @@ export const createNote = mutation(
       userId,
       audioFileId: storageId,
       audioFileUrl: fileUrl,
+      generatingTranscript: true,
+      generatingTitle: true,
+      generatingActionItems: true,
     });
 
     await ctx.scheduler.runAfter(0, api.whisper.chat, {

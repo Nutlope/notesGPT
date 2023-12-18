@@ -4,6 +4,7 @@ import OpenAI from 'openai';
 import { action, internalMutation, internalQuery } from './_generated/server';
 import { v } from 'convex/values';
 import { internal } from './_generated/api';
+import { getEmbedding } from '../lib/utils';
 
 const apiKey = process.env.OPENAI_API_KEY!;
 const openai = new OpenAI({ apiKey });
@@ -74,6 +75,7 @@ export const saveSummary = internalMutation({
     await ctx.db.patch(id, {
       summary: summary,
       title: title,
+      generatingTitle: false,
     });
 
     let note = await ctx.db.get(id);
@@ -85,5 +87,95 @@ export const saveSummary = internalMutation({
         userId: note!.userId,
       });
     }
+
+    await ctx.db.patch(id, {
+      generatingActionItems: false,
+    });
+  },
+});
+
+export const similarNotes = action({
+  args: {
+    searchQuery: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const embedding = await getEmbedding({
+      apiKey,
+      searchQuery: args.searchQuery,
+    });
+
+    // 2. Then search for similar notes
+    const results = await ctx.vectorSearch('notes', 'by_embedding', {
+      vector: embedding,
+      limit: 16,
+    });
+
+    console.log({ results });
+
+    const rows: SearchResult[] = await ctx.runQuery(
+      internal.openai.fetchResults,
+      { results },
+    );
+    return rows;
+  },
+});
+
+export type SearchResult = {
+  _id: string;
+  _score: number;
+  title?: string;
+  _creationTime: number;
+};
+
+export const fetchResults = internalQuery({
+  args: {
+    results: v.array(v.object({ _id: v.id('notes'), _score: v.float64() })),
+  },
+  handler: async (ctx, args) => {
+    const out: SearchResult[] = [];
+    for (const result of args.results) {
+      const doc = await ctx.db.get(result._id);
+      if (!doc) {
+        continue;
+      }
+      out.push({
+        _id: doc._id,
+        _score: result._score,
+        title: doc.title,
+        _creationTime: doc._creationTime,
+      });
+    }
+    return out;
+  },
+});
+
+export const embed = action({
+  args: {
+    id: v.id('notes'),
+    transcript: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const embedding = await getEmbedding({
+      apiKey,
+      searchQuery: args.transcript,
+    });
+
+    await ctx.runMutation(internal.openai.saveEmbedding, {
+      id: args.id,
+      embedding,
+    });
+  },
+});
+
+export const saveEmbedding = internalMutation({
+  args: {
+    id: v.id('notes'),
+    embedding: v.array(v.float64()),
+  },
+  handler: async (ctx, args) => {
+    const { id, embedding } = args;
+    await ctx.db.patch(id, {
+      embedding: embedding,
+    });
   },
 });

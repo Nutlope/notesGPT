@@ -33,3 +33,27 @@ export function formatTimestamp(timestamp: number): string {
 
   return `${dateString} at ${timeString}`;
 }
+
+export async function getEmbedding({
+  apiKey,
+  searchQuery,
+}: {
+  apiKey: string;
+  searchQuery: string;
+}) {
+  const fetchEmbedding = await fetch('https://api.openai.com/v1/embeddings', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      input: searchQuery,
+      model: 'text-embedding-ada-002',
+    }),
+  });
+  const json = await fetchEmbedding.json();
+  const embedding = json['data'][0]['embedding'];
+
+  return embedding;
+}

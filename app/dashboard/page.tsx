@@ -1,16 +1,37 @@
 'use client';
 import RecordedfileItemCard from '@/components/pages/dashboard/RecordedfileItemCard';
 import { api } from '@/convex/_generated/api';
+// import { Id } from '@/convex/_generated/dataModel';
+import { SearchResult } from '@/convex/openai';
 import { useUser } from '@clerk/clerk-react';
-import { useQuery } from 'convex/react';
+import { useQuery, useAction } from 'convex/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
+
+// TODO: Add correct types on frontend like "Id"
 
 const DashboardHomePage = () => {
   const { user } = useUser();
   const id = user?.id;
 
+  const [searchQuery, setSearchQuery] = useState('');
+  const [relevantNotes, setRelevantNotes] = useState<SearchResult[]>();
+
   const allNotes = useQuery(api.notes.getNotes, { userId: id });
+  const performMyAction = useAction(api.openai.similarNotes);
+
+  const handleSearch = async (e: any) => {
+    e.preventDefault();
+
+    console.log({ searchQuery });
+
+    const results = await performMyAction({ searchQuery: searchQuery });
+    console.log({ results });
+    setRelevantNotes(results);
+  };
+
+  const finalNotes = relevantNotes ?? allNotes;
 
   return (
     <div className="mt-5 min-h-[100vh] w-full">
@@ -28,16 +49,20 @@ const DashboardHomePage = () => {
           alt="search"
           className="h-5 w-5 md:h-6 md:w-6"
         />
-        <input
-          type="text"
-          placeholder="Search"
-          className="w-full text-[16px] outline-none md:text-xl"
-        />
+        <form onSubmit={handleSearch}>
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchQuery}
+            className="w-full text-[16px] outline-none md:text-xl"
+          />
+        </form>
       </div>
       {/* recorded items */}
       <div className="h-fit w-full max-w-[1360px] md:px-5 xl:mx-auto">
-        {allNotes &&
-          allNotes.map((item, index) => (
+        {finalNotes &&
+          finalNotes.map((item, index) => (
             <RecordedfileItemCard {...item} key={index} />
           ))}
         {!allNotes && (

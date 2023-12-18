@@ -60,10 +60,16 @@ export const saveTranscript = internalMutation({
 
     await ctx.db.patch(id, {
       transcription: transcript,
+      generatingTranscript: false,
     });
 
     await ctx.scheduler.runAfter(0, api.openai.chat, {
       id: args.id,
+    });
+
+    await ctx.scheduler.runAfter(0, api.openai.embed, {
+      id: args.id,
+      transcript: transcript,
     });
   },
 });

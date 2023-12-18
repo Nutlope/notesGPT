@@ -9,6 +9,14 @@ export default defineSchema({
     title: v.optional(v.string()),
     transcription: v.optional(v.string()),
     summary: v.optional(v.string()),
+    embedding: v.optional(v.array(v.float64())),
+    generatingTranscript: v.boolean(),
+    generatingTitle: v.boolean(),
+    generatingActionItems: v.boolean(),
+  }).vectorIndex('by_embedding', {
+    vectorField: 'embedding',
+    dimensions: 1536,
+    filterFields: ['transcription', 'summary', 'title'],
   }),
   actionItems: defineTable({
     noteId: v.id('notes'),

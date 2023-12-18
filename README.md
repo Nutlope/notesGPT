@@ -48,7 +48,10 @@ This example was created by Convex. Check it out as the next backend to power yo
 
 ## Future tasks
 
-- [ ] Add Convex vector search for searching through transcripts
+- [ ] Add loading state for actions
+- [ ] Proofread all convex functions
+- [ ] Type convex stuff on the frontend
+
 - [ ] Layout shift on the dashboard page when refreshing – show a loading state on profile pic + content?
 - [ ] Make action items animate out + make checkbox rounded + add a little check icon on hover
 - [ ] Could do a better job of setting up breakpoints for 14inch macs, decrease text size a bit

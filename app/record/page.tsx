@@ -36,7 +36,6 @@ const RecordVoicePage = () => {
 
     recorder.onstop = async () => {
       const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
-      const audioUrl = URL.createObjectURL(audioBlob);
 
       const postUrl = await generateUploadUrl();
       const result = await fetch(postUrl, {
@@ -46,15 +45,14 @@ const RecordVoicePage = () => {
       });
       const { storageId } = await result.json();
 
-      let noteId = await createNote({
-        userId: user!.id,
-        storageId,
-      });
+      if (user) {
+        let noteId = await createNote({
+          userId: user.id,
+          storageId,
+        });
 
-      // setAudioFileId(noteId);
-
-      // TODO: Push to the new page with their ID
-      router.push(`/recording/${noteId}`);
+        router.push(`/recording/${noteId}`);
+      }
     };
     setMediaRecorder(recorder as any);
     recorder.start();
