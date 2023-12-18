@@ -19,8 +19,8 @@ export default function RecordingDesktop({
   transcription?: string;
   title?: string;
   _creationTime?: number;
-  generatingTitle: boolean;
-  generatingActionItems: boolean;
+  generatingTitle?: boolean;
+  generatingActionItems?: boolean;
 }) {
   const [originalIsOpen, setOriginalIsOpen] = useState<boolean>(true);
 

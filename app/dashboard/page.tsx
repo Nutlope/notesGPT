@@ -1,15 +1,13 @@
 'use client';
+
 import RecordedfileItemCard from '@/components/pages/dashboard/RecordedfileItemCard';
 import { api } from '@/convex/_generated/api';
-// import { Id } from '@/convex/_generated/dataModel';
 import { SearchResult } from '@/convex/openai';
 import { useUser } from '@clerk/clerk-react';
 import { useQuery, useAction } from 'convex/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-
-// TODO: Add correct types on frontend like "Id"
 
 const DashboardHomePage = () => {
   const { user } = useUser();
