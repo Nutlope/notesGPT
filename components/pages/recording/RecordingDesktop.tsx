@@ -99,7 +99,7 @@ export default function RecordingDesktop({
           )}
         </div>
         <div className="relative mx-auto mt-[27px] w-full max-w-[900px] px-5 md:mt-[45px]">
-          {!generatingActionItems
+          {generatingActionItems
             ? [0, 1, 3].map((item: any, idx: number) => (
                 <div
                   className="animate-pulse border-[#00000033] py-1 md:border-t-[1px] md:py-2"
