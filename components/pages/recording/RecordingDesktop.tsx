@@ -16,7 +16,7 @@ export default function RecordingDesktop({
   summary?: string;
   transcription?: string;
   title?: string;
-  _creationTime?: string;
+  _creationTime?: number;
 }) {
   const [originalIsOpen, setOriginalIsOpen] = useState<boolean>(true);
 

@@ -61,18 +61,22 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Action items: Make it so that folks can only mark tasks done through the checkbox + add a toast to make it more obvious that a task has been marked done
 - [x] Add loading state to the recording page, transcript
 - [x] Make sure you can cross out action items from the recording screen as well
+
+## v2.1 - more polish
+
 - [ ] Add Convex vector search for searching through transcripts
 - [ ] Make full README with tech + architecture diagram
 - [ ] Add "how it works" section to landing page, similar to roomGPT
-
-## Future tasks
-
 - [ ] Write up "the convex way"
 - [ ] Test whole site on a smaller desktop and make sure it works well
 - [ ] Account for large transcript
 - [ ] Prompt engineer the summary a little more to return something better than what it does
+- [ ] Make sure all images are used
 - [ ] Layout shift on the dashboard page when refreshing – show a loading state?
+
+## Future tasks
+
 - [ ] Make action items animate out + make checkbox rounded + add a little check icon on hover
 - [ ] Add a due date for the action items + make this editable
-- [ ] Make sure the transcript gets streamed into the frontend?
+- [ ] Make sure the transcript gets streamed into the frontend
 - [ ] Convex scheduled functions to send initial email to user that says "welcome"
