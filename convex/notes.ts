@@ -42,7 +42,7 @@ export const getNote = query({
 
     return {
       ...note,
-      actionItems: actionItems.map((actionItem) => actionItem.task),
+      actionItems: actionItems,
     };
   },
 });

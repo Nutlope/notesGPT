@@ -1,21 +1,33 @@
-import { getCurrentDate, getCurrentFormattedDate } from '@/lib/utils';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function RecordingMobile({
   actionItems,
   summary,
   transcription,
   title,
+  _creationTime,
 }: {
-  actionItems?: string[];
+  actionItems?: any;
   summary?: string;
   transcription?: string;
   title?: string;
+  _creationTime?: number;
 }) {
   const [transcriptOpen, setTranscriptOpen] = useState<boolean>(true);
   const [summaryOpen, setSummaryOpen] = useState<boolean>(false);
   const [actionItemOpen, setActionItemOpen] = useState<boolean>(false);
+
+  const mutateActionItems = useMutation(api.notes.removeActionItem);
+
+  function removeActionItem(actionId: any) {
+    // Trigger a mutation to remove the item from the list
+    mutateActionItems({ id: actionId });
+  }
+
   return (
     <div className="md:hidden">
       <div className="max-width my-5 flex items-center justify-center">
@@ -63,58 +75,50 @@ export default function RecordingMobile({
       </div>
       <div className="w-full">
         {transcriptOpen && (
-          <div className="relative min-h-[70vh] w-full px-4 py-3 text-justify text-base font-[300] leading-[114.3%] tracking-[-0.425px]">
+          <div className="relative mt-2 min-h-[70vh] w-full px-4 py-3 text-justify font-light">
             <div className="">{transcription}</div>
-            <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center justify-center">
-              <button className="mt-[55px]">
-                <img
-                  src={'/icons/mic_plus.svg'}
-                  alt="mic plus"
-                  width={88}
-                  height={88}
-                  className="h-[52px] w-[52px] md:h-[74px] md:w-[74px]"
-                />
-              </button>
-            </div>
           </div>
         )}
         {summaryOpen && (
-          <div className="relative min-h-[70vh] w-full px-4 py-3 text-justify text-base font-[300]  leading-[114.3%] tracking-[-0.425px]">
-            {' '}
-            {summary}{' '}
+          <div className="relative mt-2 min-h-[70vh] w-full px-4 py-3 text-justify font-light">
+            {summary}
           </div>
         )}
         {actionItemOpen && (
           <div className="relative min-h-[70vh] w-full px-4 py-3">
             {' '}
             <div className="relative mx-auto mt-[27px] w-full max-w-[900px] px-5 md:mt-[45px]">
-              {actionItems?.map((item: any, index: number) => (
+              {actionItems?.map((item: any, idx: number) => (
                 <div
-                  className="border-[#00000033] py-2 md:border-t-[1px]"
-                  key={index}
+                  className="border-[#00000033] py-1 md:border-t-[1px] md:py-2"
+                  key={idx}
                 >
-                  <div className="flex w-full items-center gap-[21px]">
-                    <input
-                      type="checkbox"
-                      name=""
-                      id=""
-                      className="h-5 w-5 bg-transparent"
-                    />
-                    <div className="w-full">
-                      <p className="text-[17px] font-[300] text-dark md:text-xl lg:text-2xl">
-                        {item}
-                      </p>
+                  <div className="flex w-full justify-center">
+                    <div className="group w-full items-center rounded py-2 text-lg font-[300] text-dark transition-colors duration-300 checked:text-gray-300 hover:bg-gray-100 md:text-2xl">
+                      <div className="flex items-center">
+                        <input
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              removeActionItem(item._id);
+                              toast.success('1 task completed.');
+                            }
+                          }}
+                          type="checkbox"
+                          checked={false}
+                          className="mr-4 h-5 w-5 cursor-pointer rounded-sm border-2 border-gray-300"
+                        />
+                        <label className="">{item?.task}</label>
+                      </div>
+                      <div className="flex justify-between md:mt-2">
+                        <p className="ml-9 text-[15px] font-[300] leading-[249%] tracking-[-0.6px] text-dark opacity-60 md:inline-block md:text-xl lg:text-xl">
+                          {new Date(Number(_creationTime)).toLocaleDateString()}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-end justify-end">
-                    {' '}
-                    <p className="hidden text-[17px] font-[300] leading-[249%] tracking-[-0.6px] text-dark opacity-60 md:inline-block md:text-xl lg:text-2xl">
-                      {getCurrentDate()}
-                    </p>
                   </div>
                 </div>
               ))}
-              <div className="fixed bottom-5 left-1/2 flex -translate-x-1/2 items-center justify-center">
+              <div className="mt-10 flex items-center justify-center">
                 <Link
                   className="rounded-[7px] bg-dark px-5 py-[15px] text-[17px] leading-[79%] tracking-[-0.75px] text-light md:text-xl lg:px-[37px]"
                   style={{
@@ -122,12 +126,13 @@ export default function RecordingMobile({
                   }}
                   href="/dashboard/action-items"
                 >
-                  View Action Items
+                  View All Action Items
                 </Link>
               </div>
             </div>{' '}
           </div>
         )}
+        <Toaster position="bottom-left" reverseOrder={false} />
       </div>
     </div>
   );
