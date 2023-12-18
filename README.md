@@ -55,12 +55,13 @@ Your AI journal take notes on the go with your voice and translate them into act
   - [x] Homepage
   - [x] Dashboard
   - [x] Record
-  - [ ] Action Items
+  - [x] Action Items
   - [ ] Recording
-- [ ] Fix mobile action items to look well
-- [ ] Add Convex vector search for searching through transcripts
-- [ ] Action items: Make it so that folks can only mark tasks done through the checkbox + add a toast to make it more obvious that a task has been marked done
+- [x] Fix mobile action items to look well
+- [x] Action items: Make it so that folks can only mark tasks done through the checkbox + add a toast to make it more obvious that a task has been marked done
+- [ ] Add loading state to the recording page, transcript
 - [ ] Make sure you can cross out action items from the recording screen as well
+- [ ] Add Convex vector search for searching through transcripts
 - [ ] Make full README with tech + architecture diagram
 - [ ] Add "how it works" section to landing page, similar to roomGPT
 - [ ] Write up "the convex way"

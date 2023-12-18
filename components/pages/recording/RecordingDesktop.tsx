@@ -109,7 +109,7 @@ export default function RecordingDesktop({
               style={{ boxShadow: ' 0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }}
               href="/dashboard/action-items"
             >
-              View Action Items
+              View All Action Items
             </Link>
           </div>
         </div>

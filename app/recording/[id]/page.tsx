@@ -12,7 +12,7 @@ const QuickCheckPage = ({ params }: { params: { id: string } }) => {
   if (!currentNote) return null; // Some 404 page maybe
 
   return (
-    <div className="min-h-screen bg-light">
+    <div className="">
       <Header />
       <div className="mx-auto max-w-[1500px]">
         <RecordingDesktop {...currentNote} />
