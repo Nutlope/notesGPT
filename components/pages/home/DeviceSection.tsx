@@ -5,7 +5,7 @@ const DeviceSection = () => {
     <div className="max-width py-10">
       <div className="flex w-full items-center">
         <Image
-          src="/images/mobile-2.png"
+          src="/images/mobile.png"
           width={500}
           height={600}
           alt="mobile"

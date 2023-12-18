@@ -89,17 +89,6 @@ export default function RecordingDesktop({
               <li className="h-6 w-full rounded-full bg-gray-200 dark:bg-gray-700"></li>
             </ul>
           )}
-          <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center justify-center">
-            <Link href="/record" className="mt-[55px]">
-              <img
-                src={'/icons/mic_plus.svg'}
-                alt="mic plus"
-                width={88}
-                height={88}
-                className="h-[52px] w-[52px] md:h-[74px] md:w-[74px]"
-              />
-            </Link>
-          </div>
         </div>
         <div className="relative mx-auto mt-[27px] w-full max-w-[900px] px-5 md:mt-[45px]">
           {actionItems?.map((item: any, idx: number) => (

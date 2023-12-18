@@ -1,7 +1,3 @@
-# NotesGPT
-
-Your AI journal take notes on the go with your voice and translate them into action items.
-
 # TODOs
 
 ## v0.5 - basics
@@ -61,25 +57,20 @@ Your AI journal take notes on the go with your voice and translate them into act
 - [x] Action items: Make it so that folks can only mark tasks done through the checkbox + add a toast to make it more obvious that a task has been marked done
 - [x] Add loading state to the recording page, transcript
 - [x] Make sure you can cross out action items from the recording screen as well
+- [x] Make sure all images are used and delete the ones that aren't from the repo
+- [x] Uninstall unused dependencies
+- [x] Account for large transcript by simply having a scroll button
+- [x] Test whole site on a smaller desktop and make sure it works well
+- [x] Test whole site on my actual phone and make sure it works well
 
-## v2.1 - more polish
+## Future potential tasks
 
 - [ ] Add Convex vector search for searching through transcripts
-- [ ] Test whole site on a smaller desktop and make sure it works well
-- [ ] Test whole site on my actual phone and make sure it works well
-- [ ] Account for large transcript by simply having a scroll button
-- [ ] Prompt engineer the summary a little more to return something better than what it does
-- [ ] Layout shift on the dashboard page when refreshing – show a loading state?
-- [ ] Make sure all images are used and delete the ones that aren't from the repo
-- [x] Uninstall unused dependencies
-
-- [ ] Make full README with tech + architecture diagram
-- [ ] Add "how it works" section to landing page, similar to roomGPT
-- [ ] Write up "the convex way"
-
-## Future tasks
-
+- [ ] Layout shift on the dashboard page when refreshing – show a loading state on profile pic + content?
 - [ ] Make action items animate out + make checkbox rounded + add a little check icon on hover
+- [ ] Could do a better job of setting up breakpoints for 14inch macs, decrease text size a bit
+- [ ] Convex scheduled functions to send initial email to user that says "welcome"
+- [ ] Add a "how it works" section to the landing page to show how to use it
+- [ ] Prompt engineer the summary a little more to be more useful
 - [ ] Add a due date for the action items + make this editable
 - [ ] Make sure the transcript gets streamed into the frontend
-- [ ] Convex scheduled functions to send initial email to user that says "welcome"

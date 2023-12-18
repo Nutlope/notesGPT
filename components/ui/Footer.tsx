@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="container mx-auto mb-3 mt-5 flex h-16 flex-col items-center justify-between space-y-3 border-t px-3 pt-4 text-center sm:mb-0 sm:h-20 sm:flex-row sm:pt-2">
+    <footer className="container mx-auto my-5 flex h-16 flex-col items-center justify-between space-y-3 border-t px-3 pt-4 text-center sm:h-20 sm:flex-row sm:pt-2">
       <div>
         Powered by{' '}
         <a
@@ -13,7 +13,7 @@ export default function Footer() {
           Convex,{' '}
         </a>
         <a
-          href="https://www.bytescale.com/"
+          href="https://www.replicate.com"
           target="_blank"
           className="font-bold transition hover:text-black/50"
         >
@@ -21,7 +21,7 @@ export default function Footer() {
         </a>
         , and{' '}
         <a
-          href="https://www.openai.com/"
+          href="https://www.openai.com"
           target="_blank"
           className="font-bold transition hover:text-black/50"
         >
