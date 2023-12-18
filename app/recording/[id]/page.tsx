@@ -1,6 +1,6 @@
 'use client';
 
-import Header from '@/components/global/Header';
+import Header from '@/components/ui/Header';
 import RecordingDesktop from '@/components/pages/recording/RecordingDesktop';
 import RecordingMobile from '@/components/pages/recording/RecordingMobile';
 import { api } from '@/convex/_generated/api';

@@ -65,14 +65,16 @@ Your AI journal take notes on the go with your voice and translate them into act
 ## v2.1 - more polish
 
 - [ ] Add Convex vector search for searching through transcripts
+- [ ] Test whole site on a smaller desktop and make sure it works well
+- [ ] Test whole site on my actual phone and make sure it works well
+- [ ] Account for large transcript by simply having a scroll button
+- [ ] Prompt engineer the summary a little more to return something better than what it does
+- [ ] Make sure all images are used and delete the ones that aren't from the repo
+- [ ] Layout shift on the dashboard page when refreshing – show a loading state?
+
 - [ ] Make full README with tech + architecture diagram
 - [ ] Add "how it works" section to landing page, similar to roomGPT
 - [ ] Write up "the convex way"
-- [ ] Test whole site on a smaller desktop and make sure it works well
-- [ ] Account for large transcript
-- [ ] Prompt engineer the summary a little more to return something better than what it does
-- [ ] Make sure all images are used
-- [ ] Layout shift on the dashboard page when refreshing – show a loading state?
 
 ## Future tasks
 

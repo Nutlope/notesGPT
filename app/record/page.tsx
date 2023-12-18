@@ -7,7 +7,7 @@ import { getCurrentFormattedDate } from '@/lib/utils';
 import { useUser } from '@clerk/clerk-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import Header from '@/components/global/Header';
+import Header from '@/components/ui/Header';
 
 const RecordVoicePage = () => {
   const [title, setTitle] = useState('Record your voice note');

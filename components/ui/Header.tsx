@@ -2,7 +2,7 @@
 
 import { useUser } from '@clerk/clerk-react';
 import Link from 'next/link';
-import { UserNav } from '../ui/UserNav';
+import { UserNav } from './UserNav';
 
 const Header = () => {
   const { user } = useUser();

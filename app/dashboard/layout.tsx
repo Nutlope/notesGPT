@@ -1,5 +1,5 @@
 'use client';
-import Header from '@/components/global/Header';
+import Header from '@/components/ui/Header';
 
 type DashboardLayoutProps = {
   children: React.ReactNode;
