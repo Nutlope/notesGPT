@@ -6,7 +6,6 @@ export const generateUploadUrl = mutation(async (ctx) => {
   return await ctx.storage.generateUploadUrl();
 });
 
-// Stores audio file in Convex file storage, invokes whisper Convex action, and invokes OpenAI Convex action to get the transcript, summary, and action items
 export const createNote = mutation(
   async (ctx, { storageId, userId }: { storageId: string; userId: string }) => {
     let fileUrl = (await ctx.storage.getUrl(storageId)) as string;

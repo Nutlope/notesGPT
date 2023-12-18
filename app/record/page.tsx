@@ -140,7 +140,7 @@ const RecordVoicePage = () => {
               />
             ) : (
               <Image
-                src={'/icons/recording_mic_2.svg'}
+                src={'/icons/recording_mic.svg'}
                 alt="recording mic"
                 width={148}
                 height={148}

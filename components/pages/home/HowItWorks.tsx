@@ -148,10 +148,10 @@ const HowItWorks = () => {
         </div>
         <div className="hidden h-full w-full items-center border lg:flex ">
           <Image
-            src="/images/dashboard1.png"
+            src="/images/dashboard.png"
             width={1000}
             height={800}
-            alt="dashboard1"
+            alt="Dashboard"
             className="h-full w-full"
           />
         </div>
