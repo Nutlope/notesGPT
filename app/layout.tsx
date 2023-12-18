@@ -5,8 +5,8 @@ import Footer from '@/components/ui/Footer';
 
 let title = 'notesGPT - Take notes with your voice';
 let description = 'Generate action items from your notes in seconds';
-let url = 'https://www.notesgpt.vercel.app';
-let ogimage = 'https://www.notesgpt.vercel.app/images/og-image.png';
+let url = 'https://notesgpt.vercel.app';
+let ogimage = 'https://notesgpt.vercel.app/images/og-image.png';
 let sitename = 'notesgpt.vercel.app';
 
 export const metadata: Metadata = {
