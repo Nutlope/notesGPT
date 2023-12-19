@@ -44,7 +44,7 @@ See the .example.env for a list of all the required environment variables.
 
 ## Author
 
-This example was created by Convex. Check it out as the next backend to power your AI apps.
+This example was created by Convex. Check it out as the next backend to power your AI apps!
 
 ## Future tasks
 
