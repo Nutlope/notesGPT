@@ -1,13 +1,18 @@
 import { mutation, query } from './_generated/server';
 import { v } from 'convex/values';
 import { api } from '../convex/_generated/api';
+import { Id } from './_generated/dataModel';
 
 export const generateUploadUrl = mutation(async (ctx) => {
   return await ctx.storage.generateUploadUrl();
 });
 
-export const createNote = mutation(
-  async (ctx, { storageId, userId }: { storageId: string; userId: string }) => {
+export const createNote = mutation({
+  args: {
+    storageId: v.id('_storage'),
+    userId: v.string(),
+  },
+  handler: async (ctx, { storageId, userId }) => {
     let fileUrl = (await ctx.storage.getUrl(storageId)) as string;
 
     const noteId = await ctx.db.insert('notes', {
@@ -26,7 +31,7 @@ export const createNote = mutation(
 
     return noteId;
   },
-);
+});
 
 export const getNote = query({
   args: {
@@ -66,9 +71,10 @@ export const getActionItems = query({
 
     for (let item of actionItems) {
       const note = await ctx.db.get(item.noteId);
+      if (!note) continue;
       fullActionItems.push({
         ...item,
-        title: note!.title,
+        title: note.title,
       });
     }
 

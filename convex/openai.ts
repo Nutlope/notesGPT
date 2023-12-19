@@ -12,11 +12,10 @@ const openai = new OpenAI({ apiKey });
 export const chat = action({
   args: {
     id: v.id('notes'),
+    transcript: v.string(),
   },
   handler: async (ctx, args) => {
-    const transcript = await ctx.runQuery(internal.openai.getTranscript, {
-      id: args.id,
-    });
+    const { transcript } = args;
 
     console.log({ transcript });
 
@@ -80,11 +79,15 @@ export const saveSummary = internalMutation({
 
     let note = await ctx.db.get(id);
 
+    if (!note) {
+      console.error(`Couldn't find note ${id}`);
+      return;
+    }
     for (let actionItem of actionItems) {
       await ctx.db.insert('actionItems', {
         task: actionItem,
         noteId: id,
-        userId: note!.userId,
+        userId: note.userId,
       });
     }
 
