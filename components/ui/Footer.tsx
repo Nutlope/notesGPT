@@ -21,11 +21,11 @@ export default function Footer() {
         </a>
         , and{' '}
         <a
-          href="https://www.openai.com"
+          href="https://www.together.ai/"
           target="_blank"
           className="font-bold transition hover:text-black/50"
         >
-          OpenAI
+          Together
         </a>
       </div>
       <div className="flex space-x-4 pb-4 sm:pb-0">
