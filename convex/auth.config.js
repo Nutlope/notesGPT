@@ -2,7 +2,7 @@
 export default {
   providers: [
     {
-      domain: 'https://legal-cougar-31.clerk.accounts.dev',
+      domain: 'https://first-frog-74.clerk.accounts.dev/',
       applicationID: 'convex',
     },
   ],
