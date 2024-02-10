@@ -1,20 +1,19 @@
 import { api } from '@/convex/_generated/api';
-import { useMutation, useQuery } from 'convex/react';
+import { useMutation } from 'convex/react';
 import Link from 'next/link';
 
 const RecordedfileItemCard = ({
   title,
+  count,
   _creationTime,
   _id,
 }: {
   title?: string;
+  count: number;
   _creationTime: number;
   _id: any;
 }) => {
   const deleteNote = useMutation(api.notes.removeNote);
-  const actionItemLength = useQuery(api.notes.actionItemsForNote, {
-    noteId: _id,
-  });
 
   return (
     <Link
@@ -46,23 +45,17 @@ const RecordedfileItemCard = ({
           {new Date(_creationTime).toDateString()}
         </h3>
         <h3 className="hidden text-xl font-[200] leading-[114.3%] tracking-[-0.5px] md:inline-block">
-          {actionItemLength} tasks
+          {count} tasks
         </h3>
-        <Link href={`/dashboard`}>
-          <button
-            onClick={() => {
-              deleteNote({ id: _id });
-            }}
-            className="flex h-fit w-fit items-center justify-center gap-5 bg-transparent p-2 transition hover:scale-125 md:inline-block"
-          >
-            <img
-              src={'/icons/delete.svg'}
-              alt="delete"
-              width={20}
-              height={20}
-            />
-          </button>
-        </Link>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            deleteNote({ id: _id });
+          }}
+          className="flex h-fit w-fit cursor-pointer items-center justify-center gap-5 bg-transparent p-2 transition hover:scale-125 md:inline-block"
+        >
+          <img src={'/icons/delete.svg'} alt="delete" width={20} height={20} />
+        </button>
       </div>
     </Link>
   );

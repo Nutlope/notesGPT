@@ -13,14 +13,18 @@ export default defineSchema({
     generatingTranscript: v.boolean(),
     generatingTitle: v.boolean(),
     generatingActionItems: v.boolean(),
-  }).vectorIndex('by_embedding', {
-    vectorField: 'embedding',
-    dimensions: 1536,
-    filterFields: ['transcription', 'summary', 'title'],
-  }),
+  })
+    .index('by_userId', ['userId'])
+    .vectorIndex('by_embedding', {
+      vectorField: 'embedding',
+      dimensions: 1536,
+      filterFields: ['transcription', 'summary', 'title', 'userId'],
+    }),
   actionItems: defineTable({
     noteId: v.id('notes'),
     userId: v.string(),
     task: v.string(),
-  }),
+  })
+    .index('by_noteId', ['noteId'])
+    .index('by_userId', ['userId']),
 });
