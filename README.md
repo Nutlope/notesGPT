@@ -1,4 +1,4 @@
-<a href="https://notesgpt.vercel.app/">
+<a href="https://usenotesgpt.com/">
   <img alt="NotesGPT – AI-powered voice note taking in seconds." src="/public/images/og-image.png">
   <h1 align="center">notesGPT</h1>
 </a>
@@ -20,15 +20,15 @@
 - Next.js [App Router](https://nextjs.org/docs/app) for the framework
 - [Together Inference](https://www.together.ai/) for the LLM (Mixtral)
 - [Together Embeddings](https://www.together.ai/) for the embeddings for search
-- [Convex File Storage](https://vercel.com/storage/blob) for storing voice notes
-- [Convex Vector search](https://vercel.com/storage/blob) for vector search
+- [Convex File Storage](https://docs.convex.dev/file-storage) for storing voice notes
+- [Convex Vector search](https://docs.convex.dev/vector-search) for vector search
 - [Replicate](https://replicate.com/) for Whisper transcriptions
 - [Clerk](https://clerk.dev/) for user authentication
 - [Tailwind CSS](https://tailwindcss.com/) for styling
 
 ## Deploy Your Own
 
-You can deploy this template to any provider such as Vercel, Netlify, Render, or Railway by setting up the following services and adding their environment variables:
+You can deploy this template by setting up the following services and adding their environment variables:
 
 - Set up [Convex](https://convex.dev)
 - Set up [Together](https://www.together.ai/)

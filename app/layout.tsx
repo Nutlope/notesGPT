@@ -7,9 +7,9 @@ import { Analytics } from '@vercel/analytics/react';
 
 let title = 'notesGPT - Take notes with your voice';
 let description = 'Generate action items from your notes in seconds';
-let url = 'https://notesgpt.vercel.app';
-let ogimage = 'https://notesgpt.vercel.app/images/og-image.png';
-let sitename = 'notesgpt.vercel.app';
+let url = 'https://usenotesgpt.com';
+let ogimage = 'https://usenotesgpt.com/images/og-image.png';
+let sitename = 'usenotesgpt.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(url),
