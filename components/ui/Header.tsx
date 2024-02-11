@@ -3,8 +3,10 @@
 import { useUser } from '@clerk/clerk-react';
 import Link from 'next/link';
 import { UserNav } from './UserNav';
+import { useConvexAuth } from 'convex/react';
 
 const Header = () => {
+  const { isLoading } = useConvexAuth();
   const { user } = useUser();
 
   return (
@@ -25,7 +27,9 @@ const Header = () => {
         </Link>
         {/* buttons */}
         <div className="flex w-fit items-center gap-[22px]">
-          {user ? (
+          {isLoading ? (
+            <></>
+          ) : user ? (
             <>
               <Link
                 href={'/dashboard'}
