@@ -5,9 +5,36 @@ import { action, internalMutation, internalQuery } from './_generated/server';
 import { v } from 'convex/values';
 import { internal } from './_generated/api';
 import { getEmbedding } from '../lib/utils';
+import Instructor from '@instructor-ai/instructor';
+import { z } from 'zod';
 
-const apiKey = process.env.OPENAI_API_KEY!;
-const openai = new OpenAI({ apiKey });
+const togetherApiKey = process.env.TOGETHER_API_KEY!;
+const openaiApiKey = process.env.OPENAI_API_KEY!;
+
+// OpenAI client for embeddings
+const openai = new OpenAI({
+  apiKey: openaiApiKey,
+});
+
+// Together client for chat
+const togetherai = new OpenAI({
+  apiKey: togetherApiKey,
+  baseURL: 'https://api.together.xyz/v1',
+});
+
+// Instructor for JSON mode
+const client = Instructor({
+  client: togetherai,
+  mode: 'TOOLS',
+});
+
+const NoteSchema = z.object({
+  summary: z.string(),
+  actionItems: z.array(z.string()),
+  title: z.string(),
+});
+
+// type NoteInfo = z.infer<typeof NoteSchema>;
 
 export const chat = action({
   args: {
@@ -17,36 +44,27 @@ export const chat = action({
   handler: async (ctx, args) => {
     const { transcript } = args;
 
-    console.log({ transcript });
-
     const prompt = `Take in the following transcript and return a summary of it from the first person point of view of the person speaking, a list of extracted action items from it, and a short title for the transcript. Here is the transcript: ${transcript}`;
 
-    const output = await openai.chat.completions.create({
+    const messageContent = await client.chat.completions.create({
       messages: [
         {
           role: 'system',
-          content:
-            'You are a helpful assistant designed to output JSON in this format: {summary: string, actionItems: string[], title: string}',
+          content: 'You are a helpful assistant designed to output JSON',
         },
         { role: 'user', content: prompt },
       ],
-      model: 'gpt-4-1106-preview',
-      response_format: { type: 'json_object' },
+      model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
+      response_model: { schema: NoteSchema, name: 'NoteInfo' },
     });
-
-    // Pull the message content out of the response
-    const messageContent = output.choices[0].message.content;
 
     console.log({ messageContent });
 
-    const parsedOutput = JSON.parse(messageContent!);
-    console.log({ parsedOutput });
-
     await ctx.runMutation(internal.openai.saveSummary, {
       id: args.id,
-      summary: parsedOutput.summary,
-      actionItems: parsedOutput.actionItems,
-      title: parsedOutput.title,
+      summary: messageContent.summary,
+      actionItems: messageContent.actionItems,
+      title: messageContent.title,
     });
   },
 });
@@ -103,7 +121,7 @@ export const similarNotes = action({
   },
   handler: async (ctx, args) => {
     const embedding = await getEmbedding({
-      apiKey,
+      apiKey: openaiApiKey,
       searchQuery: args.searchQuery,
     });
 
@@ -159,7 +177,7 @@ export const embed = action({
   },
   handler: async (ctx, args) => {
     const embedding = await getEmbedding({
-      apiKey,
+      apiKey: openaiApiKey,
       searchQuery: args.transcript,
     });
 

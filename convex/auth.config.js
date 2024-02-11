@@ -2,7 +2,7 @@
 export default {
   providers: [
     {
-      domain: 'https://legal-cougar-31.clerk.accounts.dev',
+      domain: 'https://clerk.usenotesgpt.com',
       applicationID: 'convex',
     },
   ],
