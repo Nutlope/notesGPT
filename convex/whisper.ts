@@ -1,6 +1,6 @@
 ('use node');
 
-import { internalAction, internalMutation } from './_generated/server';
+import { action, internalMutation } from './_generated/server';
 import { v } from 'convex/values';
 import Replicate from 'replicate';
 import { api, internal } from './_generated/api';
@@ -16,7 +16,7 @@ interface whisperOutput {
   translation: string | null;
 }
 
-export const chat = internalAction({
+export const chat = action({
   args: {
     fileUrl: v.string(),
     id: v.id('notes'),
@@ -63,12 +63,12 @@ export const saveTranscript = internalMutation({
       generatingTranscript: false,
     });
 
-    await ctx.scheduler.runAfter(0, internal.openai.chat, {
+    await ctx.scheduler.runAfter(0, api.openai.chat, {
       id: args.id,
       transcript,
     });
 
-    await ctx.scheduler.runAfter(0, internal.openai.embed, {
+    await ctx.scheduler.runAfter(0, api.openai.embed, {
       id: args.id,
       transcript: transcript,
     });

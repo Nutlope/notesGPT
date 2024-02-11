@@ -47,6 +47,7 @@ const RecordVoicePage = () => {
 
       if (user) {
         let noteId = await createNote({
+          userId: user.id,
           storageId,
         });
 

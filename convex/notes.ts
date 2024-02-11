@@ -1,21 +1,18 @@
-import { ConvexError, v } from 'convex/values';
-import { api, internal } from '../convex/_generated/api';
+import { mutation, query } from './_generated/server';
+import { v } from 'convex/values';
+import { api } from '../convex/_generated/api';
 import { Id } from './_generated/dataModel';
-import { mutationWithUser, queryWithUser } from './utils';
 
-export const generateUploadUrl = mutationWithUser({
-  args: {},
-  handler: async (ctx) => {
-    return await ctx.storage.generateUploadUrl();
-  },
+export const generateUploadUrl = mutation(async (ctx) => {
+  return await ctx.storage.generateUploadUrl();
 });
 
-export const createNote = mutationWithUser({
+export const createNote = mutation({
   args: {
     storageId: v.id('_storage'),
+    userId: v.string(),
   },
-  handler: async (ctx, { storageId }) => {
-    const userId = ctx.userId;
+  handler: async (ctx, { storageId, userId }) => {
     let fileUrl = (await ctx.storage.getUrl(storageId)) as string;
 
     const noteId = await ctx.db.insert('notes', {
@@ -27,7 +24,7 @@ export const createNote = mutationWithUser({
       generatingActionItems: true,
     });
 
-    await ctx.scheduler.runAfter(0, internal.whisper.chat, {
+    await ctx.scheduler.runAfter(0, api.whisper.chat, {
       fileUrl,
       id: noteId,
     });
@@ -36,7 +33,7 @@ export const createNote = mutationWithUser({
   },
 });
 
-export const getNote = queryWithUser({
+export const getNote = query({
   args: {
     id: v.optional(v.id('notes')),
   },
@@ -44,13 +41,10 @@ export const getNote = queryWithUser({
     const { id } = args;
     if (!id) return null;
     const note = await ctx.db.get(id);
-    if (note?.userId !== ctx.userId) {
-      throw new ConvexError('Not your note.');
-    }
 
     const actionItems = await ctx.db
       .query('actionItems')
-      .withIndex('by_noteId', (q) => q.eq('noteId', note._id))
+      .filter((q) => q.eq(q.field('noteId'), id))
       .collect();
 
     return {
@@ -60,14 +54,17 @@ export const getNote = queryWithUser({
   },
 });
 
-export const getActionItems = queryWithUser({
-  args: {},
+export const getActionItems = query({
+  args: {
+    userId: v.optional(v.string()),
+  },
   handler: async (ctx, args) => {
-    const userId = ctx.userId;
+    const { userId } = args;
+    if (!userId) return null;
 
     const actionItems = await ctx.db
       .query('actionItems')
-      .withIndex('by_userId', (q) => q.eq('userId', userId))
+      .filter((q) => q.eq(q.field('userId'), userId))
       .collect();
 
     let fullActionItems = [];
@@ -85,70 +82,44 @@ export const getActionItems = queryWithUser({
   },
 });
 
-export const getNotes = queryWithUser({
-  args: {},
+export const getNotes = query({
+  args: {
+    userId: v.optional(v.string()),
+  },
   handler: async (ctx, args) => {
-    const userId = ctx.userId;
-    console.log(`Get notes for ${userId}`);
+    const { userId } = args;
+    if (!userId) return null;
 
     const notes = await ctx.db
       .query('notes')
-      .withIndex('by_userId', (q) => q.eq('userId', userId))
+      .filter((q) => q.eq(q.field('userId'), userId))
       .collect();
 
-    const results = Promise.all(
-      notes.map(async (note) => {
-        const count = (
-          await ctx.db
-            .query('actionItems')
-            .withIndex('by_noteId', (q) => q.eq('noteId', note._id))
-            .collect()
-        ).length;
-        return {
-          count,
-          ...note,
-        };
-      }),
-    );
-
-    return results;
+    return notes;
   },
 });
 
-export const removeActionItem = mutationWithUser({
+export const removeActionItem = mutation({
   args: {
     id: v.id('actionItems'),
   },
   handler: async (ctx, args) => {
     const { id } = args;
-    const existing = await ctx.db.get(id);
-    if (existing) {
-      if (existing.userId !== ctx.userId) {
-        throw new ConvexError('Not your action item');
-      }
-      await ctx.db.delete(id);
-    }
+    await ctx.db.delete(id);
   },
 });
 
-export const removeNote = mutationWithUser({
+export const removeNote = mutation({
   args: {
     id: v.id('notes'),
   },
   handler: async (ctx, args) => {
     const { id } = args;
-    const existing = await ctx.db.get(id);
-    if (existing) {
-      if (existing.userId !== ctx.userId) {
-        throw new ConvexError('Not your note');
-      }
-      await ctx.db.delete(id);
-      // NB: Removing note does *not* remove action items.
-    }
+    await ctx.db.delete(id);
   },
 });
 
-export const actionItemCountForNote = queryWithUser({
+export const actionItemsForNote = query({
   args: {
     noteId: v.id('notes'),
   },
@@ -156,13 +127,9 @@ export const actionItemCountForNote = queryWithUser({
     const { noteId } = args;
     const actionItems = await ctx.db
       .query('actionItems')
-      .withIndex('by_noteId', (q) => q.eq('noteId', noteId))
+      .filter((q) => q.eq(q.field('noteId'), noteId))
       .collect();
-    for (const ai of actionItems) {
-      if (ai.userId !== ctx.userId) {
-        throw new ConvexError('Not your action items');
-      }
-    }
+
     return actionItems.length;
   },
 });
