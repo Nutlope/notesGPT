@@ -41,16 +41,18 @@ Note that you'll need to:
 
 See the .example.env for a list of all the required environment variables.
 
-## Current tasks
+## Current tasks - v1
 
 - [ ] Migrate from GPT-4 to Mixtral on Together
 - [ ] Migrate from OpenAI embeddings to Together AI embeddings
-- [ ] Prompt engineer the summary a little more to be more useful
-- [ ] Small UI changes with what Youssef sent me
 - [ ] Buy a domain and setup Clerk production environment
 - [ ] Finalize the blog post to be sent in my newsletter
-- [ ] Verify that you can easily clone the repo and everything works smoothly
-- [ ] Add tracking links for Together + Convex to the README and site
+- [ ] Verify that you can easily clone the repo and everything works smoothly, add tracking links as well
+
+## Next tasks - v1.5
+
+- [ ] Prompt engineer the summary a little more to be more useful
+- [ ] Small UI changes with what Youssef sent me
 - [ ] Fix the deploy with Vercel button
 - [ ] Make sure the transcript gets streamed into the frontend
 
