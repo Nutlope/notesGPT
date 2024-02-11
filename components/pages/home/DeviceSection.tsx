@@ -14,6 +14,7 @@ const DeviceSection = () => {
         <div className="relative z-[1] -ml-[8.8%] hidden h-[70%] w-auto grow lg:inline-block">
           <Image
             src="/images/desktop-2.png"
+            priority
             width={800}
             height={500}
             alt="laptop"

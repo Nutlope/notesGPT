@@ -2,9 +2,7 @@
 
 import RecordedfileItemCard from '@/components/pages/dashboard/RecordedfileItemCard';
 import { api } from '@/convex/_generated/api';
-import { SearchResult } from '@/convex/openai';
-import { useUser } from '@clerk/clerk-react';
-import { Preloaded, useAction, useConvexAuth } from 'convex/react';
+import { Preloaded, useAction } from 'convex/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -26,7 +24,6 @@ const DashboardHomePage = ({
   const handleSearch = async (e: any) => {
     e.preventDefault();
 
-    console.log({ searchQuery });
     if (searchQuery === '') {
       setRelevantNotes(undefined);
     } else {

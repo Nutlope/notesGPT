@@ -20,8 +20,6 @@ export const chat = internalAction({
   handler: async (ctx, args) => {
     const { transcript } = args;
 
-    console.log({ transcript });
-
     const prompt = `Take in the following transcript and return a summary of it from the first person point of view of the person speaking, a list of extracted action items from it, and a short title for the transcript. Here is the transcript: ${transcript}`;
 
     const output = await openai.chat.completions.create({
@@ -39,11 +37,7 @@ export const chat = internalAction({
 
     // Pull the message content out of the response
     const messageContent = output.choices[0].message.content;
-
-    console.log({ messageContent });
-
     const parsedOutput = JSON.parse(messageContent!);
-    console.log({ parsedOutput });
 
     await ctx.runMutation(internal.openai.saveSummary, {
       id: args.id,
@@ -117,8 +111,6 @@ export const similarNotes = actionWithUser({
       limit: 16,
       filter: (q) => q.eq('userId', userId), // Only search my notes.
     });
-
-    console.log({ results });
 
     const rows: SearchResult[] = await ctx.runQuery(
       internal.openai.fetchResults,

@@ -15,7 +15,7 @@ const RecordingPage = ({
   const currentNote = useAuthenticatedPreloadedQuery(preloadedNote);
 
   return (
-    <div className="">
+    <div>
       <Header />
       <div className="mx-auto max-w-[1500px]">
         <RecordingDesktop {...currentNote} />

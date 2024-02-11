@@ -1,7 +1,6 @@
 'use client';
 
 import { api } from '@/convex/_generated/api';
-import { useUser } from '@clerk/clerk-react';
 import { Preloaded, useMutation } from 'convex/react';
 import toast from 'react-hot-toast';
 import { useAuthenticatedPreloadedQuery } from '@/hooks/preloading';
@@ -11,9 +10,6 @@ const ActionItemsPage = ({
 }: {
   preloadedItems: Preloaded<typeof api.notes.getActionItems>;
 }) => {
-  const { user } = useUser();
-  const id = user?.id;
-
   const mutateActionItems = useMutation(api.notes.removeActionItem);
 
   function removeActionItem(actionId: any) {

@@ -39,7 +39,8 @@ See the .example.env for a list of all the required environment variables.
 
 ## Current tasks - v1
 
-- [ ] Review Jaime's improvements and merge them
+- [x] Review Jaime's improvements and merge them
+  - [ ] Broke auth when accessing pages, look into this
 - [ ] Migrate from GPT-4 to Mixtral on Together
 - [ ] Migrate from OpenAI embeddings to Together AI embeddings
 - [ ] Buy a domain and setup Clerk production environment

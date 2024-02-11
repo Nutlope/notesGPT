@@ -1,5 +1,5 @@
 'use client';
-import { LogOut, PlusCircle, Paintbrush2 } from 'lucide-react';
+import { LogOut, Paintbrush2 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from './avatar';
 import { Button } from './button';
 import {
@@ -31,7 +31,7 @@ export function UserNav({
           <Avatar className="h-10 w-10">
             <AvatarImage src={image} alt={name} />
             <AvatarFallback>
-              <img src={'/profile.png'} alt={name} />
+              <img src={'/images/profile.jpeg'} alt={name} />
             </AvatarFallback>
           </Avatar>
         </Button>

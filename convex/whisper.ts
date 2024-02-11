@@ -3,7 +3,7 @@
 import { internalAction, internalMutation } from './_generated/server';
 import { v } from 'convex/values';
 import Replicate from 'replicate';
-import { api, internal } from './_generated/api';
+import { internal } from './_generated/api';
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_KEY,
