@@ -43,21 +43,18 @@ See the .example.env for a list of all the required environment variables.
 
 ## Current tasks - v1
 
+- [ ] Review Jaime's improvements and merge them
 - [ ] Migrate from GPT-4 to Mixtral on Together
 - [ ] Migrate from OpenAI embeddings to Together AI embeddings
 - [ ] Buy a domain and setup Clerk production environment
 - [ ] Finalize the blog post to be sent in my newsletter
 - [ ] Verify that you can easily clone the repo and everything works smoothly, add tracking links as well
-
-## Next tasks - v1.5
-
-- [ ] Prompt engineer the summary a little more to be more useful
-- [ ] Small UI changes with what Youssef sent me
 - [ ] Fix the deploy with Vercel button
-- [ ] Make sure the transcript gets streamed into the frontend
 
 ## Future tasks
 
+- [ ] Prompt engineer the summary a little more to be more useful
+- [ ] Nice to have: UI updates to make it look nicer
 - [ ] Be able to edit action items
 - [ ] Add a Notion integration
 - [ ] Layout shift on the dashboard page when refreshing – show a loading state on profile pic + content?
