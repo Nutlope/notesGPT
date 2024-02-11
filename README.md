@@ -28,11 +28,7 @@
 
 ## Deploy Your Own
 
-You can deploy this template to Vercel with the button below:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.fyi/qrGPT)
-
-Note that you'll need to:
+You can deploy this template to any provider such as Vercel, Netlify, Render, or Railway by setting up the following services and adding their environment variables:
 
 - Set up [Convex](https://convex.dev)
 - Set up [Together](https://www.together.ai/)
@@ -49,7 +45,6 @@ See the .example.env for a list of all the required environment variables.
 - [ ] Buy a domain and setup Clerk production environment
 - [ ] Finalize the blog post to be sent in my newsletter
 - [ ] Verify that you can easily clone the repo and everything works smoothly, add tracking links as well
-- [ ] Fix the deploy with Vercel button
 
 ## Future tasks
 
