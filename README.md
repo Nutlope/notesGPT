@@ -39,12 +39,11 @@ See the .example.env for a list of all the required environment variables.
 
 ## Current tasks - v1
 
-- [ ] Review Jaime's improvements and merge them
 - [ ] Migrate from GPT-4 to Mixtral on Together
 - [ ] Migrate from OpenAI embeddings to Together AI embeddings
 - [ ] Buy a domain and setup Clerk production environment
-- [ ] Finalize the blog post to be sent in my newsletter
 - [ ] Verify that you can easily clone the repo and everything works smoothly, add tracking links as well
+- [ ] Finalize the blog post to be sent in my newsletter
 
 ## Future tasks
 
