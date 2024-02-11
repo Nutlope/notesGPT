@@ -1,3 +1,4 @@
+'use client';
 import Header from '@/components/ui/Header';
 
 type DashboardLayoutProps = {

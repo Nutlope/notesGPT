@@ -1,18 +1,15 @@
+('use node');
+
 import OpenAI from 'openai';
-import {
-  internalAction,
-  internalMutation,
-  internalQuery,
-} from './_generated/server';
+import { action, internalMutation, internalQuery } from './_generated/server';
 import { v } from 'convex/values';
 import { internal } from './_generated/api';
 import { getEmbedding } from '../lib/utils';
-import { actionWithUser } from './utils';
 
 const apiKey = process.env.OPENAI_API_KEY!;
 const openai = new OpenAI({ apiKey });
 
-export const chat = internalAction({
+export const chat = action({
   args: {
     id: v.id('notes'),
     transcript: v.string(),
@@ -100,12 +97,11 @@ export const saveSummary = internalMutation({
   },
 });
 
-export const similarNotes = actionWithUser({
+export const similarNotes = action({
   args: {
     searchQuery: v.string(),
   },
   handler: async (ctx, args) => {
-    const userId = ctx.userId;
     const embedding = await getEmbedding({
       apiKey,
       searchQuery: args.searchQuery,
@@ -115,7 +111,6 @@ export const similarNotes = actionWithUser({
     const results = await ctx.vectorSearch('notes', 'by_embedding', {
       vector: embedding,
       limit: 16,
-      filter: (q) => q.eq('userId', userId), // Only search my notes.
     });
 
     console.log({ results });
@@ -129,8 +124,10 @@ export const similarNotes = actionWithUser({
 });
 
 export type SearchResult = {
-  id: string;
-  score: number;
+  _id: string;
+  _score: number;
+  title?: string;
+  _creationTime: number;
 };
 
 export const fetchResults = internalQuery({
@@ -140,13 +137,22 @@ export const fetchResults = internalQuery({
   handler: async (ctx, args) => {
     const out: SearchResult[] = [];
     for (const result of args.results) {
-      out.push({ id: result._id, score: result._score });
+      const doc = await ctx.db.get(result._id);
+      if (!doc) {
+        continue;
+      }
+      out.push({
+        _id: doc._id,
+        _score: result._score,
+        title: doc.title,
+        _creationTime: doc._creationTime,
+      });
     }
     return out;
   },
 });
 
-export const embed = internalAction({
+export const embed = action({
   args: {
     id: v.id('notes'),
     transcript: v.string(),
