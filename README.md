@@ -40,7 +40,8 @@ See the .example.env for a list of all the required environment variables.
 ## Current tasks - v1
 
 - [x] Buy a domain and setup Clerk production environment
-- [ ] Migrate from GPT-4 to Mixtral on Together with JSON mode
+- [ ] Troubleshoot why Clerk isn't working properly anymore
+- [ ] [in-progress] Migrate from GPT-4 to Mixtral on Together with JSON mode
 - [ ] Migrate from OpenAI embeddings to Together AI embeddings
 - [ ] Verify that you can easily clone the repo and everything works smoothly, add tracking links as well
 - [ ] Finalize the blog post to be sent in my newsletter
