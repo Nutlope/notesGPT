@@ -15,7 +15,7 @@ export default defineSchema({
     generatingActionItems: v.boolean(),
   }).vectorIndex('by_embedding', {
     vectorField: 'embedding',
-    dimensions: 1536,
+    dimensions: 768,
     filterFields: ['transcription', 'summary', 'title'],
   }),
   actionItems: defineTable({
