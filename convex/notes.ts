@@ -1,6 +1,5 @@
 import { ConvexError, v } from 'convex/values';
-import { api, internal } from '../convex/_generated/api';
-import { Id } from './_generated/dataModel';
+import { internal } from '../convex/_generated/api';
 import { mutationWithUser, queryWithUser } from './utils';
 
 export const generateUploadUrl = mutationWithUser({
@@ -89,8 +88,6 @@ export const getNotes = queryWithUser({
   args: {},
   handler: async (ctx, args) => {
     const userId = ctx.userId;
-    console.log(`Get notes for ${userId}`);
-
     const notes = await ctx.db
       .query('notes')
       .withIndex('by_userId', (q) => q.eq('userId', userId))

@@ -1,5 +1,5 @@
 'use client';
-import { LogOut, PlusCircle, Paintbrush2 } from 'lucide-react';
+import { LogOut, Paintbrush2 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from './avatar';
 import { Button } from './button';
 import {

@@ -1,7 +1,6 @@
 'use client';
 
 import { api } from '@/convex/_generated/api';
-import { useUser } from '@clerk/clerk-react';
 import { Preloaded, useMutation } from 'convex/react';
 import toast from 'react-hot-toast';
 import AuthenticatedPreload from '@/components/preloading';

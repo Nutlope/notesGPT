@@ -13,26 +13,26 @@ export default function Footer() {
           Convex,{' '}
         </a>
         <a
+          href="https://www.together.ai"
+          target="_blank"
+          className="font-bold transition hover:text-black/50"
+        >
+          Together
+        </a>
+        , and{' '}
+        <a
           href="https://www.replicate.com"
           target="_blank"
           className="font-bold transition hover:text-black/50"
         >
           Replicate
         </a>
-        , and{' '}
-        <a
-          href="https://www.together.ai/"
-          target="_blank"
-          className="font-bold transition hover:text-black/50"
-        >
-          Together
-        </a>
       </div>
       <div className="flex space-x-4 pb-4 sm:pb-0">
         <Link
-          href="https://twitter.com/convex_dev"
+          href="https://twitter.com/nutlope"
           className="group"
-          aria-label="Convex on Twitter"
+          aria-label="Twitter"
         >
           <svg
             aria-hidden="true"
@@ -42,9 +42,9 @@ export default function Footer() {
           </svg>
         </Link>
         <Link
-          href="https://github.com/get-convex/convex-demos"
+          href="https://github.com/nutlope/notesgpt"
           className="group"
-          aria-label="Convex on GitHub"
+          aria-label="GitHub"
         >
           <svg
             aria-hidden="true"

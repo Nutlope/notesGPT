@@ -2,7 +2,7 @@
 
 import RecordedfileItemCard from '@/components/pages/dashboard/RecordedfileItemCard';
 import { api } from '@/convex/_generated/api';
-import { Preloaded, useAction, useConvexAuth } from 'convex/react';
+import { Preloaded, useAction } from 'convex/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';

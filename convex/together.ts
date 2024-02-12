@@ -151,7 +151,6 @@ export const embed = internalAction({
       input: [args.transcript.replace('/n', ' ')],
       model: 'togethercomputer/m2-bert-80M-32k-retrieval',
     });
-    console.log({ getEmbedding });
     const embedding = getEmbedding.data[0].embedding;
 
     await ctx.runMutation(internal.together.saveEmbedding, {
