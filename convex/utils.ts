@@ -6,45 +6,39 @@ import {
   customMutation,
   customQuery,
 } from 'convex-helpers/server/customFunctions';
+import { Auth } from 'convex/server';
+
+async function getUserId(ctx: { auth: Auth }): Promise<string> {
+  const authInfo = await ctx.auth.getUserIdentity();
+  if (!authInfo) {
+    throw new ConvexError('User must be logged in.');
+  }
+  return authInfo.tokenIdentifier;
+}
 
 export const queryWithUser = customQuery(
   query,
   customCtx(async (ctx) => {
-    const authInfo = await ctx.auth.getUserIdentity();
-    if (!authInfo) {
-      throw new ConvexError('User must be logged in.');
-    }
-    const newCtx = {
-      userId: authInfo.tokenIdentifier,
+    return {
+      userId: await getUserId(ctx),
     };
-    return Object.assign(newCtx, ctx);
   }),
 );
 
 export const mutationWithUser = customMutation(
   mutation,
   customCtx(async (ctx) => {
-    const authInfo = await ctx.auth.getUserIdentity();
-    if (!authInfo) {
-      throw new ConvexError('User must be logged in.');
-    }
-    const newCtx = {
-      userId: authInfo.tokenIdentifier,
+    return {
+      userId: await getUserId(ctx),
     };
-    return Object.assign(newCtx, ctx);
   }),
 );
 
 export const actionWithUser = customAction(
   action,
   customCtx(async (ctx) => {
-    const authInfo = await ctx.auth.getUserIdentity();
-    if (!authInfo) {
-      throw new ConvexError('User must be logged in.');
-    }
-    const newCtx = {
-      userId: authInfo.tokenIdentifier,
+    return {
+      userId: await getUserId(ctx),
     };
-    return Object.assign(newCtx, ctx);
   }),
 );
