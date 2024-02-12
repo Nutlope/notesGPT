@@ -46,7 +46,7 @@ const DashboardHomePage = ({
         scoreMap.set(s.id, s.score);
       }
       const filteredResults = allNotes.filter(
-        (note) => (scoreMap.get(note._id) ?? 0) > 0.75,
+        (note) => (scoreMap.get(note._id) ?? 0) > 0.6,
       );
       setRelevantNotes(filteredResults);
     }
@@ -86,7 +86,7 @@ const DashboardHomePage = ({
           finalNotes.map((item, index) => (
             <RecordedfileItemCard {...item} key={index} />
           ))}
-        {!allNotes && (
+        {finalNotes.length === 0 && (
           <div className="flex h-[50vh] w-full items-center justify-center">
             <p className="text-center text-2xl text-dark">
               You currently have no <br /> recordings.

@@ -134,6 +134,8 @@ export const similarNotes = actionWithUser({
       filter: (q) => q.eq('userId', ctx.userId), // Only search my notes.
     });
 
+    console.log({ results });
+
     return results.map((r) => ({
       id: r._id,
       score: r._score,

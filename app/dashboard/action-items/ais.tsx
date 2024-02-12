@@ -5,6 +5,7 @@ import { Preloaded, useMutation } from 'convex/react';
 import toast from 'react-hot-toast';
 import AuthenticatedPreload from '@/components/preloading';
 import { FunctionReturnType } from 'convex/server';
+import Link from 'next/link';
 
 const PreloadedActionItemsPage = ({
   preloadedItems,
@@ -32,7 +33,7 @@ const ActionItemsPage = ({
   }
 
   return (
-    <div>
+    <div className="min-h-[100vh]">
       <div className="flex-col items-center justify-center text-center md:flex">
         <div className="w-full pb-1 pt-4">
           <h1 className="text-center text-2xl font-medium text-dark md:text-4xl">
@@ -77,6 +78,22 @@ const ActionItemsPage = ({
             </div>
           </div>
         ))}
+        {actionItems?.length === 0 && (
+          <div className="flex flex-col items-center justify-center">
+            <div className="flex h-[50vh] w-full flex-col items-center justify-center gap-7">
+              <p className="text-center text-2xl text-dark">
+                You currently have no action items.
+              </p>
+              <Link
+                className="rounded-[7px] bg-dark px-[37px] py-[15px] text-[17px] leading-[79%] tracking-[-0.75px] text-light md:text-2xl"
+                style={{ boxShadow: ' 0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }}
+                href="/record"
+              >
+                Record your first voice note
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

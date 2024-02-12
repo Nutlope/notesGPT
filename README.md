@@ -48,9 +48,9 @@ You can deploy this template by setting up the following services and adding the
 
 ## Future tasks
 
-- [ ] Have a min height for action items page and tell them to create a note if none are available
 - [ ] Whisper transcripts can get queued on Replicate. If that happens, show a message to the user
 - [ ] Make text/images in the landing page smaller to account for multiple screen sizes
+- [ ] Make the search experience a little smoother overall
 - [ ] Prompt engineer the summary a little more to be more useful than what's currently displaying
 - [ ] Add a Notion integration to be able to get the transcript + summary + action items on there
 - [ ] UI updates to make it look a little nicer based on Youssef's redesign
