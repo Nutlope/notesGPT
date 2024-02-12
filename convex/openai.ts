@@ -1,5 +1,9 @@
 import OpenAI from 'openai';
-import { internalAction, internalMutation, internalQuery } from './_generated/server';
+import {
+  internalAction,
+  internalMutation,
+  internalQuery,
+} from './_generated/server';
 import { v } from 'convex/values';
 import { internal } from './_generated/api';
 import { getEmbedding } from '../lib/utils';
@@ -7,33 +11,30 @@ import Instructor from '@instructor-ai/instructor';
 import { z } from 'zod';
 import { actionWithUser } from './utils';
 
-const togetherApiKey = process.env.TOGETHER_API_KEY!;
-const openaiApiKey = process.env.OPENAI_API_KEY!;
+const togetherApiKey = process.env.TOGETHER_API_KEY ?? 'undefined';
+const openaiApiKey = process.env.OPENAI_API_KEY ?? 'undefined';
 
-// OpenAI client for embeddings
-const openai = new OpenAI({
-  apiKey: openaiApiKey,
-});
-
-// Together client for chat
+// Together client for LLM extraction
 const togetherai = new OpenAI({
   apiKey: togetherApiKey,
-  baseURL: 'https://api.together.xyz/v1',
+  baseURL: 'https://api.together.xyz',
 });
 
-// Instructor for JSON mode
+// Instructor for returning structured JSON
 const client = Instructor({
   client: togetherai,
   mode: 'TOOLS',
 });
 
 const NoteSchema = z.object({
-  summary: z.string(),
-  actionItems: z.array(z.string()),
-  title: z.string(),
+  title: z.string().describe('Short descriptive title of voice message'),
+  summary: z.string().describe('Short summary of voice message'),
+  actionItems: z
+    .array(z.string())
+    .describe(
+      'A list of action items from the voice note, short and to the point. Make sure all action item lists are fully resolved if they are nested',
+    ),
 });
-
-// type NoteInfo = z.infer<typeof NoteSchema>;
 
 export const chat = internalAction({
   args: {
@@ -43,27 +44,26 @@ export const chat = internalAction({
   handler: async (ctx, args) => {
     const { transcript } = args;
 
-    const prompt = `Take in the following transcript and return a summary of it from the first person point of view of the person speaking, a list of extracted action items from it, and a short title for the transcript. Here is the transcript: ${transcript}`;
-
-    const messageContent = await client.chat.completions.create({
+    console.log('its about to run');
+    const extract = await client.chat.completions.create({
       messages: [
         {
           role: 'system',
-          content: 'You are a helpful assistant designed to output JSON',
+          content:
+            'The following is a transcript of a voice message. Extract the relevant actions from it and correctly return JSON.',
         },
-        { role: 'user', content: prompt },
+        { role: 'user', content: transcript },
       ],
       model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
-      response_model: { schema: NoteSchema, name: 'NoteInfo' },
+      response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
+      max_retries: 2,
     });
-
-    console.log({ messageContent });
 
     await ctx.runMutation(internal.openai.saveSummary, {
       id: args.id,
-      summary: messageContent.summary,
-      actionItems: messageContent.actionItems,
-      title: messageContent.title,
+      summary: extract.summary,
+      actionItems: extract.actionItems,
+      title: extract.title,
     });
   },
 });

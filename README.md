@@ -40,14 +40,16 @@ See the .example.env for a list of all the required environment variables.
 ## Current tasks - v1
 
 - [x] Buy a domain and setup Clerk production environment
-- [ ] Troubleshoot why Clerk isn't working properly anymore
-- [ ] [in-progress] Migrate from GPT-4 to Mixtral on Together with JSON mode
+- [x] Troubleshoot why Clerk isn't working properly anymore
+- [x] Migrate from GPT-4 to Mixtral on Together with JSON mode
 - [ ] Migrate from OpenAI embeddings to Together AI embeddings
+- [ ] Merge Jaime's PR and make sure auth is working
 - [ ] Verify that you can easily clone the repo and everything works smoothly, add tracking links as well
 - [ ] Finalize the blog post to be sent in my newsletter
 
 ## Future tasks
 
+- [ ] Make text/images in the landing page smaller
 - [ ] Prompt engineer the summary a little more to be more useful
 - [ ] Nice to have: UI updates to make it look nicer
 - [ ] Be able to edit action items
