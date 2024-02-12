@@ -111,11 +111,16 @@ export const saveSummary = internalMutation({
   },
 });
 
+export type SearchResult = {
+  id: string;
+  score: number;
+};
+
 export const similarNotes = actionWithUser({
   args: {
     searchQuery: v.string(),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx, args): Promise<SearchResult[]> => {
     const getEmbedding = await togetherai.embeddings.create({
       input: [args.searchQuery.replace('/n', ' ')],
       model: 'togethercomputer/m2-bert-80M-32k-retrieval',
@@ -128,29 +133,10 @@ export const similarNotes = actionWithUser({
       limit: 16,
     });
 
-    const rows: SearchResult[] = await ctx.runQuery(
-      internal.together.fetchResults,
-      { results },
-    );
-    return rows;
-  },
-});
-
-export type SearchResult = {
-  id: string;
-  score: number;
-};
-
-export const fetchResults = internalQuery({
-  args: {
-    results: v.array(v.object({ _id: v.id('notes'), _score: v.float64() })),
-  },
-  handler: async (ctx, args) => {
-    const out: SearchResult[] = [];
-    for (const result of args.results) {
-      out.push({ id: result._id, score: result._score });
-    }
-    return out;
+    return results.map((r) => ({
+      id: r._id,
+      score: r._score,
+    }));
   },
 });
 
