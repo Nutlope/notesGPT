@@ -4,7 +4,7 @@
 </a>
 
 <p align="center">
-  Generate action items from your notes in seconds. Powered by Convex, Together.ai, and Replicate.
+  Generate action items from your notes in seconds. Powered by Convex, Together.ai, and Whisper.
 </p>
 
 <p align="center">
