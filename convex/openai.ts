@@ -1,12 +1,11 @@
-('use node');
-
 import OpenAI from 'openai';
-import { action, internalMutation, internalQuery } from './_generated/server';
+import { internalAction, internalMutation, internalQuery } from './_generated/server';
 import { v } from 'convex/values';
 import { internal } from './_generated/api';
 import { getEmbedding } from '../lib/utils';
 import Instructor from '@instructor-ai/instructor';
 import { z } from 'zod';
+import { actionWithUser } from './utils';
 
 const togetherApiKey = process.env.TOGETHER_API_KEY!;
 const openaiApiKey = process.env.OPENAI_API_KEY!;
@@ -36,7 +35,7 @@ const NoteSchema = z.object({
 
 // type NoteInfo = z.infer<typeof NoteSchema>;
 
-export const chat = action({
+export const chat = internalAction({
   args: {
     id: v.id('notes'),
     transcript: v.string(),
@@ -115,7 +114,7 @@ export const saveSummary = internalMutation({
   },
 });
 
-export const similarNotes = action({
+export const similarNotes = actionWithUser({
   args: {
     searchQuery: v.string(),
   },
@@ -142,10 +141,8 @@ export const similarNotes = action({
 });
 
 export type SearchResult = {
-  _id: string;
-  _score: number;
-  title?: string;
-  _creationTime: number;
+  id: string;
+  score: number;
 };
 
 export const fetchResults = internalQuery({
@@ -155,22 +152,13 @@ export const fetchResults = internalQuery({
   handler: async (ctx, args) => {
     const out: SearchResult[] = [];
     for (const result of args.results) {
-      const doc = await ctx.db.get(result._id);
-      if (!doc) {
-        continue;
-      }
-      out.push({
-        _id: doc._id,
-        _score: result._score,
-        title: doc.title,
-        _creationTime: doc._creationTime,
-      });
+      out.push({ id: result._id, score: result._score });
     }
     return out;
   },
 });
 
-export const embed = action({
+export const embed = internalAction({
   args: {
     id: v.id('notes'),
     transcript: v.string(),
