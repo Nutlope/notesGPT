@@ -25,8 +25,12 @@ const client = Instructor({
 });
 
 const NoteSchema = z.object({
-  title: z.string().describe('Short descriptive title of voice message'),
-  summary: z.string().describe('Short summary of voice message'),
+  title: z
+    .string()
+    .describe('Short descriptive title of what the voice message is about'),
+  summary: z
+    .string()
+    .describe('A short summary in the first person of the voice message'),
   actionItems: z
     .array(z.string())
     .describe(
@@ -47,7 +51,7 @@ export const chat = internalAction({
         {
           role: 'system',
           content:
-            'The following is a transcript of a voice message. Extract the relevant actions from it and correctly return JSON.',
+            'The following is a transcript of a voice message. Extract a title, summary, and relevant actions from it and correctly return JSON.',
         },
         { role: 'user', content: transcript },
       ],
