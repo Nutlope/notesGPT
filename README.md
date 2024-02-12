@@ -53,5 +53,5 @@ You can deploy this template by setting up the following services and adding the
 - [ ] Add a Notion integration to be able to get the transcript + summary + action items on there
 - [ ] UI updates to make it look a little nicer based on Youssef's redesign
 - [ ] Be able to edit action items after the fact and set a due date for them
-- [ ] Account for layout shift on the dashboard page when refreshing – show a loading state on profile pic + content?
+- [ ] Account for layout shift on the dashboard page when refreshing – show a loading state on content?
 - [ ] Make action items animate out + make checkbox rounded + add a little check icon on hover
