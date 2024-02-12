@@ -18,7 +18,7 @@ export default defineSchema({
     .vectorIndex('by_embedding', {
       vectorField: 'embedding',
       dimensions: 768,
-      filterFields: ['transcription', 'summary', 'title', 'userId'],
+      filterFields: ['userId'],
     }),
   actionItems: defineTable({
     noteId: v.id('notes'),

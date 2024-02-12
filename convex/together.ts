@@ -131,6 +131,7 @@ export const similarNotes = actionWithUser({
     const results = await ctx.vectorSearch('notes', 'by_embedding', {
       vector: embedding,
       limit: 16,
+      filter: (q) => q.eq('userId', ctx.userId), // Only search my notes.
     });
 
     return results.map((r) => ({
