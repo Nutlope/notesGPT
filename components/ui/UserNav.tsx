@@ -12,6 +12,7 @@ import {
 } from './dropdown-menu';
 import Link from 'next/link';
 import { useClerk } from '@clerk/clerk-react';
+import { useRouter } from 'next/navigation';
 
 export function UserNav({
   image,
@@ -23,6 +24,7 @@ export function UserNav({
   email: string;
 }) {
   const { signOut } = useClerk();
+  const router = useRouter();
 
   return (
     <DropdownMenu>
@@ -53,7 +55,7 @@ export function UserNav({
           </DropdownMenuItem>
         </Link>
         <DropdownMenuItem
-          onClick={() => signOut()}
+          onClick={() => signOut(() => router.push('/'))}
           className="hover:cursor-pointer hover:bg-gray-200"
         >
           <LogOut className="mr-2 h-4 w-4 text-black" />
