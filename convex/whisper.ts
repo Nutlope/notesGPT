@@ -63,12 +63,12 @@ export const saveTranscript = internalMutation({
       generatingTranscript: false,
     });
 
-    await ctx.scheduler.runAfter(0, internal.openai.chat, {
+    await ctx.scheduler.runAfter(0, internal.together.chat, {
       id: args.id,
       transcript,
     });
 
-    await ctx.scheduler.runAfter(0, internal.openai.embed, {
+    await ctx.scheduler.runAfter(0, internal.together.embed, {
       id: args.id,
       transcript: transcript,
     });

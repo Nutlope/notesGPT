@@ -37,26 +37,13 @@ You can deploy this template by setting up the following services and adding the
 
 See the .example.env for a list of all the required environment variables.
 
-## Current tasks - v1
-
-- [x] Buy a domain and setup Clerk production environment
-- [x] Troubleshoot why Clerk isn't working properly anymore
-- [x] Migrate from GPT-4 to Mixtral on Together with JSON mode
-- [ ] Migrate from OpenAI embeddings to Together AI embeddings
-- [ ] Merge Jaime's PR and make sure auth is working
-- [ ] Verify that you can easily clone the repo and everything works smoothly, add tracking links as well
-- [ ] Finalize the blog post to be sent in my newsletter
-
 ## Future tasks
 
-- [ ] Make text/images in the landing page smaller
-- [ ] Prompt engineer the summary a little more to be more useful
-- [ ] Nice to have: UI updates to make it look nicer
-- [ ] Be able to edit action items
-- [ ] Add a Notion integration
-- [ ] Layout shift on the dashboard page when refreshing – show a loading state on profile pic + content?
+- [ ] Whisper transcripts can get queued on Replicate. If that happens, show a message to the user
+- [ ] Make text/images in the landing page smaller to account for multiple screen sizes
+- [ ] Prompt engineer the summary a little more to be more useful than what's currently displaying
+- [ ] Add a Notion integration to be able to get the transcript + summary + action items on there
+- [ ] UI updates to make it look a little nicer based on Youssef's redesign
+- [ ] Be able to edit action items after the fact and set a due date for them
+- [ ] Account for layout shift on the dashboard page when refreshing – show a loading state on profile pic + content?
 - [ ] Make action items animate out + make checkbox rounded + add a little check icon on hover
-- [ ] Could do a better job of setting up breakpoints for 14inch macs, decrease text size a bit
-- [ ] Convex scheduled functions to send initial email to user that says "welcome"
-- [ ] Add a "how it works" section to the landing page to show how to use it
-- [ ] Add a due date for the action items + make this editable

@@ -2,7 +2,7 @@
 
 import RecordedfileItemCard from '@/components/pages/dashboard/RecordedfileItemCard';
 import { api } from '@/convex/_generated/api';
-import { SearchResult } from '@/convex/openai';
+import { SearchResult } from '@/convex/together';
 import { useUser } from '@clerk/clerk-react';
 import { Preloaded, useAction, useConvexAuth } from 'convex/react';
 import Image from 'next/image';
@@ -33,7 +33,7 @@ const DashboardHomePage = ({
   const [relevantNotes, setRelevantNotes] =
     useState<FunctionReturnType<typeof api.notes.getNotes>>();
 
-  const performMyAction = useAction(api.openai.similarNotes);
+  const performMyAction = useAction(api.together.similarNotes);
 
   const handleSearch = async (e: any) => {
     e.preventDefault();

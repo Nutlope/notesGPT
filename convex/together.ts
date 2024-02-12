@@ -6,18 +6,16 @@ import {
 } from './_generated/server';
 import { v } from 'convex/values';
 import { internal } from './_generated/api';
-import { getEmbedding } from '../lib/utils';
 import Instructor from '@instructor-ai/instructor';
 import { z } from 'zod';
 import { actionWithUser } from './utils';
 
 const togetherApiKey = process.env.TOGETHER_API_KEY ?? 'undefined';
-const openaiApiKey = process.env.OPENAI_API_KEY ?? 'undefined';
 
 // Together client for LLM extraction
 const togetherai = new OpenAI({
   apiKey: togetherApiKey,
-  baseURL: 'https://api.together.xyz',
+  baseURL: 'https://api.together.xyz/v1',
 });
 
 // Instructor for returning structured JSON
@@ -44,7 +42,6 @@ export const chat = internalAction({
   handler: async (ctx, args) => {
     const { transcript } = args;
 
-    console.log('its about to run');
     const extract = await client.chat.completions.create({
       messages: [
         {
@@ -59,7 +56,7 @@ export const chat = internalAction({
       max_retries: 2,
     });
 
-    await ctx.runMutation(internal.openai.saveSummary, {
+    await ctx.runMutation(internal.together.saveSummary, {
       id: args.id,
       summary: extract.summary,
       actionItems: extract.actionItems,
@@ -119,10 +116,11 @@ export const similarNotes = actionWithUser({
     searchQuery: v.string(),
   },
   handler: async (ctx, args) => {
-    const embedding = await getEmbedding({
-      apiKey: openaiApiKey,
-      searchQuery: args.searchQuery,
+    const getEmbedding = await togetherai.embeddings.create({
+      input: [args.searchQuery.replace('/n', ' ')],
+      model: 'togethercomputer/m2-bert-80M-32k-retrieval',
     });
+    const embedding = getEmbedding.data[0].embedding;
 
     // 2. Then search for similar notes
     const results = await ctx.vectorSearch('notes', 'by_embedding', {
@@ -130,10 +128,8 @@ export const similarNotes = actionWithUser({
       limit: 16,
     });
 
-    console.log({ results });
-
     const rows: SearchResult[] = await ctx.runQuery(
-      internal.openai.fetchResults,
+      internal.together.fetchResults,
       { results },
     );
     return rows;
@@ -164,12 +160,14 @@ export const embed = internalAction({
     transcript: v.string(),
   },
   handler: async (ctx, args) => {
-    const embedding = await getEmbedding({
-      apiKey: openaiApiKey,
-      searchQuery: args.transcript,
+    const getEmbedding = await togetherai.embeddings.create({
+      input: [args.transcript.replace('/n', ' ')],
+      model: 'togethercomputer/m2-bert-80M-32k-retrieval',
     });
+    console.log({ getEmbedding });
+    const embedding = getEmbedding.data[0].embedding;
 
-    await ctx.runMutation(internal.openai.saveEmbedding, {
+    await ctx.runMutation(internal.together.saveEmbedding, {
       id: args.id,
       embedding,
     });

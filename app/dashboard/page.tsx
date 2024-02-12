@@ -1,5 +1,4 @@
 import { api } from '@/convex/_generated/api';
-import { auth } from '@clerk/nextjs';
 import { preloadQuery } from 'convex/nextjs';
 import DashboardHomePage from './dashboard';
 import { getAuthToken } from '../auth';
