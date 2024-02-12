@@ -2,7 +2,7 @@
 export default {
   providers: [
     {
-      domain: 'https://clerk.usenotesgpt.com',
+      domain: process.env.CLERK_ISSUER_URL,
       applicationID: 'convex',
     },
   ],

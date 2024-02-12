@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npm-run-all --parallel dev:server dev:client",
+    "predev": "convex dev --until-success",
     "build": "next build",
     "dev:server": "convex dev",
     "dev:client": "next dev"
