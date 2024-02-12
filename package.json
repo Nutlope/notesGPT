@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "npm-run-all --parallel dev:server dev:client",
+    "dev": "npm-run-all --parallel dev:backend dev:frontend",
     "predev": "convex dev --until-success",
     "build": "next build",
-    "dev:server": "convex dev",
-    "dev:client": "next dev"
+    "dev:backend": "convex dev",
+    "dev:frontend": "next dev"
   },
   "dependencies": {
     "@clerk/clerk-react": "^4.28.3",
