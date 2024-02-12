@@ -1,16 +1,18 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useMutation } from 'convex/react';
+import { useMutation, useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { getCurrentFormattedDate } from '@/lib/utils';
 import { useUser } from '@clerk/clerk-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/ui/Header';
+import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
 
 const RecordVoicePage = () => {
   const [title, setTitle] = useState('Record your voice note');
+  const envVarsUrl = useQuery(api.utils.envVarsMissing);
 
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
@@ -122,29 +124,33 @@ const RecordVoicePage = () => {
           </div>
         </div>
         <div className="mt-10 flex w-fit items-center justify-center gap-[33px] pb-7 md:gap-[77px] ">
-          <button
-            onClick={handleRecordClick}
-            className="mt-10 h-fit w-fit rounded-[50%] border-[2px]"
-            style={{ boxShadow: '0px 0px 8px 5px rgba(0,0,0,0.3)' }}
-          >
-            {!isRunning ? (
-              <Image
-                src={'/icons/nonrecording_mic.svg'}
-                alt="recording mic"
-                width={148}
-                height={148}
-                className="h-[70px] w-[70px] md:h-[100px] md:w-[100px]"
-              />
-            ) : (
-              <Image
-                src={'/icons/recording_mic.svg'}
-                alt="recording mic"
-                width={148}
-                height={148}
-                className="h-[70px] w-[70px] animate-pulse transition md:h-[100px] md:w-[100px]"
-              />
-            )}
-          </button>
+          {envVarsUrl ? (
+            <MissingEnvVars url={envVarsUrl} />
+          ) : (
+            <button
+              onClick={handleRecordClick}
+              className="mt-10 h-fit w-fit rounded-[50%] border-[2px]"
+              style={{ boxShadow: '0px 0px 8px 5px rgba(0,0,0,0.3)' }}
+            >
+              {!isRunning ? (
+                <Image
+                  src={'/icons/nonrecording_mic.svg'}
+                  alt="recording mic"
+                  width={148}
+                  height={148}
+                  className="h-[70px] w-[70px] md:h-[100px] md:w-[100px]"
+                />
+              ) : (
+                <Image
+                  src={'/icons/recording_mic.svg'}
+                  alt="recording mic"
+                  width={148}
+                  height={148}
+                  className="h-[70px] w-[70px] animate-pulse transition md:h-[100px] md:w-[100px]"
+                />
+              )}
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -152,3 +158,48 @@ const RecordVoicePage = () => {
 };
 
 export default RecordVoicePage;
+
+function MissingEnvVars(props: { url: string }) {
+  return (
+    <div className="rounded-md bg-yellow-50 p-4">
+      <div className="flex">
+        <div className="flex-shrink-0">
+          <ExclamationTriangleIcon
+            className="h-5 w-5 text-yellow-400"
+            aria-hidden="true"
+          />
+        </div>
+        <div className="ml-3">
+          <h3 className="text-sm font-medium text-yellow-800">
+            Missing Environment Variables
+          </h3>
+          <div className="mt-2 text-sm text-yellow-700">
+            <p>
+              Set up your{' '}
+              <a className="underline" target="_blank" href={props.url}>
+                Convex environment variables here
+              </a>{' '}
+              with API keys from{' '}
+              <a
+                className="underline"
+                target="_blank"
+                href="https://api.together.xyz/settings/api-keys"
+              >
+                Together.ai
+              </a>{' '}
+              and{' '}
+              <a
+                className="underline"
+                target="_blank"
+                href="https://replicate.com/account/api-tokens"
+              >
+                Replicate
+              </a>
+              .
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

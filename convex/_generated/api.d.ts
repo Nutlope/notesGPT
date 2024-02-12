@@ -15,8 +15,8 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as notes from "../notes.js";
-import type * as utils from "../utils.js";
 import type * as together from "../together.js";
+import type * as utils from "../utils.js";
 import type * as whisper from "../whisper.js";
 
 /**
@@ -29,8 +29,8 @@ import type * as whisper from "../whisper.js";
  */
 declare const fullApi: ApiFromModules<{
   notes: typeof notes;
-  utils: typeof utils;
   together: typeof together;
+  utils: typeof utils;
   whisper: typeof whisper;
 }>;
 export declare const api: FilterApi<

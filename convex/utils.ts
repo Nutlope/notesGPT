@@ -42,3 +42,21 @@ export const actionWithUser = customAction(
     };
   }),
 );
+
+export const envVarsMissing = query({
+  args: {},
+  handler: async () => {
+    if (process.env.REPLICATE_API_KEY && process.env.TOGETHER_API_KEY) {
+      return null;
+    }
+    const deploymentName = process.env.CONVEX_CLOUD_URL?.slice(8).replace(
+      '.convex.cloud',
+      '',
+    );
+    return (
+      'https://dashboard.convex.dev/d/' +
+      deploymentName +
+      `/settings/environment-variables?var=REPLICATE_API_KEY&var=TOGETHER_API_KEY`
+    );
+  },
+});
