@@ -37,17 +37,6 @@ You can deploy this template by setting up the following services and adding the
 
 See the .example.env for a list of all the required environment variables.
 
-## Current tasks - v1
-
-- [x] Buy a domain and setup Clerk production environment
-- [x] Troubleshoot why Clerk isn't working properly anymore
-- [x] Migrate from GPT-4 to Mixtral on Together with JSON mode
-- [x] Migrate from OpenAI embeddings to Together AI embeddings
-- [ ] Merge Jaime's PR and make sure auth is working
-- [ ] Verify that you can easily clone the repo and everything works smoothly, add tracking links as well – need to add instructions to set env vars on Convex as well?
-- [ ] Finalize the blog post to be sent in my newsletter
-- [ ] Launch on Twitter on Monday
-
 ## Future tasks
 
 - [ ] Whisper transcripts can get queued on Replicate. If that happens, show a message to the user
