@@ -31,23 +31,21 @@
 You can deploy this template by setting up the following services and adding their environment variables:
 
 1. Run `npm install` to install dependencies.
-2. Run `npm run dev`.
-3. It will prompt you to log into [Convex](https://convex.dev) and create a project.
-4. It will then ask you to supply the `CLERK_ISSUER_URL`. To do this:
+2. Run `npm run dev`. It will prompt you to log into [Convex](https://convex.dev) and create a project.
+3. It will then ask you to supply the `CLERK_ISSUER_URL`. To do this:
     1. Make a [Clerk](https://clerk.dev) account.
     2. Copy the [API keys](https://dashboard.clerk.com/last-active?path=api-keys) into `.env.local`.
     3. Do steps 1-3 [here](https://docs.convex.dev/auth/clerk) and copy the Issuer URL.
       It should look something like `https://some-animal-123.clerk.accounts.dev`.
-    4. Go back to your terminal and click the link to
-      [add CLERK_ISSUER_URL to your Convex Environment Variables](
-      https://dashboard.convex.dev/deployment/settings/environment-variables?var=CLERK_ISSUER_URL).
-      Paste the Issuer URL as the value and click "Save".
-5. Now your frontend and backend should be running. You should be able to log in and see your notes.
-6. To record, set up environment variables [here](
-      https://dashboard.convex.dev/deployment/settings/environment-variables?var=REPLICATE_API_KEY&var=TOGETHER_API_KEY).
-7. Make a [Together](https://www.together.ai/) account to get your [API key](https://api.together.xyz/settings/api-keys).
-8. Make a [Replicate](https://replicate.com) account to get your [API key](https://replicate.com/account/api-tokens).
-9. Now you're ready to record!
+    4. Add `CLERK_ISSUER_URL` to your [Convex Environment Variables](
+      https://dashboard.convex.dev/deployment/settings/environment-variables?var=CLERK_ISSUER_URL)
+      (deep link also available in your terminal). Paste the Issuer URL as the value and click "Save".
+
+4. Now your frontend and backend should be running and you should be able to log in but not record.
+5. Make a [Together](https://www.together.ai/) account to get your [API key](https://api.together.xyz/settings/api-keys).
+6. Make a [Replicate](https://replicate.com) account to get your [API key](https://replicate.com/account/api-tokens).
+7. Save your environment variables in Convex [as `REPLICATE_API_KEY` and `TOGETHER_API_KEY`](
+  https://dashboard.convex.dev/deployment/settings/environment-variables?var=REPLICATE_API_KEY&var=TOGETHER_API_KEY).
 
 ## Future tasks
 
