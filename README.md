@@ -18,8 +18,8 @@
 
 - [Convex](https://convex.dev/) for the database and cloud functions
 - Next.js [App Router](https://nextjs.org/docs/app) for the framework
-- [Together Inference](https://www.together.ai/) for the LLM (Mixtral)
-- [Together Embeddings](https://www.together.ai/) for the embeddings for search
+- [Together Inference](https://dub.sh/together-ai) for the LLM (Mixtral)
+- [Together Embeddings](https://dub.sh/together-ai) for the embeddings for search
 - [Convex File Storage](https://docs.convex.dev/file-storage) for storing voice notes
 - [Convex Vector search](https://docs.convex.dev/vector-search) for vector search
 - [Replicate](https://replicate.com/) for Whisper transcriptions
@@ -40,7 +40,7 @@ You can deploy this template by setting up the following services and adding the
    4. Add `CLERK_ISSUER_URL` to your [Convex Environment Variables](https://dashboard.convex.dev/deployment/settings/environment-variables?var=CLERK_ISSUER_URL)
       (deep link also available in your terminal). Paste the Issuer URL as the value and click "Save".
 4. Now your frontend and backend should be running and you should be able to log in but not record.
-5. Make a [Together](https://www.together.ai/) account to get your [API key](https://api.together.xyz/settings/api-keys).
+5. Make a [Together](https://dub.sh/together-ai) account to get your [API key](https://api.together.xyz/settings/api-keys).
 6. Make a [Replicate](https://replicate.com) account to get your [API key](https://replicate.com/account/api-tokens).
 7. Save your environment variables in Convex [as `REPLICATE_API_KEY` and `TOGETHER_API_KEY`](https://dashboard.convex.dev/deployment/settings/environment-variables?var=REPLICATE_API_KEY&var=TOGETHER_API_KEY).
 
