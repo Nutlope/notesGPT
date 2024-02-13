@@ -46,28 +46,36 @@ export const chat = internalAction({
   handler: async (ctx, args) => {
     const { transcript } = args;
 
-    const extract = await client.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content:
-            'The following is a transcript of a voice message. Extract a title, summary, and relevant actions from it and correctly return JSON.',
-        },
-        { role: 'user', content: transcript },
-      ],
-      model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
-      response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
-      max_retries: 3,
-    });
+    try {
+      const extract = await client.chat.completions.create({
+        messages: [
+          {
+            role: 'system',
+            content:
+              'The following is a transcript of a voice message. Extract a title, summary, and relevant actions from it and correctly return JSON.',
+          },
+          { role: 'user', content: transcript },
+        ],
+        model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
+        response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
+        max_retries: 3,
+      });
 
-    console.log({ extract });
-
-    await ctx.runMutation(internal.together.saveSummary, {
-      id: args.id,
-      summary: extract.summary,
-      actionItems: extract.actionItems,
-      title: extract.title,
-    });
+      await ctx.runMutation(internal.together.saveSummary, {
+        id: args.id,
+        summary: extract.summary,
+        actionItems: extract.actionItems,
+        title: extract.title,
+      });
+    } catch (e) {
+      console.error('Error extracting from voice message', e);
+      await ctx.runMutation(internal.together.saveSummary, {
+        id: args.id,
+        summary: 'Summary failed to generate',
+        actionItems: [],
+        title: 'Title',
+      });
+    }
   },
 });
 
