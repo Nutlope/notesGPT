@@ -57,8 +57,10 @@ export const chat = internalAction({
       ],
       model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
       response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
-      max_retries: 2,
+      max_retries: 3,
     });
+
+    console.log({ extract });
 
     await ctx.runMutation(internal.together.saveSummary, {
       id: args.id,
