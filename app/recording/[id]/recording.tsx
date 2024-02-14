@@ -7,6 +7,7 @@ import { api } from '@/convex/_generated/api';
 import { Preloaded } from 'convex/react';
 import AuthenticatedPreload from '@/components/preloading';
 import { FunctionReturnType } from 'convex/server';
+import ErrorBanner from '@/components/ui/error-banner';
 
 const PreloadedRecordingPage = ({
   preloadedNote,
@@ -29,6 +30,7 @@ const RecordingPage = ({
 
   return (
     <div className="">
+      <ErrorBanner />
       <Header />
       <div className="mx-auto max-w-[1500px]">
         <RecordingDesktop {...currentNote} />
