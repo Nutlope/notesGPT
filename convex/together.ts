@@ -6,9 +6,9 @@ import {
 } from './_generated/server';
 import { v } from 'convex/values';
 import { internal } from './_generated/api';
-import Instructor from '@instructor-ai/instructor';
 import { z } from 'zod';
 import { actionWithUser } from './utils';
+import { zodToJsonSchema } from 'zod-to-json-schema';
 
 const togetherApiKey = process.env.TOGETHER_API_KEY ?? 'undefined';
 
@@ -16,12 +16,6 @@ const togetherApiKey = process.env.TOGETHER_API_KEY ?? 'undefined';
 const togetherai = new OpenAI({
   apiKey: togetherApiKey,
   baseURL: 'https://api.together.xyz/v1',
-});
-
-// Instructor for returning structured JSON
-const client = Instructor({
-  client: togetherai,
-  mode: 'JSON_SCHEMA',
 });
 
 const NoteSchema = z.object({
@@ -37,6 +31,7 @@ const NoteSchema = z.object({
       'A list of action items from the voice note, short and to the point. Make sure all action item lists are fully resolved if they are nested',
     ),
 });
+const jsonSchema = zodToJsonSchema(NoteSchema, 'mySchema');
 
 export const chat = internalAction({
   args: {
@@ -47,7 +42,7 @@ export const chat = internalAction({
     const { transcript } = args;
 
     try {
-      const extract = await client.chat.completions.create({
+      const extract = await togetherai.chat.completions.create({
         messages: [
           {
             role: 'system',
@@ -56,17 +51,20 @@ export const chat = internalAction({
           },
           { role: 'user', content: transcript },
         ],
-        model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
-        response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
-        max_tokens: 20000,
-        max_retries: 2,
+        model: 'mistralai/Mistral-7B-Instruct-v0.1',
+        // @ts-ignore Together.ai supports schema unlike OpenAI
+        response_format: { type: 'json_object', schema: jsonSchema },
+        max_tokens: 8000,
       });
+
+      const messageContent = extract.choices[0].message.content;
+      const { title, summary, actionItems } = JSON.parse(messageContent!);
 
       await ctx.runMutation(internal.together.saveSummary, {
         id: args.id,
-        summary: extract.summary,
-        actionItems: extract.actionItems,
-        title: extract.title,
+        summary,
+        actionItems,
+        title,
       });
     } catch (e) {
       console.error('Error extracting from voice message', e);
