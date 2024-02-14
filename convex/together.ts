@@ -52,14 +52,14 @@ export const chat = internalAction({
           {
             role: 'system',
             content:
-              'The following is a transcript of a voice message. Extract a title, summary, and relevant actions from it and correctly return JSON.',
+              'The following is a transcript of a voice message. Extract a title, summary, and action items from it and answer in JSON in this format: {title: string, summary: string, actionItems: [string, string, ...]}',
           },
           { role: 'user', content: transcript },
         ],
         model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
         response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
         max_tokens: 20000,
-        max_retries: 3,
+        max_retries: 2,
       });
 
       await ctx.runMutation(internal.together.saveSummary, {
