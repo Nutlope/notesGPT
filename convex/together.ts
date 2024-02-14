@@ -21,7 +21,7 @@ const togetherai = new OpenAI({
 // Instructor for returning structured JSON
 const client = Instructor({
   client: togetherai,
-  mode: 'TOOLS',
+  mode: 'JSON_SCHEMA',
 });
 
 const NoteSchema = z.object({
