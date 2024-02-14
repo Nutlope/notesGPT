@@ -58,6 +58,7 @@ export const chat = internalAction({
         ],
         model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
         response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
+        max_tokens: 20000,
         max_retries: 3,
       });
 
