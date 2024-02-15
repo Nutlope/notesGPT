@@ -52,6 +52,7 @@ You can deploy this template by setting up the following services and adding the
 - [ ] Store completed action items for the future instead of fully deleting them
 - [ ] Make text/images in the landing page smaller to account for multiple screen sizes.
 - [ ] Make the search experience a little smoother overall
+- [ ] Be able to have it as a PWA or a mobile app
 - [ ] Prompt engineer the summary a little more to be more useful than what's currently displaying
 - [ ] Add a Notion integration to be able to get the transcript + summary + action items on there
 - [ ] UI updates to make it look a little nicer based on Youssef's redesign
