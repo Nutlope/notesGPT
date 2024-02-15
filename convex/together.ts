@@ -32,7 +32,8 @@ const NoteSchema = z.object({
     .string()
     .describe(
       'A short summary in the first person point of view of the person recording the voice message',
-    ),
+    )
+    .max(500),
   actionItems: z
     .array(z.string())
     .describe(
@@ -60,7 +61,7 @@ export const chat = internalAction({
         ],
         model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
         response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
-        max_tokens: 512,
+        max_tokens: 1000,
         temperature: 0.6,
         max_retries: 3,
       });
