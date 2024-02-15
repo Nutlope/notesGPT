@@ -9,7 +9,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/ui/Header';
 import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
-import ErrorBanner from '@/components/ui/error-banner';
 
 const RecordVoicePage = () => {
   const [title, setTitle] = useState('Record your voice note');
@@ -98,7 +97,6 @@ const RecordVoicePage = () => {
 
   return (
     <div>
-      <ErrorBanner />
       <Header />
       <div className=" flex flex-col items-center justify-between">
         <h1 className="pt-[25px] text-center text-xl font-medium text-dark md:pt-[47px] md:text-4xl">
