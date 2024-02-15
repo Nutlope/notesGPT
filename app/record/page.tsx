@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { getCurrentFormattedDate } from '@/lib/utils';
-import { useUser } from '@clerk/clerk-react';
+import { useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/ui/Header';

@@ -1,4 +1,5 @@
 'use client';
+
 import { LogOut, Paintbrush2 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from './avatar';
 import { Button } from './button';
@@ -11,8 +12,9 @@ import {
   DropdownMenuTrigger,
 } from './dropdown-menu';
 import Link from 'next/link';
-import { useClerk } from '@clerk/clerk-react';
+import { useClerk } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export function UserNav({
   image,
@@ -31,10 +33,7 @@ export function UserNav({
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10">
-            <AvatarImage src={image} alt={name} />
-            <AvatarFallback>
-              <img src={'/images/profile.jpeg'} alt={name} />
-            </AvatarFallback>
+            <Image src={image} layout="fill" alt="profile picture" />
           </Avatar>
         </Button>
       </DropdownMenuTrigger>

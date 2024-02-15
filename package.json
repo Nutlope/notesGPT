@@ -10,7 +10,6 @@
     "dev:frontend": "next dev"
   },
   "dependencies": {
-    "@clerk/clerk-react": "^4.30.5",
     "@clerk/nextjs": "^4.29.7",
     "@instructor-ai/instructor": "^0.0.5",
     "@radix-ui/react-avatar": "^1.0.4",
