@@ -62,7 +62,7 @@ export const chat = internalAction({
         response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
         max_tokens: 512,
         temperature: 0.6,
-        max_retries: 2,
+        max_retries: 3,
       });
       const { title, summary, actionItems } = extract;
 
