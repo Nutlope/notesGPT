@@ -41,7 +41,12 @@ export const getNote = queryWithUser({
   },
   handler: async (ctx, args) => {
     const { id } = args;
-    if (!id) return null;
+    if (ctx.userId === undefined) {
+      return null;
+    }
+    if (id === undefined) {
+      return { note: null };
+    }
     const note = await ctx.db.get(id);
     if (note?.userId !== ctx.userId) {
       throw new ConvexError('Not your note.');
@@ -53,7 +58,7 @@ export const getNote = queryWithUser({
       .collect();
 
     return {
-      ...note,
+      note,
       actionItems: actionItems,
     };
   },
@@ -61,8 +66,11 @@ export const getNote = queryWithUser({
 
 export const getActionItems = queryWithUser({
   args: {},
-  handler: async (ctx, args) => {
+  handler: async (ctx) => {
     const userId = ctx.userId;
+    if (userId === undefined) {
+      return null;
+    }
 
     const actionItems = await ctx.db
       .query('actionItems')
@@ -88,6 +96,9 @@ export const getNotes = queryWithUser({
   args: {},
   handler: async (ctx, args) => {
     const userId = ctx.userId;
+    if (userId === undefined) {
+      return null;
+    }
     const notes = await ctx.db
       .query('notes')
       .withIndex('by_userId', (q) => q.eq('userId', userId))

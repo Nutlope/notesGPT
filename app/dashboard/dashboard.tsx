@@ -2,31 +2,19 @@
 
 import RecordedfileItemCard from '@/components/pages/dashboard/RecordedfileItemCard';
 import { api } from '@/convex/_generated/api';
+import { usePreloadedQueryWithAuth } from '@/lib/hooks';
 import { Preloaded, useAction } from 'convex/react';
+import { FunctionReturnType } from 'convex/server';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import AuthenticatedPreload from '@/components/preloading';
-import { FunctionReturnType } from 'convex/server';
 
-const PreloadedDashboardHomePage = ({
+export default function DashboardHomePage({
   preloadedNotes,
 }: {
   preloadedNotes: Preloaded<typeof api.notes.getNotes>;
-}) => {
-  return (
-    <AuthenticatedPreload preload={preloadedNotes}>
-      <DashboardHomePage preloaded={undefined} />
-    </AuthenticatedPreload>
-  );
-};
-
-const DashboardHomePage = ({
-  preloaded,
-}: {
-  preloaded: FunctionReturnType<typeof api.notes.getNotes> | undefined;
-}) => {
-  const allNotes = preloaded!;
+}) {
+  const allNotes = usePreloadedQueryWithAuth(preloadedNotes);
   const [searchQuery, setSearchQuery] = useState('');
   const [relevantNotes, setRelevantNotes] =
     useState<FunctionReturnType<typeof api.notes.getNotes>>();
@@ -117,6 +105,4 @@ const DashboardHomePage = ({
       </div>
     </div>
   );
-};
-
-export default PreloadedDashboardHomePage;
+}
