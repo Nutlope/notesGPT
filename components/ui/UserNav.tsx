@@ -33,7 +33,7 @@ export function UserNav({
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10">
-            <Image src={image} layout="fill" alt="profile picture" />
+            <Image src={image} fill alt="profile picture" sizes="10rem" />
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
