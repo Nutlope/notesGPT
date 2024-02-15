@@ -47,6 +47,9 @@ You can deploy this template by setting up the following services and adding the
 ## Future tasks
 
 - [ ] Whisper transcripts can get queued on Replicate. If that happens, show a message to the user
+- [ ] Keep recording for future playback and display it on the page somewhere
+- [ ] Animate the purple microphone to be in sync with your voice
+- [ ] Store completed action items for the future instead of fully deleting them
 - [ ] Make text/images in the landing page smaller to account for multiple screen sizes.
 - [ ] Make the search experience a little smoother overall
 - [ ] Prompt engineer the summary a little more to be more useful than what's currently displaying
