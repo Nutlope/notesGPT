@@ -8,7 +8,7 @@ import { v } from 'convex/values';
 import { internal } from './_generated/api';
 import { z } from 'zod';
 import { actionWithUser } from './utils';
-import { zodToJsonSchema } from 'zod-to-json-schema';
+import Instructor from '@instructor-ai/instructor';
 
 const togetherApiKey = process.env.TOGETHER_API_KEY ?? 'undefined';
 
@@ -18,20 +18,27 @@ const togetherai = new OpenAI({
   baseURL: 'https://api.together.xyz/v1',
 });
 
+// Instructor for returning structured JSON
+const client = Instructor({
+  client: togetherai,
+  mode: 'JSON_SCHEMA',
+});
+
 const NoteSchema = z.object({
   title: z
     .string()
     .describe('Short descriptive title of what the voice message is about'),
   summary: z
     .string()
-    .describe('A short summary in the first person of the voice message'),
+    .describe(
+      'A short summary in the first person point of view of the person recording the voice message',
+    ),
   actionItems: z
     .array(z.string())
     .describe(
       'A list of action items from the voice note, short and to the point. Make sure all action item lists are fully resolved if they are nested',
     ),
 });
-const jsonSchema = zodToJsonSchema(NoteSchema, 'mySchema');
 
 export const chat = internalAction({
   args: {
@@ -42,7 +49,7 @@ export const chat = internalAction({
     const { transcript } = args;
 
     try {
-      const extract = await togetherai.chat.completions.create({
+      const extract = await client.chat.completions.create({
         messages: [
           {
             role: 'system',
@@ -51,14 +58,12 @@ export const chat = internalAction({
           },
           { role: 'user', content: transcript },
         ],
-        model: 'mistralai/Mistral-7B-Instruct-v0.1',
-        // @ts-ignore Together.ai supports schema unlike OpenAI
-        response_format: { type: 'json_object', schema: jsonSchema },
-        max_tokens: 8000,
+        model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
+        response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
+        max_retries: 2,
+        max_tokens: 20000,
       });
-
-      const messageContent = extract.choices[0].message.content;
-      const { title, summary, actionItems } = JSON.parse(messageContent!);
+      const { title, summary, actionItems } = extract;
 
       await ctx.runMutation(internal.together.saveSummary, {
         id: args.id,
