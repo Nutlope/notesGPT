@@ -8,14 +8,6 @@ import {
 } from 'convex-helpers/server/customFunctions';
 import { Auth } from 'convex/server';
 
-async function getUserId(ctx: { auth: Auth }): Promise<string> {
-  const authInfo = await ctx.auth.getUserIdentity();
-  if (!authInfo) {
-    throw new ConvexError('User must be logged in.');
-  }
-  return authInfo.tokenIdentifier;
-}
-
 export const queryWithUser = customQuery(
   query,
   customCtx(async (ctx) => {
@@ -28,20 +20,29 @@ export const queryWithUser = customQuery(
 export const mutationWithUser = customMutation(
   mutation,
   customCtx(async (ctx) => {
-    return {
-      userId: await getUserId(ctx),
-    };
+    const userId = await getUserId(ctx);
+    if (userId === undefined) {
+      throw new ConvexError('User must be logged in.');
+    }
+    return { userId };
   }),
 );
 
 export const actionWithUser = customAction(
   action,
   customCtx(async (ctx) => {
-    return {
-      userId: await getUserId(ctx),
-    };
+    const userId = await getUserId(ctx);
+    if (userId === undefined) {
+      throw new ConvexError('User must be logged in.');
+    }
+    return { userId };
   }),
 );
+
+async function getUserId(ctx: { auth: Auth }) {
+  const authInfo = await ctx.auth.getUserIdentity();
+  return authInfo?.tokenIdentifier;
+}
 
 export const envVarsMissing = query({
   args: {},
