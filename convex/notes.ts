@@ -57,10 +57,7 @@ export const getNote = queryWithUser({
       .withIndex('by_noteId', (q) => q.eq('noteId', note._id))
       .collect();
 
-    return {
-      note,
-      actionItems: actionItems,
-    };
+    return { note, actionItems };
   },
 });
 

@@ -1,4 +1,5 @@
 import { api } from '@/convex/_generated/api';
+import { Doc } from '@/convex/_generated/dataModel';
 import { formatTimestamp } from '@/lib/utils';
 import { useMutation } from 'convex/react';
 import Link from 'next/link';
@@ -6,22 +7,20 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 export default function RecordingDesktop({
+  note,
   actionItems,
-  summary,
-  transcription,
-  title,
-  _creationTime,
-  generatingTitle,
-  generatingActionItems,
 }: {
-  actionItems?: any;
-  summary?: string;
-  transcription?: string;
-  title?: string;
-  _creationTime?: number;
-  generatingTitle?: boolean;
-  generatingActionItems?: boolean;
+  note: Doc<'notes'>;
+  actionItems: Doc<'actionItems'>[];
 }) {
+  const {
+    generatingActionItems,
+    generatingTitle,
+    summary,
+    transcription,
+    title,
+    _creationTime,
+  } = note;
   const [originalIsOpen, setOriginalIsOpen] = useState<boolean>(true);
 
   const mutateActionItems = useMutation(api.notes.removeActionItem);
