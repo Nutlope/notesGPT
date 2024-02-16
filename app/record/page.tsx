@@ -96,62 +96,59 @@ const RecordVoicePage = () => {
   };
 
   return (
-    <div>
-      <Header />
-      <div className=" flex flex-col items-center justify-between">
-        <h1 className="pt-[25px] text-center text-xl font-medium text-dark md:pt-[47px] md:text-4xl">
-          {title}
-        </h1>
-        <p className="mb-20 mt-4 text-gray-400">{formattedDate}</p>
-        <div className="relative mx-auto flex h-[316px] w-[316px] items-center justify-center">
+    <div className=" flex flex-col items-center justify-between">
+      <h1 className="pt-[25px] text-center text-xl font-medium text-dark md:pt-[47px] md:text-4xl">
+        {title}
+      </h1>
+      <p className="mb-20 mt-4 text-gray-400">{formattedDate}</p>
+      <div className="relative mx-auto flex h-[316px] w-[316px] items-center justify-center">
+        <div
+          className={`recording-box absolute h-full w-full rounded-[50%] p-[12%] pt-[17%] ${
+            title !== 'Record your voice note' && title !== 'Processing...'
+              ? 'record-animation'
+              : ''
+          }`}
+        >
           <div
-            className={`recording-box absolute h-full w-full rounded-[50%] p-[12%] pt-[17%] ${
-              title !== 'Record your voice note' && title !== 'Processing...'
-                ? 'record-animation'
-                : ''
-            }`}
+            className="h-full w-full rounded-[50%]"
+            style={{ background: 'linear-gradient(#E31C1CD6, #003EB6CC)' }}
+          />
+        </div>
+        <div className="z-50 flex h-fit w-fit flex-col items-center justify-center">
+          <h1 className="text-[60px] leading-[114.3%] tracking-[-1.5px] text-light">
+            {minutes < 10 ? `0${minutes}` : minutes}:
+            {seconds < 10 ? `0${seconds}` : seconds}
+          </h1>
+        </div>
+      </div>
+      <div className="mt-10 flex w-fit items-center justify-center gap-[33px] pb-7 md:gap-[77px] ">
+        {envVarsUrl ? (
+          <MissingEnvVars url={envVarsUrl} />
+        ) : (
+          <button
+            onClick={handleRecordClick}
+            className="mt-10 h-fit w-fit rounded-[50%] border-[2px]"
+            style={{ boxShadow: '0px 0px 8px 5px rgba(0,0,0,0.3)' }}
           >
-            <div
-              className="h-full w-full rounded-[50%]"
-              style={{ background: 'linear-gradient(#E31C1CD6, #003EB6CC)' }}
-            />
-          </div>
-          <div className="z-50 flex h-fit w-fit flex-col items-center justify-center">
-            <h1 className="text-[60px] leading-[114.3%] tracking-[-1.5px] text-light">
-              {minutes < 10 ? `0${minutes}` : minutes}:
-              {seconds < 10 ? `0${seconds}` : seconds}
-            </h1>
-          </div>
-        </div>
-        <div className="mt-10 flex w-fit items-center justify-center gap-[33px] pb-7 md:gap-[77px] ">
-          {envVarsUrl ? (
-            <MissingEnvVars url={envVarsUrl} />
-          ) : (
-            <button
-              onClick={handleRecordClick}
-              className="mt-10 h-fit w-fit rounded-[50%] border-[2px]"
-              style={{ boxShadow: '0px 0px 8px 5px rgba(0,0,0,0.3)' }}
-            >
-              {!isRunning ? (
-                <Image
-                  src={'/icons/nonrecording_mic.svg'}
-                  alt="recording mic"
-                  width={148}
-                  height={148}
-                  className="h-[70px] w-[70px] md:h-[100px] md:w-[100px]"
-                />
-              ) : (
-                <Image
-                  src={'/icons/recording_mic.svg'}
-                  alt="recording mic"
-                  width={148}
-                  height={148}
-                  className="h-[70px] w-[70px] animate-pulse transition md:h-[100px] md:w-[100px]"
-                />
-              )}
-            </button>
-          )}
-        </div>
+            {!isRunning ? (
+              <Image
+                src={'/icons/nonrecording_mic.svg'}
+                alt="recording mic"
+                width={148}
+                height={148}
+                className="h-[70px] w-[70px] md:h-[100px] md:w-[100px]"
+              />
+            ) : (
+              <Image
+                src={'/icons/recording_mic.svg'}
+                alt="recording mic"
+                width={148}
+                height={148}
+                className="h-[70px] w-[70px] animate-pulse transition md:h-[100px] md:w-[100px]"
+              />
+            )}
+          </button>
+        )}
       </div>
     </div>
   );
