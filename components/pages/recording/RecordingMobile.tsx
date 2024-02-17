@@ -3,20 +3,16 @@ import { useState } from 'react';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import toast, { Toaster } from 'react-hot-toast';
+import { Doc } from '@/convex/_generated/dataModel';
 
 export default function RecordingMobile({
+  note,
   actionItems,
-  summary,
-  transcription,
-  title,
-  _creationTime,
 }: {
-  actionItems?: any;
-  summary?: string;
-  transcription?: string;
-  title?: string;
-  _creationTime?: number;
+  note: Doc<'notes'>;
+  actionItems: Doc<'actionItems'>[];
 }) {
+  const { summary, transcription, title, _creationTime } = note;
   const [transcriptOpen, setTranscriptOpen] = useState<boolean>(true);
   const [summaryOpen, setSummaryOpen] = useState<boolean>(false);
   const [actionItemOpen, setActionItemOpen] = useState<boolean>(false);

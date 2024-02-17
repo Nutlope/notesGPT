@@ -1,14 +1,9 @@
-'use client';
-
-import { useUser } from '@clerk/clerk-react';
 import Link from 'next/link';
 import { UserNav } from './UserNav';
-import { useConvexAuth } from 'convex/react';
+import { currentUser } from '@clerk/nextjs';
 
-const Header = () => {
-  const { isLoading } = useConvexAuth();
-  const { user } = useUser();
-
+export default async function Header() {
+  const user = await currentUser();
   return (
     <div className="container relative m-0 mx-auto py-10 md:px-10">
       <div className="max-width flex items-center justify-between">
@@ -27,9 +22,7 @@ const Header = () => {
         </Link>
         {/* buttons */}
         <div className="flex w-fit items-center gap-[22px]">
-          {isLoading ? (
-            <></>
-          ) : user ? (
+          {user ? (
             <>
               <Link
                 href={'/dashboard'}
@@ -44,9 +37,13 @@ const Header = () => {
                 Action Items
               </Link>
               <UserNav
-                image={user?.imageUrl}
-                name={user?.fullName!}
-                email={user?.primaryEmailAddress?.emailAddress!}
+                image={user.imageUrl}
+                name={user.firstName + ' ' + user.lastName}
+                email={
+                  user.emailAddresses.find(
+                    ({ id }) => id === user.primaryEmailAddressId,
+                  )!.emailAddress
+                }
               />
             </>
           ) : (
@@ -60,6 +57,4 @@ const Header = () => {
       </div>
     </div>
   );
-};
-
-export default Header;
+}

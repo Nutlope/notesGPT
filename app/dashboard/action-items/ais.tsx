@@ -1,30 +1,17 @@
 'use client';
 
 import { api } from '@/convex/_generated/api';
+import { usePreloadedQueryWithAuth } from '@/lib/hooks';
 import { Preloaded, useMutation } from 'convex/react';
-import toast from 'react-hot-toast';
-import AuthenticatedPreload from '@/components/preloading';
-import { FunctionReturnType } from 'convex/server';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
-const PreloadedActionItemsPage = ({
+export default function ActionItemsPage({
   preloadedItems,
 }: {
   preloadedItems: Preloaded<typeof api.notes.getActionItems>;
-}) => {
-  return (
-    <AuthenticatedPreload preload={preloadedItems}>
-      <ActionItemsPage preloaded={undefined} />
-    </AuthenticatedPreload>
-  );
-};
-
-const ActionItemsPage = ({
-  preloaded,
-}: {
-  preloaded: FunctionReturnType<typeof api.notes.getActionItems> | undefined;
-}) => {
-  const actionItems = preloaded!;
+}) {
+  const actionItems = usePreloadedQueryWithAuth(preloadedItems);
   const mutateActionItems = useMutation(api.notes.removeActionItem);
 
   function removeActionItem(actionId: any) {
@@ -97,6 +84,4 @@ const ActionItemsPage = ({
       </div>
     </div>
   );
-};
-
-export default PreloadedActionItemsPage;
+}

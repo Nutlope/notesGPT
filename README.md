@@ -34,7 +34,7 @@ You can deploy this template by setting up the following services and adding the
 2. Run `npm run dev`. It will prompt you to log into [Convex](https://convex.dev) and create a project.
 3. It will then ask you to supply the `CLERK_ISSUER_URL`. To do this:
    1. Make a [Clerk](https://clerk.dev) account.
-   2. Copy the [API keys](https://dashboard.clerk.com/last-active?path=api-keys) into `.env.local`.
+   2. Copy both the `CLERK_SECRET_KEY` and `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` [API keys](https://dashboard.clerk.com/last-active?path=api-keys) into `.env.local`.
    3. Do steps 1-3 [here](https://docs.convex.dev/auth/clerk) and copy the Issuer URL.
       It should look something like `https://some-animal-123.clerk.accounts.dev`.
    4. Add `CLERK_ISSUER_URL` to your [Convex Environment Variables](https://dashboard.convex.dev/deployment/settings/environment-variables?var=CLERK_ISSUER_URL)
@@ -46,12 +46,16 @@ You can deploy this template by setting up the following services and adding the
 
 ## Future tasks
 
-- [ ] Whisper transcripts can get queued on Replicate. If that happens, show a message to the user
+- [ ] Keep recording for future playback and display it on the page somewhere
+- [ ] Animate the purple microphone to be in sync with your voice
+- [ ] Store completed action items for the future instead of fully deleting them
 - [ ] Make text/images in the landing page smaller to account for multiple screen sizes.
-- [ ] Make the search experience a little smoother overall
+- [ ] Make the search experience a little smoother overall by searching automatically on entering text
+- [ ] Be able to have this as a PWA if there's an easy step to do that
 - [ ] Prompt engineer the summary a little more to be more useful than what's currently displaying
 - [ ] Add a Notion integration to be able to get the transcript + summary + action items on there
 - [ ] UI updates to make it look a little nicer based on Youssef's redesign
 - [ ] Be able to edit action items after the fact and set a due date for them
 - [ ] Account for layout shift on the dashboard page when refreshing – show a loading state on content?
 - [ ] Make action items animate out + make checkbox rounded + add a little check icon on hover
+- [ ] Migrate to incredibly fast whisper

@@ -6,9 +6,9 @@ import {
 } from './_generated/server';
 import { v } from 'convex/values';
 import { internal } from './_generated/api';
-import Instructor from '@instructor-ai/instructor';
 import { z } from 'zod';
 import { actionWithUser } from './utils';
+import Instructor from '@instructor-ai/instructor';
 
 const togetherApiKey = process.env.TOGETHER_API_KEY ?? 'undefined';
 
@@ -21,7 +21,7 @@ const togetherai = new OpenAI({
 // Instructor for returning structured JSON
 const client = Instructor({
   client: togetherai,
-  mode: 'TOOLS',
+  mode: 'JSON_SCHEMA',
 });
 
 const NoteSchema = z.object({
@@ -30,7 +30,10 @@ const NoteSchema = z.object({
     .describe('Short descriptive title of what the voice message is about'),
   summary: z
     .string()
-    .describe('A short summary in the first person of the voice message'),
+    .describe(
+      'A short summary in the first person point of view of the person recording the voice message',
+    )
+    .max(500),
   actionItems: z
     .array(z.string())
     .describe(
@@ -52,20 +55,23 @@ export const chat = internalAction({
           {
             role: 'system',
             content:
-              'The following is a transcript of a voice message. Extract a title, summary, and relevant actions from it and correctly return JSON.',
+              'The following is a transcript of a voice message. Extract a title, summary, and action items from it and answer in JSON in this format: {title: string, summary: string, actionItems: [string, string, ...]}',
           },
           { role: 'user', content: transcript },
         ],
         model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
         response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
+        max_tokens: 1000,
+        temperature: 0.6,
         max_retries: 3,
       });
+      const { title, summary, actionItems } = extract;
 
       await ctx.runMutation(internal.together.saveSummary, {
         id: args.id,
-        summary: extract.summary,
-        actionItems: extract.actionItems,
-        title: extract.title,
+        summary,
+        actionItems,
+        title,
       });
     } catch (e) {
       console.error('Error extracting from voice message', e);
