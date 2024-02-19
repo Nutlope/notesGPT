@@ -59,7 +59,7 @@ export const chat = internalAction({
           },
           { role: 'user', content: transcript },
         ],
-        model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
+        model: 'mistralai/Mistral-7B-Instruct-v0.1',
         response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
         max_tokens: 1000,
         temperature: 0.6,
