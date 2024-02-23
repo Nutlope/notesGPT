@@ -16,8 +16,7 @@ const RecordVoicePage = () => {
 
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
+  const [totalSeconds, setTotalSeconds] = useState(0);
 
   const { user } = useUser();
 
@@ -72,18 +71,16 @@ const RecordVoicePage = () => {
 
     if (isRunning) {
       interval = setInterval(() => {
-        setSeconds((prevSeconds) => {
-          if (prevSeconds === 59) {
-            setMinutes((prevMinutes) => prevMinutes + 1);
-            return 0;
-          }
-          return prevSeconds + 1;
-        });
+        setTotalSeconds((prevTotalSeconds) => prevTotalSeconds + 1);
       }, 1000);
     }
 
     return () => clearInterval(interval);
   }, [isRunning]);
+
+  function formatTime(time: number): string {
+    return time < 10 ? `0${time}` : `${time}`;
+  }
 
   const handleRecordClick = () => {
     if (title === 'Record your voice note') {
@@ -116,8 +113,7 @@ const RecordVoicePage = () => {
         </div>
         <div className="z-50 flex h-fit w-fit flex-col items-center justify-center">
           <h1 className="text-[60px] leading-[114.3%] tracking-[-1.5px] text-light">
-            {minutes < 10 ? `0${minutes}` : minutes}:
-            {seconds < 10 ? `0${seconds}` : seconds}
+              {formatTime(Math.floor(totalSeconds / 60))}:{formatTime(totalSeconds % 60)}
           </h1>
         </div>
       </div>
