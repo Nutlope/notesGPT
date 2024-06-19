@@ -107,7 +107,7 @@ export default function DashboardHomePage({
                   </div>
                 </MenuItems>
               </Transition>
-          </Menu>
+          </Menu> 
         </li>
       </ul>
   ))}
