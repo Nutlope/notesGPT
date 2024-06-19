@@ -1,20 +1,30 @@
 'use client';
-
-import RecordedfileItemCard from '@/components/pages/dashboard/RecordedfileItemCard';
 import { api } from '@/convex/_generated/api';
+import { timestampToDate } from '@/convex/utils';
 import { usePreloadedQueryWithAuth } from '@/lib/hooks';
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
 import { Preloaded, useAction } from 'convex/react';
 import { FunctionReturnType } from 'convex/server';
-import Image from 'next/image';
 import Link from 'next/link';
+
 import { useState } from 'react';
+
+const actions = [
+  {
+    title: 'edit',
+    onClick: ()=>{}
+  }
+]
+
 
 export default function DashboardHomePage({
   preloadedNotes,
 }: {
   preloadedNotes: Preloaded<typeof api.notes.getNotes>;
 }) {
+
   const allNotes = usePreloadedQueryWithAuth(preloadedNotes);
+  console.log({allNotes})
   const [searchQuery, setSearchQuery] = useState('');
   const [relevantNotes, setRelevantNotes] =
     useState<FunctionReturnType<typeof api.notes.getNotes>>();
@@ -41,68 +51,96 @@ export default function DashboardHomePage({
   };
 
   const finalNotes = relevantNotes ?? allNotes;
+  function classNames(...classes: string[]) {
+    return classes.filter(Boolean).join(' ')
+  }
 
-  return (
-    <div suppressHydrationWarning={true} className="mt-5 min-h-[100vh] w-full">
-      <div className=" w-full py-[23px] md:py-4 lg:py-[25px]">
-        <h1 className="text-center text-2xl font-medium text-dark md:text-4xl">
-          Your Voice Notes
-        </h1>
-      </div>
-      {/* search bar */}
-      <div className="mx-auto mb-10 mt-4 flex h-fit w-[90%] items-center gap-[17px] rounded border border-black bg-white px-[11px] py-[10px] sm:px-[15px] md:mb-[42px] md:w-[623px] md:px-[40px] md:py-[10px]">
-        <Image
-          src="/icons/search.svg"
-          width={27}
-          height={26}
-          alt="search"
-          className="h-5 w-5 md:h-6 md:w-6"
-        />
-        <form onSubmit={handleSearch}>
-          <input
-            type="text"
-            placeholder="Search"
-            onChange={(e) => setSearchQuery(e.target.value)}
-            value={searchQuery}
-            className="w-full text-[16px] outline-none md:text-xl"
-          />
-        </form>
-      </div>
-      {/* recorded items */}
-      <div className="h-fit w-full max-w-[1360px] md:px-5 xl:mx-auto">
-        {finalNotes &&
-          finalNotes.map((item, index) => (
-            <RecordedfileItemCard {...item} key={index} />
-          ))}
-        {finalNotes.length === 0 && (
-          <div className="flex h-[50vh] w-full items-center justify-center">
-            <p className="text-center text-2xl text-dark">
-              You currently have no <br /> recordings.
-            </p>
-          </div>
+  const actionItems = ({item}: {item: {title: string; onClick: ()=>void}}) => {
+    return <MenuItem>
+    {({ focus }) => (
+      <a
+        href="#"
+        className={classNames(
+          focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+          'block px-4 py-2 text-sm',
         )}
-      </div>
-      {/* actions button container */}
-      <div className="mx-auto mt-[40px] flex h-fit w-full flex-col items-center px-5 pb-10 md:mt-[50px] lg:pb-5">
-        <div className="mt-10 flex flex-col gap-6 md:flex-row">
-          <Link
-            className="rounded-[7px] bg-dark px-[37px] py-[15px] text-[17px] leading-[79%] tracking-[-0.75px] text-light md:text-2xl"
-            style={{ boxShadow: ' 0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }}
-            href="/record"
-          >
-            Record a New Voice Note
-          </Link>
-          {allNotes && (
-            <Link
-              className="rounded-[7px] px-[37px] py-[15px] text-[17px] leading-[79%] tracking-[-0.75px] md:text-2xl"
-              style={{ boxShadow: ' 0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }}
-              href="/dashboard/action-items"
-            >
-              View Action Items
-            </Link>
+        onClick={item.onClick}
+      >
+        {item.title}
+      </a>
+    )}
+  </MenuItem>
+  }
+
+  const renderList = () => {
+    return allNotes.map((note) => (
+      <ul role="list">
+        <li key={note._id} className="flex justify-between flex-row gap-x-6 py-5 border px-8">
+          <div className="flex basis-1/2 min-w-0 gap-x-4">
+            <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+            <div className="min-w-0 self-center flex-auto">
+              <p className="text-sm font-semibold leading-6 text-gray-900">{note.title}</p>
+            </div>
+          </div>
+          {note._creationTime && (
+            <div className="min-w-0 self-center flex-end">
+                <p className="text-sm mx-50 font-semibold leading-6 text-gray-900">{timestampToDate(note._creationTime)}</p>
+            </div>
           )}
+            <Menu as="div" className="relative inline-block text-left  self-center flex-end">
+              <div>
+                <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                  Options
+                </MenuButton>
+              </div>
+              <Transition
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div className="py-1">
+                    {actions.map((item)=>actionItems({item}))}
+                  </div>
+                </MenuItems>
+              </Transition>
+          </Menu>
+        </li>
+      </ul>
+  ))}
+  return (
+    <>
+      <div className="min-h-full">
+        <div className="py-10">
+          <main>
+            <div className="flex w-full mx-auto max-w-7xl px-4 flex-row justify-between sm:px-6">
+            <h1 className="text-base font-semibold leading-7 text-gray-900 mb-5">Your voice notes</h1>
+
+            </div>
+            <div className="flex w-full mx-auto max-w-7xl px-4 flex-row justify-between sm:px-6">
+              <button
+                type="button"
+                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-xl font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Search
+              </button>
+              <Link
+                type="button"
+                className="flex-end rounded-md bg-indigo-600 px-3.5 py-2.5 text-xl font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                href="/record"
+              >
+                Record note
+              </Link>
+            </div>
+            <div className="mx-auto max-w-7xl sm:px-6 my-8">
+              {allNotes.length ? renderList() : <h2>no recordings</h2>}
+            </div>
+          </main>
         </div>
       </div>
-    </div>
-  );
+    </>
+  )
 }

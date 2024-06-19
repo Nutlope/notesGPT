@@ -1,6 +1,6 @@
+import { currentUser } from '@clerk/nextjs';
 import Link from 'next/link';
 import { UserNav } from './UserNav';
-import { currentUser } from '@clerk/nextjs';
 
 export default async function Header() {
   const user = await currentUser();
@@ -23,19 +23,6 @@ export default async function Header() {
         {/* buttons */}
         <div className="flex w-fit items-center gap-[22px]">
           {user ? (
-            <>
-              <Link
-                href={'/dashboard'}
-                className="hidden cursor-pointer text-lg text-dark md:inline-block lg:text-xl"
-              >
-                Recordings
-              </Link>
-              <Link
-                href={'/dashboard/action-items'}
-                className="hidden cursor-pointer text-lg text-dark md:inline-block lg:text-xl"
-              >
-                Action Items
-              </Link>
               <UserNav
                 image={user.imageUrl}
                 name={user.firstName + ' ' + user.lastName}
@@ -45,7 +32,6 @@ export default async function Header() {
                   )!.emailAddress
                 }
               />
-            </>
           ) : (
             <Link href="/dashboard">
               <button className="text-md primary-gradient primary-shadow rounded-lg px-5 py-1 text-center text-light md:px-10 md:py-2 md:text-xl">

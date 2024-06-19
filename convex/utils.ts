@@ -1,5 +1,3 @@
-import { ConvexError } from 'convex/values';
-import { action, mutation, query } from './_generated/server';
 import {
   customAction,
   customCtx,
@@ -7,6 +5,8 @@ import {
   customQuery,
 } from 'convex-helpers/server/customFunctions';
 import { Auth } from 'convex/server';
+import { ConvexError } from 'convex/values';
+import { action, mutation, query } from './_generated/server';
 
 export const queryWithUser = customQuery(
   query,
@@ -61,3 +61,7 @@ export const envVarsMissing = query({
     );
   },
 });
+
+export const timestampToDate = (timestamp: number) => {
+  return new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(timestamp);
+}

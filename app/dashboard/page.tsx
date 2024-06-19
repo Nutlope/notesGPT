@@ -1,7 +1,7 @@
 import { api } from '@/convex/_generated/api';
 import { preloadQuery } from 'convex/nextjs';
-import DashboardHomePage from './dashboard';
 import { getAuthToken } from '../auth';
+import DashboardHomePage from './dashboard';
 
 const ServerDashboardHomePage = async () => {
   const token = await getAuthToken();

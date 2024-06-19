@@ -1,14 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { getCurrentFormattedDate } from '@/lib/utils';
 import { useUser } from '@clerk/nextjs';
+import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
+import { useMutation, useQuery } from 'convex/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import Header from '@/components/ui/Header';
-import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
+import { useEffect, useState } from 'react';
 
 const RecordVoicePage = () => {
   const [title, setTitle] = useState('Record your voice note');
