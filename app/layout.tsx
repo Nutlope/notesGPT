@@ -3,7 +3,7 @@ import './globals.css';
 import ConvexClientProvider from './ConvexClientProvider';
 import Footer from '@/components/ui/Footer';
 import { Toaster } from 'react-hot-toast';
-import { Analytics } from '@vercel/analytics/react';
+import PlausibleProvider from 'next-plausible';
 
 let title = 'notesGPT - Take notes with your voice';
 let description = 'Generate action items from your notes in seconds';
@@ -42,10 +42,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <PlausibleProvider domain="usenotesgpt.com" />
+      </head>
       <body>
         <ConvexClientProvider>
           {children}
-          <Analytics />
           <Footer />
           <Toaster position="bottom-left" reverseOrder={false} />
         </ConvexClientProvider>
