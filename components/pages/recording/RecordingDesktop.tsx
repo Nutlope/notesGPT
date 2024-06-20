@@ -1,5 +1,6 @@
 import { api } from '@/convex/_generated/api';
 import { Doc } from '@/convex/_generated/dataModel';
+import { timestampToDate } from '@/convex/utils';
 import { formatTimestamp } from '@/lib/utils';
 import { useMutation } from 'convex/react';
 import Link from 'next/link';
@@ -17,18 +18,91 @@ export default function RecordingDesktop({
     generatingActionItems,
     generatingTitle,
     summary,
-    transcription,
+    transcription = '',
     title,
     _creationTime,
   } = note;
   const [originalIsOpen, setOriginalIsOpen] = useState<boolean>(true);
+  const [disabled, setDisabled] = useState(true)
+  const [localTranscription, setLocalTranscription] = useState<string | undefined>(undefined)
 
   const mutateActionItems = useMutation(api.notes.removeActionItem);
+  const mutateTranscription = useMutation(api.notes.modifyNoteByUsage)
+  const mutateNote = useMutation(api.notes.updateNote)
 
   function removeActionItem(actionId: any) {
     // Trigger a mutation to remove the item from the list
     mutateActionItems({ id: actionId });
   }
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(note.transcription || '')
+  }
+
+  const handleEdit = () => {
+    setLocalTranscription(transcription)
+    setDisabled(false)
+  }
+
+  const handleSubmit = () => {
+    localTranscription && mutateNote({noteId: note._id, transcription: localTranscription})
+    setDisabled(true)
+  }
+
+  const modifyToTweet = () => {
+    setLocalTranscription(undefined)
+    mutateTranscription({noteId: note._id, transcript: localTranscription ?? transcription, target: 'tweet'})
+  }
+
+  return (
+    <div className="min-h-full">
+      <div className="py-10">
+        <header>
+          <div className="flex justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">{title}</h1>
+          <h4 className="text-l font-bold leading-tight tracking-tight text-gray-400">{timestampToDate(_creationTime)}</h4>
+          </div>
+        </header>
+        <main>
+          <div className="my-10">
+            <div className="flex justify-between mx-auto max-w-7xl sm:px-6 lg:px-8">
+              <h4 className="text-l text-gray-400">Summary</h4>
+              <div>
+                <button className='text-blue-400 mx-5' onClick={handleCopy}>Copy</button>
+                {disabled ? 
+                <button className='text-blue-400 mx-5' onClick={handleEdit}>Edit</button> : 
+                <button className='text-green-400 mx-5' onClick={handleSubmit}>Save</button>}
+              </div>
+            </div>
+            <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">{note.summary}</div>
+          </div>
+          <div className="my-10">
+            <div className="mx-auto max-w-7xl max-h-30 sm:px-6 lg:px-8 text-gray-400">Transcript</div>
+            <textarea
+              onChange={e => setLocalTranscription(e.target.value)}
+              disabled={disabled} 
+              rows={4}
+              name="comment"
+              id="comment"
+              className="mx-auto block w-full max-w-7xl lg:px-8 resize-none border-0 border-b border-transparent"
+              value={localTranscription ?? transcription}
+            />
+          </div>
+        </main>
+      </div>
+      <footer>
+        <div className="min-h-full py-10 mx-auto max-w-7xl">
+          <div className="text-gray-400">Create</div>
+          <div className="flex flex-row">
+            <button className='text-blue-400 mr-5' onClick={modifyToTweet}>Tweet</button> 
+            <button className='text-blue-400 mr-5' onClick={handleEdit}>To do list</button> 
+            <button className='text-blue-400' onClick={handleEdit}>FB post</button> 
+          </div>
+        </div>
+      </footer>
+    </div>
+
+  )
 
   return (
     <div className="hidden md:block">

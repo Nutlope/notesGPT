@@ -35,6 +35,21 @@ export const createNote = mutationWithUser({
   },
 });
 
+export const modifyNoteByUsage = mutationWithUser({
+  args: {
+    noteId: v.id('notes'),
+    transcript: v.string(),
+    target:v.string(),
+  },
+  handler: async (ctx, { noteId, transcript, target }) => {
+    await ctx.scheduler.runAfter(0, internal.together.transformTranscript, {
+      id: noteId,
+      transcript,
+      target,
+    });
+  },
+});
+
 export const getNote = queryWithUser({
   args: {
     id: v.optional(v.id('notes')),
@@ -169,5 +184,20 @@ export const actionItemCountForNote = queryWithUser({
       }
     }
     return actionItems.length;
+  },
+});
+
+export const updateNote = mutationWithUser({
+  args: {
+    noteId: v.id('notes'),
+    transcription: v.string(),
+  },
+  handler: async (ctx, { noteId, transcription }) => {
+    // const userId = ctx.userId;
+    await ctx.db.patch(noteId, {
+      transcription
+    });
+    const note = await ctx.db.get(noteId);
+    return note;
   },
 });

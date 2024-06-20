@@ -1,14 +1,14 @@
+import Instructor from '@instructor-ai/instructor';
+import { v } from 'convex/values';
 import OpenAI from 'openai';
+import { z } from 'zod';
+import { internal } from './_generated/api';
 import {
   internalAction,
   internalMutation,
   internalQuery,
 } from './_generated/server';
-import { v } from 'convex/values';
-import { internal } from './_generated/api';
-import { z } from 'zod';
 import { actionWithUser } from './utils';
-import Instructor from '@instructor-ai/instructor';
 
 const togetherApiKey = process.env.TOGETHER_API_KEY ?? 'undefined';
 
@@ -85,6 +85,56 @@ export const chat = internalAction({
   },
 });
 
+const TransformationSchema = z.object({
+  oldTranscript: z
+    .string()
+    .describe('old transcription'),
+  modifiedTranscript: z
+    .string()
+    .describe(
+      'new modified transcription',
+    )
+    .max(1000),
+});
+
+export const transformTranscript = internalAction({
+  args: {
+    id: v.id('notes'),
+    transcript: v.string(),
+    target: v.string()
+  },
+  handler: async (ctx, args) => {
+    const { transcript, target } = args;
+
+    try {
+      const extract = await client.chat.completions.create({
+        messages: [
+          {
+            role: 'system',
+            content:
+              `The following is a transcript of a voice message. Transform given transcript to be useful as ${target}, taking under consideration limitation related with it. Answer in JSON in this format: {oldTranscript: string, modifiedTranscript: string}`,
+          },
+          { role: 'user', content: transcript },
+        ],
+        model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
+        response_model: { schema: TransformationSchema, name: 'TransformedNote' },
+        max_tokens: 1000,
+        temperature: 0.6,
+        max_retries: 3,
+      });
+      const { oldTranscript, modifiedTranscript } = extract;
+
+      await ctx.runMutation(internal.whisper.saveTranscript, {
+        id: args.id,
+        transcript:modifiedTranscript,
+        transcriptOnly: true
+      });
+    } catch (e) {
+      console.error('Error transforming transcript for targeted purpose', e);
+    }
+  },
+});
+
 export const getTranscript = internalQuery({
   args: {
     id: v.id('notes'),
@@ -153,8 +203,6 @@ export const similarNotes = actionWithUser({
       limit: 16,
       filter: (q) => q.eq('userId', ctx.userId), // Only search my notes.
     });
-
-    console.log({ results });
 
     return results.map((r) => ({
       id: r._id,

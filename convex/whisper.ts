@@ -1,9 +1,9 @@
 ('use node');
 
-import { internalAction, internalMutation } from './_generated/server';
 import { v } from 'convex/values';
 import Replicate from 'replicate';
-import { api, internal } from './_generated/api';
+import { internal } from './_generated/api';
+import { internalAction, internalMutation } from './_generated/server';
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_KEY,
@@ -46,6 +46,7 @@ export const chat = internalAction({
     await ctx.runMutation(internal.whisper.saveTranscript, {
       id: args.id,
       transcript,
+      transcriptOnly: false
     });
   },
 });
@@ -54,6 +55,7 @@ export const saveTranscript = internalMutation({
   args: {
     id: v.id('notes'),
     transcript: v.string(),
+    transcriptOnly: v.boolean()
   },
   handler: async (ctx, args) => {
     const { id, transcript } = args;
@@ -62,6 +64,10 @@ export const saveTranscript = internalMutation({
       transcription: transcript,
       generatingTranscript: false,
     });
+
+    if(args.transcriptOnly) {
+      return
+    }
 
     await ctx.scheduler.runAfter(0, internal.together.chat, {
       id: args.id,
