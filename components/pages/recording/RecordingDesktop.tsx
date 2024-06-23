@@ -17,6 +17,7 @@ export default function RecordingDesktop({
   const {
     generatingActionItems,
     generatingTitle,
+    generatingTranscript,
     summary,
     transcription = '',
     title,
@@ -54,8 +55,29 @@ export default function RecordingDesktop({
     mutateTranscription({noteId: note._id, transcript: localTranscription ?? transcription, target: 'tweet'})
   }
 
+  const modifyToBlogPost = () => {
+    setLocalTranscription(undefined)
+    mutateTranscription({noteId: note._id, transcript: localTranscription ?? transcription, target: 'blog post'})
+  }
+
+  const modifyToCustom = (target?: string) => {
+    if(!target) {
+      return
+    }
+    setLocalTranscription(undefined)
+    mutateTranscription({noteId: note._id, transcript: localTranscription ?? transcription, target})
+  }
+  console.log({generatingActionItems, generatingTitle,generatingTranscript})
+
   return (
     <div className="min-h-full">
+      {generatingTranscript || generatingTitle && <div
+      className="self-center mx-auto h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-[#332d2d] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+      role="status">
+      <span
+        className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+        >Loading...</span>
+    </div>}
       <div className="py-10">
         <header>
           <div className="flex justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -95,8 +117,18 @@ export default function RecordingDesktop({
           <div className="text-gray-400">Create</div>
           <div className="flex flex-row">
             <button className='text-blue-400 mr-5' onClick={modifyToTweet}>Tweet</button> 
-            <button className='text-blue-400 mr-5' onClick={handleEdit}>To do list</button> 
-            <button className='text-blue-400' onClick={handleEdit}>FB post</button> 
+            <button className='text-blue-400 mr-5' onClick={modifyToBlogPost}>Blog post</button> 
+            <input
+              type="text"
+              id="custom target"
+              className="text-blue-400 mr-5"
+              placeholder="type your target"
+              onKeyDown={(event: any)=>{
+                if (event.key === 'Enter') {
+                  modifyToCustom(event.target.value)
+                }
+              }}
+            />
           </div>
         </div>
       </footer>
