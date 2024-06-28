@@ -4,7 +4,7 @@ import { Id } from '@/convex/_generated/dataModel';
 import { timestampToDate } from '@/convex/utils';
 import { usePreloadedQueryWithAuth } from '@/lib/hooks';
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
-import { Preloaded, useAction, useMutation } from 'convex/react';
+import { Preloaded, useMutation } from 'convex/react';
 import { FunctionReturnType } from 'convex/server';
 import Link from 'next/link';
 
@@ -23,26 +23,6 @@ export default function DashboardHomePage({
   const [relevantNotes, setRelevantNotes] =
     useState<FunctionReturnType<typeof api.notes.getNotes>>();
   const mutateNoteRemove = useMutation(api.notes.removeNote);
-  const performMyAction = useAction(api.together.similarNotes);
-
-  // const handleSearch = async (e: any) => {
-  //   e.preventDefault();
-
-  //   console.log({ searchQuery });
-  //   if (searchQuery === '') {
-  //     setRelevantNotes(undefined);
-  //   } else {
-  //     const scores = await performMyAction({ searchQuery: searchQuery });
-  //     const scoreMap: Map<string, number> = new Map();
-  //     for (const s of scores) {
-  //       scoreMap.set(s.id, s.score);
-  //     }
-  //     const filteredResults = allNotes.filter(
-  //       (note) => (scoreMap.get(note._id) ?? 0) > 0.6,
-  //     );
-  //     setRelevantNotes(filteredResults);
-  //   }
-  // };
 
   const finalNotes = relevantNotes ?? allNotes;
   function classNames(...classes: string[]) {
@@ -60,22 +40,23 @@ export default function DashboardHomePage({
   ]
 
   const actionItems = ({item, note}: {item: {title: string; onClick: (id: Id<"notes">)=>void}, note:{_id: any}}) => {
-    return <MenuItem>
-    {({ focus }) => (
-      <a
-        href="#"
-        className={classNames(
-          focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-          'block px-4 py-2 text-sm',
-        )}
-        onClick={()=>{
-          item.onClick(note._id)
-        }}
-      >
-        {item.title}
-      </a>
-    )}
-  </MenuItem>
+    return (
+    <MenuItem key={note._id}>
+      {({ focus }) => (
+        <a
+          href="#"
+          className={classNames(
+            focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+            'block px-4 py-2 text-sm',
+          )}
+          onClick={()=>{
+            item.onClick(note._id)
+          }}
+        >
+          {item.title}
+        </a>
+      )}
+  </MenuItem>)
   }
 
   const renderList = () => {
@@ -83,8 +64,9 @@ export default function DashboardHomePage({
       return note.title?.toLowerCase().match(searchQuery.toLowerCase())
     })
   
-    return filteredNotes.map((note) => (
-        <ul role="list" key={note._id} >
+    return filteredNotes.map((note) => {
+      // return null
+      return(
           <li key={note._id} className="flex justify-between flex-row gap-x-6 py-5 border px-8" >
             <Link href={`/recording/${note._id}`} className="flex basis-1/2 min-w-0 gap-x-4">
               <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
@@ -97,7 +79,7 @@ export default function DashboardHomePage({
                   <p className="text-sm mx-50 font-semibold leading-6 text-gray-900">{timestampToDate(note._creationTime)}</p>
               </div>
             )}
-              <Menu as="div" className="relative inline-block text-left  self-center flex-end">
+             <Menu as="div" className="relative inline-block text-left  self-center flex-end">
                 <div>
                   <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                     Options
@@ -119,8 +101,8 @@ export default function DashboardHomePage({
                 </Transition>
             </Menu> 
           </li>
-        </ul>
-  ))}
+  )
+})}
   return (
     <>
       <div className="min-h-full">
@@ -153,7 +135,9 @@ export default function DashboardHomePage({
               </Link>
             </div>
             <div className="mx-auto max-w-7xl sm:px-6 my-8">
+            <ul role="list">
               {allNotes.length ? renderList() : <h2>no recordings</h2>}
+            </ul>
             </div>
           </main>
         </div>

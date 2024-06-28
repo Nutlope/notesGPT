@@ -1,7 +1,6 @@
 'use client';
 
 import RecordingDesktop from '@/components/pages/recording/RecordingDesktop';
-import RecordingMobile from '@/components/pages/recording/RecordingMobile';
 import { api } from '@/convex/_generated/api';
 import { usePreloadedQueryWithAuth } from '@/lib/hooks';
 import { Preloaded } from 'convex/react';
@@ -22,7 +21,6 @@ export default function RecordingPage({
       ) : (
         <>
           <RecordingDesktop {...currentNote} />
-          <RecordingMobile {...currentNote} />
         </>
       )}
     </div>

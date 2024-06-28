@@ -12,7 +12,6 @@ export default defineSchema({
     embedding: v.optional(v.array(v.float64())),
     generatingTranscript: v.boolean(),
     generatingTitle: v.boolean(),
-    generatingActionItems: v.boolean(),
   })
     .index('by_userId', ['userId'])
     .vectorIndex('by_embedding', {
@@ -20,11 +19,4 @@ export default defineSchema({
       dimensions: 768,
       filterFields: ['userId'],
     }),
-  actionItems: defineTable({
-    noteId: v.id('notes'),
-    userId: v.string(),
-    task: v.string(),
-  })
-    .index('by_noteId', ['noteId'])
-    .index('by_userId', ['userId']),
 });

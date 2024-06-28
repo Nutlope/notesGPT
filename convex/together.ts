@@ -33,12 +33,7 @@ const NoteSchema = z.object({
     .describe(
       'A short summary in the first person point of view of the person recording the voice message',
     )
-    .max(500),
-  actionItems: z
-    .array(z.string())
-    .describe(
-      'A list of action items from the voice note, short and to the point. Make sure all action item lists are fully resolved if they are nested',
-    ),
+    .max(500)
 });
 
 export const chat = internalAction({
@@ -55,7 +50,7 @@ export const chat = internalAction({
           {
             role: 'system',
             content:
-              'The following is a transcript of a voice message. Extract a title, summary, and action items from it and answer in JSON in this format: {title: string, summary: string, actionItems: [string, string, ...]}',
+              'The following is a transcript of a voice message. Extract a title, summary (summary should be max 20 words long) from it and answer in JSON in this format: {title: string, summary: string}',
           },
           { role: 'user', content: transcript },
         ],
@@ -65,12 +60,11 @@ export const chat = internalAction({
         temperature: 0.6,
         max_retries: 3,
       });
-      const { title, summary, actionItems } = extract;
+      const { title, summary } = extract;
 
       await ctx.runMutation(internal.together.saveSummary, {
         id: args.id,
         summary,
-        actionItems,
         title,
       });
     } catch (e) {
@@ -78,7 +72,6 @@ export const chat = internalAction({
       await ctx.runMutation(internal.together.saveSummary, {
         id: args.id,
         summary: 'Summary failed to generate',
-        actionItems: [],
         title: 'Title',
       });
     }
@@ -151,10 +144,9 @@ export const saveSummary = internalMutation({
     id: v.id('notes'),
     summary: v.string(),
     title: v.string(),
-    actionItems: v.array(v.string()),
   },
   handler: async (ctx, args) => {
-    const { id, summary, actionItems, title } = args;
+    const { id, summary, title } = args;
     await ctx.db.patch(id, {
       summary: summary,
       title: title,
@@ -167,17 +159,7 @@ export const saveSummary = internalMutation({
       console.error(`Couldn't find note ${id}`);
       return;
     }
-    for (let actionItem of actionItems) {
-      await ctx.db.insert('actionItems', {
-        task: actionItem,
-        noteId: id,
-        userId: note.userId,
-      });
-    }
 
-    await ctx.db.patch(id, {
-      generatingActionItems: false,
-    });
   },
 });
 
