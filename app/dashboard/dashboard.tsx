@@ -23,7 +23,6 @@ export default function DashboardHomePage({
   const [relevantNotes, setRelevantNotes] =
     useState<FunctionReturnType<typeof api.notes.getNotes>>();
   const mutateNoteRemove = useMutation(api.notes.removeNote);
-
   const performMyAction = useAction(api.together.similarNotes);
 
   // const handleSearch = async (e: any) => {
@@ -80,7 +79,11 @@ export default function DashboardHomePage({
   }
 
   const renderList = () => {
-    return allNotes.map((note) => (
+    const filteredNotes = allNotes.filter(note=>{
+      return note.title?.toLowerCase().match(searchQuery.toLowerCase())
+    })
+  
+    return filteredNotes.map((note) => (
         <ul role="list" key={note._id} >
           <li key={note._id} className="flex justify-between flex-row gap-x-6 py-5 border px-8" >
             <Link href={`/recording/${note._id}`} className="flex basis-1/2 min-w-0 gap-x-4">
@@ -128,12 +131,19 @@ export default function DashboardHomePage({
 
             </div>
             <div className="flex w-full mx-auto max-w-7xl px-4 flex-row justify-between sm:px-6">
-              <button
-                type="button"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-xl font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Search
-              </button>
+              <div className="flex h-12 flex items-center self-center relative flex">
+                <input
+                  placeholder="Search"
+                  type="text"
+                  name="search"
+                  id="search"
+                  value={searchQuery}
+                  onChange={(e)=>{
+                    setSearchQuery(e.target.value)
+                  }}
+                  className="block w-full h-full rounded-md border-0 py-1.5 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
               <Link
                 type="button"
                 className="flex-end rounded-md bg-indigo-600 px-3.5 py-2.5 text-xl font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
