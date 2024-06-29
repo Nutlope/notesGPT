@@ -2,11 +2,7 @@ import { Doc } from '@/convex/_generated/dataModel';
 import { useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
-export default function RecordingMobile({
-  note,
-}: {
-  note: Doc<'notes'>;
-}) {
+export default function RecordingMobile({ note }: { note: Doc<'notes'> }) {
   const { summary, transcription, title, _creationTime } = note;
   const [transcriptOpen, setTranscriptOpen] = useState<boolean>(true);
   const [summaryOpen, setSummaryOpen] = useState<boolean>(false);
@@ -18,12 +14,9 @@ export default function RecordingMobile({
           {title ?? 'Untitled Note'}
         </h1>
       </div>
-      <div className="grid w-full grid-cols-3 ">
+      <div className="grid w-full grid-cols-3">
         <button
-          onClick={() => (
-            setTranscriptOpen(!transcriptOpen),
-            setSummaryOpen(false)
-          )}
+          onClick={() => (setTranscriptOpen(!transcriptOpen), setSummaryOpen(false))}
           className={`py-[12px] text-[17px] leading-[114.3%] tracking-[-0.425px] ${
             transcriptOpen ? 'action-btn-active' : 'action-btn'
           }`}
@@ -31,10 +24,7 @@ export default function RecordingMobile({
           Transcript
         </button>
         <button
-          onClick={() => (
-            setTranscriptOpen(false),
-            setSummaryOpen(!summaryOpen)
-          )}
+          onClick={() => (setTranscriptOpen(false), setSummaryOpen(!summaryOpen))}
           className={`py-[12px] text-[17px] leading-[114.3%] tracking-[-0.425px] ${
             summaryOpen ? 'action-btn-active' : 'action-btn'
           }`}

@@ -16,22 +16,19 @@ export default async function Header() {
             alt="logo"
             className="h-5 w-5 md:h-8 md:w-8"
           />
-          <h1 className="text-xl font-medium text-[#25292F] md:text-3xl">
-            NotesGPT
-          </h1>
+          <h1 className="text-xl font-medium text-[#25292F] md:text-3xl">NotesGPT</h1>
         </Link>
         {/* buttons */}
         <div className="flex w-fit items-center gap-[22px]">
           {user ? (
-              <UserNav
-                image={user.imageUrl}
-                name={user.firstName + ' ' + user.lastName}
-                email={
-                  user.emailAddresses.find(
-                    ({ id }) => id === user.primaryEmailAddressId,
-                  )!.emailAddress
-                }
-              />
+            <UserNav
+              image={user.imageUrl}
+              name={user.firstName + ' ' + user.lastName}
+              email={
+                user.emailAddresses.find(({ id }) => id === user.primaryEmailAddressId)!
+                  .emailAddress
+              }
+            />
           ) : (
             <Link href="/dashboard">
               <button className="text-md primary-gradient primary-shadow rounded-lg px-5 py-1 text-center text-light md:px-10 md:py-2 md:text-xl">

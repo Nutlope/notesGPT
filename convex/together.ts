@@ -3,11 +3,7 @@ import { v } from 'convex/values';
 import OpenAI from 'openai';
 import { z } from 'zod';
 import { internal } from './_generated/api';
-import {
-  internalAction,
-  internalMutation,
-  internalQuery,
-} from './_generated/server';
+import { internalAction, internalMutation, internalQuery } from './_generated/server';
 import { actionWithUser } from './utils';
 
 const togetherApiKey = process.env.TOGETHER_API_KEY ?? 'undefined';
@@ -25,15 +21,13 @@ const client = Instructor({
 });
 
 const NoteSchema = z.object({
-  title: z
-    .string()
-    .describe('Short descriptive title of what the voice message is about'),
+  title: z.string().describe('Short descriptive title of what the voice message is about'),
   summary: z
     .string()
     .describe(
       'A short summary in the first person point of view of the person recording the voice message',
     )
-    .max(500)
+    .max(500),
 });
 
 export const chat = internalAction({
@@ -79,22 +73,14 @@ export const chat = internalAction({
 });
 
 const TransformationSchema = z.object({
-  oldTranscript: z
-    .string()
-    .describe('old transcription'),
-  modifiedTranscript: z
-    .string()
-    .describe(
-      'new modified transcription',
-    )
-    .max(1000),
+  modifiedTranscript: z.string().describe('new modified transcription').max(1000),
 });
 
 export const transformTranscript = internalAction({
   args: {
     id: v.id('notes'),
     transcript: v.string(),
-    target: v.string()
+    target: v.string(),
   },
   handler: async (ctx, args) => {
     const { transcript, target } = args;
@@ -104,8 +90,7 @@ export const transformTranscript = internalAction({
         messages: [
           {
             role: 'system',
-            content:
-              `The following is a transcript of a voice message. Transform given transcript to be useful as ${target}, taking under consideration limitation related with it. Answer in JSON in this format: {oldTranscript: string, modifiedTranscript: string}`,
+            content: `The following is a transcript of a voice message. Transform given transcript to be useful as ${target}, taking under consideration limitation related with it. Answer in JSON in this format: {modifiedTranscript: string}`,
           },
           { role: 'user', content: transcript },
         ],
@@ -115,13 +100,14 @@ export const transformTranscript = internalAction({
         temperature: 0.6,
         max_retries: 3,
       });
-      const { oldTranscript, modifiedTranscript } = extract;
-
-      await ctx.runMutation(internal.whisper.saveTranscript, {
+      const { modifiedTranscript } = extract;
+    
+      await ctx.runMutation(internal.together.saveTarget, {
         id: args.id,
-        transcript:modifiedTranscript,
-        transcriptOnly: true
+        target: target,
+        value: modifiedTranscript
       });
+
     } catch (e) {
       console.error('Error transforming transcript for targeted purpose', e);
     }
@@ -159,7 +145,28 @@ export const saveSummary = internalMutation({
       console.error(`Couldn't find note ${id}`);
       return;
     }
+  },
+});
 
+export const saveTarget = internalMutation({
+  args: {
+    id: v.id('notes'),
+    target: v.string(),
+    value: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const { id, target, value } = args;
+    await ctx.db.patch(id, {
+      [target]: value,
+      generatingTranscript: false,
+    });
+
+    let note = await ctx.db.get(id);
+
+    if (!note) {
+      console.error(`Couldn't find note ${id}`);
+      return;
+    }
   },
 });
 

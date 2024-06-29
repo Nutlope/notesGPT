@@ -38,9 +38,14 @@ export const modifyNoteByUsage = mutationWithUser({
   args: {
     noteId: v.id('notes'),
     transcript: v.string(),
-    target:v.string(),
+    target: v.string(),
   },
   handler: async (ctx, { noteId, transcript, target }) => {
+
+    await ctx.db.patch(noteId, {
+      generatingTranscript: true,
+    });
+
     await ctx.scheduler.runAfter(0, internal.together.transformTranscript, {
       id: noteId,
       transcript,
@@ -69,8 +74,6 @@ export const getNote = queryWithUser({
     return { note };
   },
 });
-
-
 
 export const getNotes = queryWithUser({
   handler: async (ctx) => {
@@ -106,11 +109,12 @@ export const removeNote = mutationWithUser({
 export const updateNote = mutationWithUser({
   args: {
     noteId: v.id('notes'),
+    target: v.string(),
     transcription: v.string(),
   },
-  handler: async (ctx, { noteId, transcription }) => {
+  handler: async (ctx, { noteId,target, transcription }) => {
     await ctx.db.patch(noteId, {
-      transcription
+      [target]: transcription,
     });
     const note = await ctx.db.get(noteId);
     return note;

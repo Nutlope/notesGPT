@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Banner = () => {
   return (
-    <div className="relative h-[350px] w-full  px-4 md:h-[605px] md:px-6 lg:px-8 xl:px-10 2xl:px-0">
+    <div className="relative h-[350px] w-full px-4 md:h-[605px] md:px-6 lg:px-8 xl:px-10 2xl:px-0">
       <div className="flex h-full w-full flex-col items-center justify-center">
         <a
           href="https://dub.sh/together-ai"

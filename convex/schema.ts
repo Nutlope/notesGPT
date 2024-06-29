@@ -12,6 +12,8 @@ export default defineSchema({
     embedding: v.optional(v.array(v.float64())),
     generatingTranscript: v.boolean(),
     generatingTitle: v.boolean(),
+    tweet: v.optional(v.string()),
+    blogPost: v.optional(v.string()),
   })
     .index('by_userId', ['userId'])
     .vectorIndex('by_embedding', {

@@ -1,7 +1,11 @@
 'use client';
 
+import { useClerk } from '@clerk/nextjs';
 import { LogOut, Paintbrush2 } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from './avatar';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Avatar } from './avatar';
 import { Button } from './button';
 import {
   DropdownMenu,
@@ -11,20 +15,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './dropdown-menu';
-import Link from 'next/link';
-import { useClerk } from '@clerk/nextjs';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 
-export function UserNav({
-  image,
-  name,
-  email,
-}: {
-  image: string;
-  name: string;
-  email: string;
-}) {
+export function UserNav({ image, name, email }: { image: string; name: string; email: string }) {
   const { signOut } = useClerk();
   const router = useRouter();
 
@@ -40,9 +32,7 @@ export function UserNav({
       <DropdownMenuContent className="w-56 bg-white" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none text-black">
-              {name}
-            </p>
+            <p className="text-sm font-medium leading-none text-black">{name}</p>
             <p className="text-xs leading-none text-black">{email}</p>
           </div>
         </DropdownMenuLabel>

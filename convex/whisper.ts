@@ -46,7 +46,7 @@ export const chat = internalAction({
     await ctx.runMutation(internal.whisper.saveTranscript, {
       id: args.id,
       transcript,
-      transcriptOnly: false
+      transcriptOnly: false,
     });
   },
 });
@@ -55,7 +55,7 @@ export const saveTranscript = internalMutation({
   args: {
     id: v.id('notes'),
     transcript: v.string(),
-    transcriptOnly: v.boolean()
+    transcriptOnly: v.boolean(),
   },
   handler: async (ctx, args) => {
     const { id, transcript } = args;
@@ -65,8 +65,8 @@ export const saveTranscript = internalMutation({
       generatingTranscript: false,
     });
 
-    if(args.transcriptOnly) {
-      return
+    if (args.transcriptOnly) {
+      return;
     }
 
     await ctx.scheduler.runAfter(0, internal.together.chat, {

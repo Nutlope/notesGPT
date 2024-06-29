@@ -92,7 +92,7 @@ const RecordVoicePage = () => {
   };
 
   return (
-    <div className=" flex flex-col items-center justify-between">
+    <div className="flex flex-col items-center justify-between">
       <h1 className="pt-[25px] text-center text-xl font-medium text-dark md:pt-[47px] md:text-4xl">
         {title}
       </h1>
@@ -112,11 +112,11 @@ const RecordVoicePage = () => {
         </div>
         <div className="z-50 flex h-fit w-fit flex-col items-center justify-center">
           <h1 className="text-[60px] leading-[114.3%] tracking-[-1.5px] text-light">
-              {formatTime(Math.floor(totalSeconds / 60))}:{formatTime(totalSeconds % 60)}
+            {formatTime(Math.floor(totalSeconds / 60))}:{formatTime(totalSeconds % 60)}
           </h1>
         </div>
       </div>
-      <div className="mt-10 flex w-fit items-center justify-center gap-[33px] pb-7 md:gap-[77px] ">
+      <div className="mt-10 flex w-fit items-center justify-center gap-[33px] pb-7 md:gap-[77px]">
         {envVarsUrl ? (
           <MissingEnvVars url={envVarsUrl} />
         ) : (
@@ -156,15 +156,10 @@ function MissingEnvVars(props: { url: string }) {
     <div className="rounded-md bg-yellow-50 p-4">
       <div className="flex">
         <div className="flex-shrink-0">
-          <ExclamationTriangleIcon
-            className="h-5 w-5 text-yellow-400"
-            aria-hidden="true"
-          />
+          <ExclamationTriangleIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
         </div>
         <div className="ml-3">
-          <h3 className="text-sm font-medium text-yellow-800">
-            Missing Environment Variables
-          </h3>
+          <h3 className="text-sm font-medium text-yellow-800">Missing Environment Variables</h3>
           <div className="mt-2 text-sm text-yellow-700">
             <p>
               Set up your{' '}
