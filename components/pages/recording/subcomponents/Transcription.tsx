@@ -29,10 +29,15 @@ export const Transcription = ({
 
   const handleEdit = () => {
     setDisabled(false);
+    setTimeout(() => {
+      textAreaRef.current?.focus();
+      const textareaRef = textAreaRef.current || {};
+      textareaRef.selectionStart = textAreaRef.current?.value.length;
+    });
   };
 
   const handleSubmit = () => {
-    mutateNote({ noteId: note._id, target: target, transcription: textAreaRef.current?.value });
+    mutateNote({ noteId: note._id, target, transcription: textAreaRef.current?.value });
     setDisabled(true);
   };
 
@@ -58,12 +63,14 @@ export const Transcription = ({
       {disabled ? (
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">{text}</div>
       ) : (
-        <textarea
-          ref={textAreaRef}
-          className="mx-auto block w-full max-w-7xl resize-none border-0 border-b border-transparent lg:px-8"
-          id="comment"
-          defaultValue={text}
-        />
+        <div className="mx-auto block max-w-7xl">
+          <textarea
+            ref={textAreaRef}
+            className="mx-auto w-full resize-none border-0 px-8 pt-0"
+            id="comment"
+            defaultValue={text}
+          />
+        </div>
       )}
     </div>
   );

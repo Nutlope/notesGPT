@@ -1,7 +1,9 @@
+import InlineLoader from '@/components/ui/InlineLoader';
 import { api } from '@/convex/_generated/api';
 import { Doc } from '@/convex/_generated/dataModel';
 import { timestampToDate } from '@/convex/utils';
 import { useMutation } from 'convex/react';
+import { ChevronLeft } from 'lucide-react';
 import { Transcription } from './subcomponents/Transcription';
 
 export default function RecordingDesktop({ note }: { note: Doc<'notes'> }) {
@@ -12,11 +14,14 @@ export default function RecordingDesktop({ note }: { note: Doc<'notes'> }) {
     transcription = '',
     title,
     _creationTime,
+    generatingTweet,
     tweet,
+    generatingBlogPost,
     blogPost,
   } = note;
   const mutateTranscription = useMutation(api.notes.modifyNoteByUsage);
   const loading = generatingTranscript || generatingTitle;
+
   const modifyToTweet = () => {
     mutateTranscription({
       noteId: note._id,
@@ -63,6 +68,13 @@ export default function RecordingDesktop({ note }: { note: Doc<'notes'> }) {
       <div className="min-h-full">
         <div className="py-10">
           <header>
+            <a
+              href="/dashboard"
+              className="mx-auto flex max-w-7xl block py-2 text-m font-semibold text-blue-400 hover:bg-gray-50"
+            >
+              <ChevronLeft className="shrink-0 text-blue-400" aria-hidden="true" />
+              Dashboard
+            </a>
             <div className="mx-auto flex max-w-7xl justify-between px-4 sm:px-6 lg:px-8">
               <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
                 {title}
@@ -80,8 +92,16 @@ export default function RecordingDesktop({ note }: { note: Doc<'notes'> }) {
               <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">{summary}</div>
             </div>
             <Transcription note={note} target="transcription" />
-            {tweet && <Transcription note={note} target="tweet" />}
-            {blogPost && <Transcription note={note} target="blogPost" />}
+            {tweet ? (
+              <Transcription note={note} target="tweet" />
+            ) : generatingTweet ? (
+              <InlineLoader text="Generating tweet" />
+            ) : null}
+            {blogPost ? (
+              <Transcription note={note} target="blogPost" />
+            ) : generatingBlogPost ? (
+              <InlineLoader text="Generating blog post" />
+            ) : null}
           </main>
         </div>
         <footer>

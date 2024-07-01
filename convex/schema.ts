@@ -12,7 +12,9 @@ export default defineSchema({
     embedding: v.optional(v.array(v.float64())),
     generatingTranscript: v.boolean(),
     generatingTitle: v.boolean(),
+    generatingTweet: v.boolean(),
     tweet: v.optional(v.string()),
+    generatingBlogPost: v.boolean(),
     blogPost: v.optional(v.string()),
   })
     .index('by_userId', ['userId'])

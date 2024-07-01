@@ -23,6 +23,8 @@ export const createNote = mutationWithUser({
       audioFileUrl: fileUrl,
       generatingTranscript: true,
       generatingTitle: true,
+      generatingBlogPost: false,
+      generatingTweet: false,
     });
 
     await ctx.scheduler.runAfter(0, internal.whisper.chat, {
@@ -34,16 +36,23 @@ export const createNote = mutationWithUser({
   },
 });
 
+export enum GeneratingValue {
+  tweet = 'generatingTweet',
+  blogPost = 'generatingBlogPost',
+  transcription = 'generatingTranscription',
+}
+
 export const modifyNoteByUsage = mutationWithUser({
   args: {
     noteId: v.id('notes'),
     transcript: v.string(),
-    target: v.string(),
+    target: v.union(v.literal('tweet'), v.literal('blogPost'), v.literal('transcription')),
   },
   handler: async (ctx, { noteId, transcript, target }) => {
-
+    const field = GeneratingValue[target];
+    console.log({ field });
     await ctx.db.patch(noteId, {
-      generatingTranscript: true,
+      [field]: true,
     });
 
     await ctx.scheduler.runAfter(0, internal.together.transformTranscript, {
@@ -109,10 +118,10 @@ export const removeNote = mutationWithUser({
 export const updateNote = mutationWithUser({
   args: {
     noteId: v.id('notes'),
-    target: v.string(),
+    target: v.union(v.literal('tweet'), v.literal('blogPost'), v.literal('transcription')),
     transcription: v.string(),
   },
-  handler: async (ctx, { noteId,target, transcription }) => {
+  handler: async (ctx, { noteId, target, transcription }) => {
     await ctx.db.patch(noteId, {
       [target]: transcription,
     });

@@ -4,6 +4,7 @@ import OpenAI from 'openai';
 import { z } from 'zod';
 import { internal } from './_generated/api';
 import { internalAction, internalMutation, internalQuery } from './_generated/server';
+import { GeneratingValue } from './notes';
 import { actionWithUser } from './utils';
 
 const togetherApiKey = process.env.TOGETHER_API_KEY ?? 'undefined';
@@ -80,7 +81,7 @@ export const transformTranscript = internalAction({
   args: {
     id: v.id('notes'),
     transcript: v.string(),
-    target: v.string(),
+    target: v.union(v.literal('tweet'), v.literal('blogPost'), v.literal('transcription')),
   },
   handler: async (ctx, args) => {
     const { transcript, target } = args;
@@ -101,13 +102,12 @@ export const transformTranscript = internalAction({
         max_retries: 3,
       });
       const { modifiedTranscript } = extract;
-    
+
       await ctx.runMutation(internal.together.saveTarget, {
         id: args.id,
-        target: target,
-        value: modifiedTranscript
+        target,
+        value: modifiedTranscript,
       });
-
     } catch (e) {
       console.error('Error transforming transcript for targeted purpose', e);
     }
@@ -151,14 +151,16 @@ export const saveSummary = internalMutation({
 export const saveTarget = internalMutation({
   args: {
     id: v.id('notes'),
-    target: v.string(),
+    target: v.union(v.literal('tweet'), v.literal('blogPost'), v.literal('transcription')),
     value: v.string(),
   },
   handler: async (ctx, args) => {
     const { id, target, value } = args;
+
+    const field = GeneratingValue[target];
     await ctx.db.patch(id, {
       [target]: value,
-      generatingTranscript: false,
+      [field]: false,
     });
 
     let note = await ctx.db.get(id);
