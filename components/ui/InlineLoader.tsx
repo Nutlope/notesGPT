@@ -1,7 +1,7 @@
-const InlineLoader = ({text}:{text: string}) => (
+const InlineLoader = ({ text }: { text: string }) => (
   <div className="mx-auto flex max-w-7xl sm:px-6 lg:px-8">
     <svg
-      className="animate-spin text-gray-300 self-center"
+      className="animate-spin self-center text-gray-300"
       viewBox="0 0 64 64"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@ const InlineLoader = ({text}:{text: string}) => (
       ></path>
     </svg>
 
-    <h4 className="text-l mx-3 text-gray-400 align-center">{text}</h4>
+    <h4 className="text-l align-center mx-3 text-gray-400">{text}</h4>
   </div>
 );
 

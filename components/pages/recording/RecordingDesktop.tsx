@@ -70,7 +70,7 @@ export default function RecordingDesktop({ note }: { note: Doc<'notes'> }) {
           <header>
             <a
               href="/dashboard"
-              className="mx-auto flex max-w-7xl block py-2 text-m font-semibold text-blue-400 hover:bg-gray-50"
+              className="text-m mx-auto block flex max-w-7xl py-2 font-semibold text-blue-400 hover:bg-gray-50"
             >
               <ChevronLeft className="shrink-0 text-blue-400" aria-hidden="true" />
               Dashboard
