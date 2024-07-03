@@ -7,7 +7,6 @@ const HomePage = () => {
     <div>
       <Header />
       <Banner />
-      <DeviceSection />
     </div>
   );
 };
