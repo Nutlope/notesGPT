@@ -13,7 +13,7 @@ export default function Footer() {
           Convex,{' '}
         </a>
         <a
-          href="https://dub.sh/together-ai"
+          href="https://togetherai.link"
           target="_blank"
           className="font-bold transition hover:text-black/50"
         >
