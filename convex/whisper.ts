@@ -63,6 +63,9 @@ export const saveTranscript = internalMutation({
       generatingTranscript: false,
     });
 
+    const note = (await ctx.db.get(id))!;
+    await ctx.storage.delete(note.audioFileId);
+
     await ctx.scheduler.runAfter(0, internal.together.chat, {
       id: args.id,
       transcript,

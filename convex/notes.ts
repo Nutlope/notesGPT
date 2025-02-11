@@ -1,6 +1,7 @@
 import { ConvexError, v } from 'convex/values';
 import { internal } from '../convex/_generated/api';
 import { mutationWithUser, queryWithUser } from './utils';
+import { internalMutation } from './_generated/server';
 
 export const generateUploadUrl = mutationWithUser({
   args: {},
@@ -169,5 +170,31 @@ export const actionItemCountForNote = queryWithUser({
       }
     }
     return actionItems.length;
+  },
+});
+
+const SECOND = 1000;
+const MINUTE = 60 * SECOND;
+const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
+
+export const deleteOldFiles = internalMutation({
+  args: { maxAgeDays: v.number() },
+  handler: async (ctx, args) => {
+    const { maxAgeDays } = args;
+    const before = Date.now() - maxAgeDays * DAY;
+    const files = await ctx.db.system
+      .query('_storage')
+      .withIndex('by_creation_time', (q) => q.lte('_creationTime', before))
+      .order('desc')
+      .take(100);
+    for (const file of files) {
+      await ctx.storage.delete(file._id);
+    }
+    if (files.length === 100) {
+      await ctx.scheduler.runAfter(0, internal.notes.deleteOldFiles, {
+        maxAgeDays: (Date.now() - files[files.length - 1]._creationTime) / DAY,
+      });
+    }
   },
 });
