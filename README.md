@@ -44,7 +44,7 @@ You can deploy this template by setting up the following services and adding the
 6. Make a [Replicate](https://replicate.com) account to get your [API key](https://replicate.com/account/api-tokens).
 7. Save your environment variables in Convex [as `REPLICATE_API_KEY` and `TOGETHER_API_KEY`](https://dashboard.convex.dev/deployment/settings/environment-variables?var=REPLICATE_API_KEY&var=TOGETHER_API_KEY).
 
-## Future tasks
+## Future tasks:
 
 - [ ] Keep recording for future playback and display it on the page somewhere
 - [ ] Animate the purple microphone to be in sync with your voice
