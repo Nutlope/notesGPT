@@ -128,6 +128,14 @@ export const saveSummary = internalMutation({
     await ctx.db.patch(id, {
       generatingActionItems: false,
     });
+
+    // Generate TTS audio of the summary using CAMB AI
+    if (summary && summary !== 'Summary failed to generate') {
+      await ctx.scheduler.runAfter(0, internal.camb.generateSpeech, {
+        id,
+        text: summary,
+      });
+    }
   },
 });
 

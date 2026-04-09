@@ -20,6 +20,7 @@ export default function RecordingDesktop({
     transcription,
     title,
     _creationTime,
+    summaryAudioUrl,
   } = note;
   const [originalIsOpen, setOriginalIsOpen] = useState<boolean>(true);
 
@@ -85,7 +86,15 @@ export default function RecordingDesktop({
       <div className="grid h-full w-full grid-cols-2 px-[30px] lg:px-[45px]">
         <div className="relative min-h-[70vh] w-full border-r px-5 py-3 text-justify text-xl font-[300] leading-[114.3%] tracking-[-0.6px] lg:text-2xl">
           {transcription ? (
-            <div className="">{originalIsOpen ? transcription : summary}</div>
+            <div>
+              <div className="">{originalIsOpen ? transcription : summary}</div>
+              {!originalIsOpen && summaryAudioUrl && (
+                <div className="mt-6 flex items-center gap-3">
+                  <p className="text-sm opacity-60">Listen to summary</p>
+                  <audio controls src={summaryAudioUrl} className="h-8" />
+                </div>
+              )}
+            </div>
           ) : (
             // Loading state for transcript
             <ul className="animate-pulse space-y-3">
