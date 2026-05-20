@@ -3,7 +3,7 @@ import './globals.css';
 import ConvexClientProvider from './ConvexClientProvider';
 import Footer from '@/components/ui/Footer';
 import { Toaster } from 'react-hot-toast';
-import PlausibleProvider from 'next-plausible';
+import Script from 'next/script';
 
 let title = 'notesGPT - Take notes with your voice';
 let description = 'Generate action items from your notes in seconds';
@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <PlausibleProvider domain="usenotesgpt.com" />
+        <Script defer data-domain="usenotesgpt.com" src="https://plausible.io/js/script.js" />
       </head>
       <body>
         <ConvexClientProvider>
