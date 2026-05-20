@@ -5,20 +5,9 @@ import { v } from 'convex/values';
 import { Together } from 'together-ai';
 import { api, internal } from './_generated/api';
 
-const baseSDKOptions: ConstructorParameters<typeof Together>[0] = {
-  apiKey: process.env.TOGETHER_API_KEY,
-};
-
-// Helicone on Convex works? or not?
-// if (process.env.HELICONE_API_KEY) {
-//   baseSDKOptions.baseURL = 'https://together.helicone.ai/v1';
-//   baseSDKOptions.defaultHeaders = {
-//     'Helicone-Auth': `Bearer ${process.env.HELICONE_API_KEY}`,
-//     'Helicone-Property-Appname': 'notesGpt',
-//   };
-// }
-
-const togetherAiClient = new Together(baseSDKOptions);
+function getTogetherClient() {
+  return new Together({ apiKey: process.env.TOGETHER_API_KEY });
+}
 
 interface whisperOutput {
   detected_language: string;
@@ -33,7 +22,7 @@ export const chat = internalAction({
     id: v.id('notes'),
   },
   handler: async (ctx, args) => {
-    const res = await togetherAiClient.audio.transcriptions.create({
+    const res = await getTogetherClient().audio.transcriptions.create({
       // @ts-ignore: Together API accepts file URL as string, even if types do not allow
       file: args.fileUrl,
       model: 'openai/whisper-large-v3',
