@@ -143,7 +143,7 @@ export const similarNotes = actionWithUser({
   handler: async (ctx, args): Promise<SearchResult[]> => {
     const getEmbedding = await togetherai.embeddings.create({
       input: [args.searchQuery.replace('/n', ' ')],
-      model: 'togethercomputer/m2-bert-80M-32k-retrieval',
+      model: 'intfloat/multilingual-e5-large-instruct',
     });
     const embedding = getEmbedding.data[0].embedding;
 
@@ -171,7 +171,7 @@ export const embed = internalAction({
   handler: async (ctx, args) => {
     const getEmbedding = await togetherai.embeddings.create({
       input: [args.transcript.replace('/n', ' ')],
-      model: 'togethercomputer/m2-bert-80M-32k-retrieval',
+      model: 'intfloat/multilingual-e5-large-instruct',
     });
     const embedding = getEmbedding.data[0].embedding;
 

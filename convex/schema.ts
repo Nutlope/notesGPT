@@ -17,7 +17,7 @@ export default defineSchema({
     .index('by_userId', ['userId'])
     .vectorIndex('by_embedding', {
       vectorField: 'embedding',
-      dimensions: 768,
+      dimensions: 1024,
       filterFields: ['userId'],
     }),
   actionItems: defineTable({
