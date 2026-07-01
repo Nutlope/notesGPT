@@ -18,8 +18,8 @@
 
 - [Convex](https://convex.dev/) for the database and cloud functions
 - Next.js [App Router](https://nextjs.org/docs/app) for the framework
-- [Together Inference](https://togetherai.link) for the LLM (Mixtral) and for Whisper transcriptions
-- [Together Embeddings](https://togetherai.link) for the embeddings for search
+- [Together Inference](https://togetherai.link/?utm_source=notesGPT&utm_medium=referral&utm_campaign=example-app) for the LLM (Mixtral) and for Whisper transcriptions
+- [Together Embeddings](https://togetherai.link/?utm_source=notesGPT&utm_medium=referral&utm_campaign=example-app) for the embeddings for search
 - [Convex File Storage](https://docs.convex.dev/file-storage) for storing voice notes
 - [Convex Vector search](https://docs.convex.dev/vector-search) for vector search
 - [Clerk](https://clerk.dev/) for user authentication
@@ -39,7 +39,7 @@ You can deploy this template by setting up the following services and adding the
    4. Add `CLERK_ISSUER_URL` to your [Convex Environment Variables](https://dashboard.convex.dev/deployment/settings/environment-variables?var=CLERK_ISSUER_URL)
       (deep link also available in your terminal). Paste the Issuer URL as the value and click "Save".
 4. Now your frontend and backend should be running and you should be able to log in but not record.
-5. Make a [Together](https://togetherai.link) account to get your [API key](https://api.together.xyz/settings/api-keys).
+5. Make a [Together](https://togetherai.link/?utm_source=notesGPT&utm_medium=referral&utm_campaign=example-app) account to get your [API key](https://api.together.xyz/settings/api-keys).
 6. Save your environment variables in Convex [`TOGETHER_API_KEY`](https://dashboard.convex.dev/deployment/settings/environment-variables?var=TOGETHER_API_KEY).
 
 ## Future tasks:
