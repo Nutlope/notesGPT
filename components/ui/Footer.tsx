@@ -14,7 +14,7 @@ export default function Footer() {
         </a>{' '}
         and{' '}
         <a
-          href="https://togetherai.link"
+          href="https://togetherai.link/?utm_source=notesGPT&utm_medium=referral&utm_campaign=example-app"
           target="_blank"
           className="font-bold transition hover:text-black/50"
         >
