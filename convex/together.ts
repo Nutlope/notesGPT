@@ -1,4 +1,3 @@
-import OpenAI from 'openai';
 import {
   internalAction,
   internalMutation,
@@ -9,19 +8,24 @@ import { internal } from './_generated/api';
 import { z } from 'zod';
 import { actionWithUser } from './utils';
 import Instructor from '@instructor-ai/instructor';
+import {
+  createLLMClient,
+  chatModel,
+  embeddingModel,
+  instructorMode,
+} from './llm';
 
-const togetherApiKey = process.env.TOGETHER_API_KEY ?? 'undefined';
+// OpenAI-compatible client for LLM extraction + embeddings. Points at Together
+// AI by default; set LLM_BASE_URL to route through a LiteLLM proxy or any other
+// OpenAI-compatible gateway. See convex/llm.ts.
+const togetherai = createLLMClient();
 
-// Together client for LLM extraction
-const togetherai = new OpenAI({
-  apiKey: togetherApiKey,
-  baseURL: 'https://api.together.xyz/v1',
-});
-
-// Instructor for returning structured JSON
+// Instructor for returning structured JSON. Defaults to Together's JSON_SCHEMA
+// mode; override with LLM_INSTRUCTOR_MODE=TOOLS when routing through a gateway
+// to a provider that doesn't support Together's response_format.schema.
 const client = Instructor({
   client: togetherai,
-  mode: 'JSON_SCHEMA',
+  mode: instructorMode,
 });
 
 const NoteSchema = z.object({
@@ -59,7 +63,7 @@ export const chat = internalAction({
           },
           { role: 'user', content: transcript },
         ],
-        model: 'Qwen/Qwen2.5-7B-Instruct-Turbo',
+        model: chatModel,
         response_model: { schema: NoteSchema, name: 'SummarizeNotes' },
         max_tokens: 1000,
         temperature: 0.6,
@@ -143,7 +147,7 @@ export const similarNotes = actionWithUser({
   handler: async (ctx, args): Promise<SearchResult[]> => {
     const getEmbedding = await togetherai.embeddings.create({
       input: [args.searchQuery.replace('/n', ' ')],
-      model: 'intfloat/multilingual-e5-large-instruct',
+      model: embeddingModel,
     });
     const embedding = getEmbedding.data[0].embedding;
 
@@ -171,7 +175,7 @@ export const embed = internalAction({
   handler: async (ctx, args) => {
     const getEmbedding = await togetherai.embeddings.create({
       input: [args.transcript.replace('/n', ' ')],
-      model: 'intfloat/multilingual-e5-large-instruct',
+      model: embeddingModel,
     });
     const embedding = getEmbedding.data[0].embedding;
 
