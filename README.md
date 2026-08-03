@@ -42,6 +42,52 @@ You can deploy this template by setting up the following services and adding the
 5. Make a [Together](https://togetherai.link/?utm_source=notesGPT&utm_medium=referral&utm_campaign=example-app) account to get your [API key](https://api.together.xyz/settings/api-keys).
 6. Save your environment variables in Convex [`TOGETHER_API_KEY`](https://dashboard.convex.dev/deployment/settings/environment-variables?var=TOGETHER_API_KEY).
 
+## Using a different LLM provider (LiteLLM / OpenAI-compatible gateway)
+
+notesGPT talks to Together AI over the OpenAI wire format, so you can point the
+chat + embedding calls at any OpenAI-compatible endpoint - including a
+[LiteLLM](https://docs.litellm.ai/docs/simple_proxy) proxy, which lets you route
+to 100+ providers (OpenAI, Anthropic, Azure, Bedrock, Gemini, ...) behind a
+single URL. Together AI stays the default; these variables are all optional:
+
+| Variable              | Default                                   | Description                                                                                                                         |
+| --------------------- | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `LLM_BASE_URL`        | `https://api.together.xyz/v1`             | OpenAI-compatible base URL (e.g. your LiteLLM proxy)                                                                                |
+| `LLM_API_KEY`         | falls back to `TOGETHER_API_KEY`          | API key / LiteLLM virtual key for the endpoint                                                                                      |
+| `LLM_CHAT_MODEL`      | `Qwen/Qwen2.5-7B-Instruct-Turbo`          | Model used for title/summary/action-item extraction                                                                                 |
+| `LLM_EMBEDDING_MODEL` | `intfloat/multilingual-e5-large-instruct` | Model used for search embeddings                                                                                                    |
+| `LLM_INSTRUCTOR_MODE` | `JSON_SCHEMA`                             | How Instructor coerces structured JSON. Together supports `JSON_SCHEMA`; for OpenAI/Azure/Anthropic/etc. behind a proxy use `TOOLS` |
+
+> Note: Together AI's native `JSON_SCHEMA` mode sends a `response_format.schema`
+> field that other providers reject. When you point `LLM_BASE_URL` at a LiteLLM
+> proxy fronting OpenAI, Azure, Anthropic, etc., set `LLM_INSTRUCTOR_MODE=TOOLS`
+> so structured extraction goes through cross-provider tool calling.
+
+Example - run a LiteLLM proxy that fronts OpenAI + Anthropic, then set
+`LLM_BASE_URL=http://localhost:4000`, `LLM_API_KEY=sk-litellm-...`, and pick the
+model aliases you configured:
+
+```yaml
+# litellm.config.yaml
+model_list:
+  - model_name: chat
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: embed
+    litellm_params:
+      model: openai/text-embedding-3-small
+      api_key: os.environ/OPENAI_API_KEY
+```
+
+```bash
+pip install "litellm[proxy]"
+litellm --config litellm.config.yaml   # serves an OpenAI-compatible API on :4000
+```
+
+Then set `LLM_CHAT_MODEL=chat` and `LLM_EMBEDDING_MODEL=embed`. Transcription
+still uses Together's Whisper endpoint (`TOGETHER_API_KEY`).
+
 ## Future tasks:
 
 - [ ] Keep recording for future playback and display it on the page somewhere
