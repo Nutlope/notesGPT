@@ -12,7 +12,7 @@ export default function RecordingMobile({
   note: Doc<'notes'>;
   actionItems: Doc<'actionItems'>[];
 }) {
-  const { summary, transcription, title, _creationTime } = note;
+  const { summary, transcription, title, _creationTime, summaryAudioUrl } = note;
   const [transcriptOpen, setTranscriptOpen] = useState<boolean>(true);
   const [summaryOpen, setSummaryOpen] = useState<boolean>(false);
   const [actionItemOpen, setActionItemOpen] = useState<boolean>(false);
@@ -78,6 +78,12 @@ export default function RecordingMobile({
         {summaryOpen && (
           <div className="relative mt-2 min-h-[70vh] w-full px-4 py-3 text-justify font-light">
             {summary}
+            {summaryAudioUrl && (
+              <div className="mt-4 flex items-center gap-3">
+                <p className="text-sm opacity-60">Listen to summary</p>
+                <audio controls src={summaryAudioUrl} className="h-8" />
+              </div>
+            )}
           </div>
         )}
         {actionItemOpen && (

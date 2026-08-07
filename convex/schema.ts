@@ -10,6 +10,8 @@ export default defineSchema({
     transcription: v.optional(v.string()),
     summary: v.optional(v.string()),
     embedding: v.optional(v.array(v.float64())),
+    summaryAudioFileId: v.optional(v.id('_storage')),
+    summaryAudioUrl: v.optional(v.string()),
     generatingTranscript: v.boolean(),
     generatingTitle: v.boolean(),
     generatingActionItems: v.boolean(),
