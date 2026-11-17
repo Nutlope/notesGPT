@@ -13,7 +13,7 @@ importers:
         version: 7.3.7(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@instructor-ai/instructor':
         specifier: ^0.0.5
-        version: 0.0.5(openai@4.104.0(ws@8.18.0)(zod@4.4.3))(zod@4.4.3)
+        version: 0.0.5(openai@4.104.0(ws@8.18.0)(zod@3.25.76))(zod@3.25.76)
       '@radix-ui/react-avatar':
         specifier: ^1.0.4
         version: 1.1.11(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -37,10 +37,10 @@ importers:
         version: 1.32.0(react@19.2.6)
       convex-helpers:
         specifier: ^0.1.15
-        version: 0.1.114(convex@1.32.0(react@19.2.6))(react@19.2.6)(typescript@5.9.3)(zod@4.4.3)
+        version: 0.1.114(convex@1.32.0(react@19.2.6))(react@19.2.6)(typescript@5.9.3)(zod@3.25.76)
       lucide-react:
-        specifier: ^0.292.0
-        version: 0.292.0(react@19.2.6)
+        specifier: ^0.469.0
+        version: 0.469.0(react@19.2.6)
       next:
         specifier: 16.2.6
         version: 16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -49,7 +49,7 @@ importers:
         version: 4.0.0(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       openai:
         specifier: ^4.20.1
-        version: 4.104.0(ws@8.18.0)(zod@4.4.3)
+        version: 4.104.0(ws@8.18.0)(zod@3.25.76)
       react:
         specifier: ^19
         version: 19.2.6
@@ -69,8 +69,8 @@ importers:
         specifier: ^0.40.0
         version: 0.40.0
       zod:
-        specifier: ^4.4.3
-        version: 4.4.3
+        specifier: ^3.25.76
+        version: 3.25.76
     devDependencies:
       '@types/file-saver':
         specifier: ^2.0.7
@@ -2038,10 +2038,10 @@ packages:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
 
-  lucide-react@0.292.0:
-    resolution: {integrity: sha512-rRgUkpEHWpa5VCT66YscInCQmQuPCB1RFRzkkxMxg4b+jaL0V12E3riWWR2Sh5OIiUhCwGW/ZExuEO4Az32E6Q==}
+  lucide-react@0.469.0:
+    resolution: {integrity: sha512-28vvUnnKQ/dBwiCQtwJw7QauYnE7yd2Cyp4tTTJpvglX4EMpbflcdBgrgToX2j71B3YvugK/NH3BGUk+E/p/Fw==}
     peerDependencies:
-      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
@@ -2916,8 +2916,8 @@ packages:
     peerDependencies:
       zod: ^3.18.0
 
-  zod@4.4.3:
-    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
 snapshots:
 
@@ -3204,12 +3204,12 @@ snapshots:
   '@img/sharp-win32-x64@0.34.5':
     optional: true
 
-  '@instructor-ai/instructor@0.0.5(openai@4.104.0(ws@8.18.0)(zod@4.4.3))(zod@4.4.3)':
+  '@instructor-ai/instructor@0.0.5(openai@4.104.0(ws@8.18.0)(zod@3.25.76))(zod@3.25.76)':
     dependencies:
-      openai: 4.104.0(ws@8.18.0)(zod@4.4.3)
-      zod: 4.4.3
-      zod-stream: 0.0.6(openai@4.104.0(ws@8.18.0)(zod@4.4.3))(zod@4.4.3)
-      zod-validation-error: 2.1.0(zod@4.4.3)
+      openai: 4.104.0(ws@8.18.0)(zod@3.25.76)
+      zod: 3.25.76
+      zod-stream: 0.0.6(openai@4.104.0(ws@8.18.0)(zod@3.25.76))(zod@3.25.76)
+      zod-validation-error: 2.1.0(zod@3.25.76)
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
@@ -3946,13 +3946,13 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  convex-helpers@0.1.114(convex@1.32.0(react@19.2.6))(react@19.2.6)(typescript@5.9.3)(zod@4.4.3):
+  convex-helpers@0.1.114(convex@1.32.0(react@19.2.6))(react@19.2.6)(typescript@5.9.3)(zod@3.25.76):
     dependencies:
       convex: 1.32.0(react@19.2.6)
     optionalDependencies:
       react: 19.2.6
       typescript: 5.9.3
-      zod: 4.4.3
+      zod: 3.25.76
 
   convex@1.32.0(react@19.2.6):
     dependencies:
@@ -4819,7 +4819,7 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
-  lucide-react@0.292.0(react@19.2.6):
+  lucide-react@0.469.0(react@19.2.6):
     dependencies:
       react: 19.2.6
 
@@ -4980,7 +4980,7 @@ snapshots:
     dependencies:
       wrappy: 1.0.2
 
-  openai@4.104.0(ws@8.18.0)(zod@4.4.3):
+  openai@4.104.0(ws@8.18.0)(zod@3.25.76):
     dependencies:
       '@types/node': 18.19.130
       '@types/node-fetch': 2.6.13
@@ -4991,7 +4991,7 @@ snapshots:
       node-fetch: 2.7.0
     optionalDependencies:
       ws: 8.18.0
-      zod: 4.4.3
+      zod: 3.25.76
     transitivePeerDependencies:
       - encoding
 
@@ -5249,10 +5249,10 @@ snapshots:
 
   scheduler@0.27.0: {}
 
-  schema-stream@2.1.0(zod@4.4.3):
+  schema-stream@2.1.0(zod@3.25.76):
     dependencies:
       ramda: 0.29.1
-      zod: 4.4.3
+      zod: 3.25.76
 
   semver@5.7.2: {}
 
@@ -5730,19 +5730,19 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod-stream@0.0.6(openai@4.104.0(ws@8.18.0)(zod@4.4.3))(zod@4.4.3):
+  zod-stream@0.0.6(openai@4.104.0(ws@8.18.0)(zod@3.25.76))(zod@3.25.76):
     dependencies:
-      openai: 4.104.0(ws@8.18.0)(zod@4.4.3)
-      schema-stream: 2.1.0(zod@4.4.3)
-      zod: 4.4.3
-      zod-to-json-schema: 3.25.1(zod@4.4.3)
+      openai: 4.104.0(ws@8.18.0)(zod@3.25.76)
+      schema-stream: 2.1.0(zod@3.25.76)
+      zod: 3.25.76
+      zod-to-json-schema: 3.25.1(zod@3.25.76)
 
-  zod-to-json-schema@3.25.1(zod@4.4.3):
+  zod-to-json-schema@3.25.1(zod@3.25.76):
     dependencies:
-      zod: 4.4.3
+      zod: 3.25.76
 
-  zod-validation-error@2.1.0(zod@4.4.3):
+  zod-validation-error@2.1.0(zod@3.25.76):
     dependencies:
-      zod: 4.4.3
+      zod: 3.25.76
 
-  zod@4.4.3: {}
+  zod@3.25.76: {}
